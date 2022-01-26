@@ -1,0 +1,25 @@
+// BLUE
+$color-blue-1: #5637FF;
+$color-blue-2: #001047;
+
+// ROSE
+$color-rose-1: #FF53A4;
+
+// GRAY
+$color-gray-1: #E6E6E6;
+
+// BLACK
+$color-black-1: #212629;
+
+// WHITE
+$color-black-1: #fff;
+
+$colors: ("blue":
+(
+  1: $color-blue-1,
+  2: $color-blue-2,
+),
+  "rose": (1: $color-rose-1),
+  "gray": (1: $color-gray-1),
+  "black": (1: $color-black-1),
+);

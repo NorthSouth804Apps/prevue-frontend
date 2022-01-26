@@ -1,0 +1,75 @@
+@import "src/styles/colors-variables";
+@import "src/styles/text-variables";
+
+::ng-deep {
+  .sidebar {
+    width: 12.75rem !important;
+    background-color: $color-blue-2;
+
+    .p-sidebar-header {
+      display: none;
+    }
+
+    .p-sidebar-content {
+      padding: 0;
+    }
+
+    .logo {
+      margin-top: 2.625rem;
+      width: 9.200rem;
+      margin-left: 1.800rem !important;
+    }
+
+    .sidebar-tree {
+      background-color: $color-blue-2;
+      border: none;
+      padding: 0;
+      margin-top: 3.2rem;
+
+      .p-treenode {
+        padding: 0;
+
+        .p-treenode-content {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: space-between;
+          color: $color-white-1;
+          font-size: $font-size-6;
+          margin-bottom: 1.3rem;
+          cursor: pointer;
+          padding: 0.438rem 0.25rem 0.438rem 1.875rem !important;
+          border-radius: 0 !important;
+          &.p-highlight{
+            background: $color-hover;
+            color: $color-white-1;
+            font-weight: 600;
+          }
+          &:hover {
+            background: $color-hover !important;
+            color: $color-white-1 !important;
+          }
+          &:focus {
+            box-shadow: unset;
+          }
+
+          .p-tree-toggler {
+            color: $color-white-1 !important;
+
+            .p-tree-toggler-icon {
+              font-size: $font-size-1;
+            }
+          }
+        }
+
+        .p-treenode-children {
+          padding: 0;
+          .p-treenode-content {
+            padding-left: 3rem !important;
+            margin-bottom: .9rem;
+            padding-top: 0 !important;
+          }
+        }
+      }
+    }
+  }
+}

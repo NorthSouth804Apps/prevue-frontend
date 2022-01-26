@@ -12,7 +12,12 @@ $color-gray-1: #E6E6E6;
 $color-black-1: #212629;
 
 // WHITE
-$color-black-1: #fff;
+$color-white-1: #fff;
+
+$prevue-gradient: linear-gradient(0deg, #FF53A4 50%, #5637FF 100%);
+
+$color-hover: rgba(255,255,255,0.2);
+
 
 $colors: ("blue":
 (
@@ -22,4 +27,6 @@ $colors: ("blue":
   "rose": (1: $color-rose-1),
   "gray": (1: $color-gray-1),
   "black": (1: $color-black-1),
+  "prevue-gradient": (1: $prevue-gradient),
+  "color-hover": (1: $color-hover),
 );

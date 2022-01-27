@@ -5,6 +5,7 @@ import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import {TreeModule} from 'primeng/tree';
 import {SidebarModule} from 'primeng/sidebar';
 import {ButtonModule} from 'primeng/button';
+import { SharedModule } from "../../shared/shared.module";
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import {ButtonModule} from 'primeng/button';
     SidebarModule,
     TreeModule,
     ButtonModule,
+    SharedModule
   ],
   providers: []
 })

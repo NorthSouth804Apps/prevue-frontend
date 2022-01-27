@@ -7,12 +7,12 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
-      {path: '', pathMatch: 'full'},
-      // {
-      //   path: 'dashboard',
-      //   loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule),
-      //   data: {animation: 'Dashboard'}
-      // },
+      {path: '', redirectTo: 'home'},
+      {
+        path: 'home',
+        loadChildren: () => import('../home/home.module').then(m => m.HomeModule),
+      },
+      {path: '**', redirectTo: '/home' }
     ],
   },
 ];

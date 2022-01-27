@@ -4,7 +4,7 @@ import { Router, RouterOutlet } from '@angular/router';
 
 
 @Component({
-  selector: 'ts-main',
+  selector: 'pv-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })

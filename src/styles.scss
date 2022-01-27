@@ -20,3 +20,9 @@
 .pi {
   font-family: 'primeicons' !important;
 }
+
+
+body {
+  font-size: calc(1em + 50px) !important;
+  background-color: $color-gray-1;
+}

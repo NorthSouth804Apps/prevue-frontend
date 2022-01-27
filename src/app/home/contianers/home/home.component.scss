@@ -1,9 +1,8 @@
 
-.home-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(10rem, 1fr));
-  gap: 1.875rem;
-  width: 100%;
+.home-container {
   padding: 5.438rem 5.438rem 0 4rem;
+
+  .chart-grid-container {
+    margin-top: 1.875rem;
+  }
 }

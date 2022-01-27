@@ -13,6 +13,7 @@ $color-black-1: #212629;
 
 // WHITE
 $color-white-1: #fff;
+$color-white-2: #f3f3f3;
 
 $prevue-gradient: linear-gradient(0deg, #FF53A4 50%, #5637FF 100%);
 
@@ -27,6 +28,7 @@ $colors: ("blue":
   "rose": (1: $color-rose-1),
   "gray": (1: $color-gray-1),
   "black": (1: $color-black-1),
+  "white": (1: $color-white-1, 2: $color-white-2),
   "prevue-gradient": (1: $prevue-gradient),
   "color-hover": (1: $color-hover),
 );

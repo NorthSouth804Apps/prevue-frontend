@@ -12,7 +12,8 @@
 @import "~primeicons/primeicons.css";
 @import "~primeng/resources/themes/saga-purple/theme.css";
 @import "~primeng/resources/primeng.min.css";
-
+//GRID
+@import './styles/grid.scss';
 
 * {
   font-family: 'Poppins', sans-serif !important;
@@ -24,5 +25,5 @@
 
 body {
   font-size: calc(1em + 50px) !important;
-  background-color: $color-gray-1;
+  background-color: $color-white-2;
 }

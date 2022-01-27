@@ -1,0 +1,35 @@
+::ng-deep {
+  .p-column-filter-constraint {
+    padding: 0 !important;
+    .p-listbox {
+      border: none;
+    }
+  }
+  .p-column-filter-buttonbar {
+    display: none !important;
+  }
+
+  .disable-selected {
+    .p-listbox .p-listbox-list-wrapper .p-listbox-item:focus, p-listbox .p-listbox .p-listbox-list-wrapper .p-listbox-item.p-highlight {
+      background-color: transparent !important;
+      color: unset !important;
+      font-weight: unset !important;
+
+      &:hover {
+        background-color: #e9ecef !important;
+      }
+    }
+    .p-listbox-list-wrapper {
+      .p-listbox-item {
+        &.p-highlight {
+          background-color: unset !important;
+        }
+      }
+    }
+  }
+}
+
+:host {
+  display: flex;
+  align-items: center;
+}

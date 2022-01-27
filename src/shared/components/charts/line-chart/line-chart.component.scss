@@ -1,4 +1,9 @@
+@import "src/styles/colors-variables";
 
 .line-chart-cmp-container {
   overflow: hidden;
+  padding: 0.625rem 2.188rem;
+  border-radius: 0.375rem;
+  background-color: $color-white-1;
+
 }

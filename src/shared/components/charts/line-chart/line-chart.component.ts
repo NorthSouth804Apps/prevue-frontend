@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'pv-line-chart',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./line-chart.component.scss']
 })
 export class LineChartComponent implements OnInit {
+  @Input() title?: string;
 
   constructor() {
   }

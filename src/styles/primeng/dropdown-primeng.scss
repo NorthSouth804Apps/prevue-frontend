@@ -1,0 +1,32 @@
+@import "src/styles/colors-variables";
+
+.p-dropdown {
+  border-radius: 0.5rem;
+  border: 0.5px solid $color-blue-2;
+  color: $color-blue-2;
+
+  .p-dropdown-label {
+    font-size: 0.875rem;
+    padding: 0.3125rem 0.3125rem 0.3125rem 0.8125rem;
+    color: $color-blue-2;
+  }
+
+  .p-dropdown-trigger-icon {
+    font-size: 0.625rem;
+  }
+
+  .p-dropdown-panel {
+    box-shadow: unset;
+    border: 1px solid $color-blue-2;
+    border-radius: 0;
+
+    .p-dropdown-item {
+      color: $color-blue-2;
+    }
+
+    .p-highlight {
+      background-color: $color-blue-2 !important;
+      color: $color-white-1 !important;
+    }
+  }
+}

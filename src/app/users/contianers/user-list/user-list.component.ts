@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
   selector: 'pv-user-list',
@@ -8,6 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserListComponent implements OnInit {
   display: boolean = true;
+  searchValue: string ='';
+  userTypes: any[] =  [
+    {label: 'Active Users', value: 1},
+    {label: 'Suspended Users', value: 2},
+    {label: 'Blocked Users', value: 0},
+  ];
+  selectedUserType: any;
 
   constructor() {
   }

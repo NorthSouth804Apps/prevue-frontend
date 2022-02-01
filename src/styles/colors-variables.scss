@@ -1,12 +1,12 @@
 // BLUE
-$color-blue-1: #5637FF;
+$color-blue-1: #5637ff;
 $color-blue-2: #001047;
 
 // ROSE
-$color-rose-1: #FF53A4;
+$color-rose-1: #ff53a4;
 
 // GRAY
-$color-gray-1: #E6E6E6;
+$color-gray-1: #e6e6e6;
 
 // BLACK
 $color-black-1: #212629;
@@ -15,20 +15,32 @@ $color-black-1: #212629;
 $color-white-1: #fff;
 $color-white-2: #f3f3f3;
 
-$prevue-gradient: linear-gradient(0deg, #FF53A4 50%, #5637FF 100%);
+$prevue-gradient: linear-gradient(0deg, #ff53a4 50%, #5637ff 100%);
 
-$color-hover: rgba(255,255,255,0.2);
+$color-hover: rgba(255, 255, 255, 0.2);
 
-
-$colors: ("blue":
-(
-  1: $color-blue-1,
-  2: $color-blue-2,
-),
-  "rose": (1: $color-rose-1),
-  "gray": (1: $color-gray-1),
-  "black": (1: $color-black-1),
-  "white": (1: $color-white-1, 2: $color-white-2),
-  "prevue-gradient": (1: $prevue-gradient),
-  "color-hover": (1: $color-hover),
+$colors: (
+  "blue": (
+    1: $color-blue-1,
+    2: $color-blue-2,
+  ),
+  "rose": (
+    1: $color-rose-1,
+  ),
+  "gray": (
+    1: $color-gray-1,
+  ),
+  "black": (
+    1: $color-black-1,
+  ),
+  "white": (
+    1: $color-white-1,
+    2: $color-white-2,
+  ),
+  "prevue-gradient": (
+    1: $prevue-gradient,
+  ),
+  "color-hover": (
+    1: $color-hover,
+  ),
 );

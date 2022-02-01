@@ -1,1 +1,22 @@
-<h1>Users List</h1>
+<div class="user-list-container">
+  <div class="d-flex justify-content-between">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        type="text"
+        class="user-list-search-box"
+        [(ngModel)]="searchValue"
+        pInputText
+        placeholder="Search"
+      />
+    </span>
+
+    <p-dropdown
+      styleClass="user-list-types-dropdown"
+      [options]="userTypes"
+      [(ngModel)]="selectedUserType"
+      optionLabel="label"
+    ></p-dropdown>
+
+  </div>
+</div>

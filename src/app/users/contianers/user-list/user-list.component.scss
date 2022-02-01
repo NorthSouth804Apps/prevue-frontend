@@ -1,0 +1,13 @@
+.user-list-container {
+  padding: 4rem 1.4375rem 0 1.4375rem;
+
+  .user-list-search-box {
+    width: 19rem;
+  }
+
+  ::ng-deep {
+    .user-list-types-dropdown {
+      width: 12.125rem;
+    }
+  }
+}

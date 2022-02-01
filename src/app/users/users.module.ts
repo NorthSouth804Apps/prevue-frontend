@@ -10,9 +10,6 @@ import { SharedModule } from "../../shared/shared.module";
     UsersRoutingModule,
     SharedModule,
   ],
-  exports: [
-    UserListComponent,
-  ],
   providers: []
 })
 export class UsersModule {

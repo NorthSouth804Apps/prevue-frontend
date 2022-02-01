@@ -12,9 +12,15 @@
 @import "~primeicons/primeicons.css";
 @import "~primeng/resources/themes/saga-purple/theme.css";
 @import "~primeng/resources/primeng.min.css";
+.pi {
+  color: $color-blue-2 !important;
+}
 //GRID
 @import './styles/grid.scss';
 
+// CUSTOM
+@import "styles/primeng/primeng-inputs";
+@import "styles/primeng/dropdown-primeng";
 * {
   font-family: 'Poppins', sans-serif !important;
 }

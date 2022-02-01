@@ -1,0 +1,23 @@
+@import "src/styles/colors-variables";
+@import "src/styles/text-variables";
+
+input {
+  border-radius: 0.5rem;
+  border: 0.5px solid $color-blue-2;
+  font-size: $font-size-4;
+  padding: 0.3125rem 1rem;
+  &::placeholder {
+    color: $color-blue-2;
+  }
+}
+
+.p-input-icon-left {
+  display: flex;
+  align-items: center;
+  input {
+    padding-left: 2.75rem;
+  }
+  .pi {
+    left: 0.875rem;
+  }
+}

@@ -1,16 +1,17 @@
-import { NgModule } from "@angular/core";
-import { LineChartComponent } from "./components/charts/line-chart/line-chart.component";
-import { ChartModule } from "primeng/chart"
-import { ListboxModule } from "primeng/listbox"
-import { TableModule } from "primeng/table"
-import { MetricContainerComponent } from "./components/metric-container/metric-container.component";
-import { ColumnHeaderFilterComponent } from "./components/column-header-filter/column-header-filter.component";
-import { ClickOutsideDirective } from "./directives/click-outside.directive";
-import { UniqueValuesArrayElementsPipe } from "./pipes/unique-values-array-elements.pipe";
-import { CalcPercentPipe } from "./pipes/calc-percent.pipe";
-import { ConcatValuesPipe } from "./pipes/concat-values.pipe";
-import { FindPipe } from "./pipes/find.pipe";
-import { CommonModule } from "@angular/common";
+import { NgModule } from '@angular/core';
+import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
+import { ChartModule } from 'primeng/chart';
+import { ListboxModule } from 'primeng/listbox';
+import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
+import { MetricContainerComponent } from './components/metric-container/metric-container.component';
+import { ColumnHeaderFilterComponent } from './components/column-header-filter/column-header-filter.component';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
+import { UniqueValuesArrayElementsPipe } from './pipes/unique-values-array-elements.pipe';
+import { CalcPercentPipe } from './pipes/calc-percent.pipe';
+import { ConcatValuesPipe } from './pipes/concat-values.pipe';
+import { FindPipe } from './pipes/find.pipe';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -24,7 +25,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ConcatValuesPipe,
     FindPipe,
   ],
-  imports: [ChartModule, ListboxModule, TableModule, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    ChartModule,
+    ListboxModule,
+    TableModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DropdownModule,
+  ],
   exports: [
     LineChartComponent,
     MetricContainerComponent,
@@ -34,8 +43,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CalcPercentPipe,
     ConcatValuesPipe,
     FindPipe,
+    FormsModule,
+    DropdownModule,
   ],
   providers: [],
 })
-export class SharedModule {
-}
+export class SharedModule {}

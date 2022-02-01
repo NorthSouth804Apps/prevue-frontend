@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from "primeng/api";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'ts-sidebar',
@@ -26,7 +27,7 @@ export class SidebarComponent implements OnInit {
       ],
     },
     {
-      label: 'user',
+      label: 'users',
     },
     {
       label: 'reported',
@@ -36,7 +37,12 @@ export class SidebarComponent implements OnInit {
     }
   ]
 
-  constructor() {
+  constructor(private router: Router) {
+  }
+
+  onSelectSidebarOptions(option: { node: TreeNode }) {
+    const { label } = option.node;
+    this.router.navigate([label]);
   }
 
   ngOnInit(): void {

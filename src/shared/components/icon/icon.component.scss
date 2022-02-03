@@ -1,0 +1,98 @@
+@import '../../../../styles/colors-variables';
+@import '../../../../styles/text-variables';
+
+svg-icon-sprite {
+  display: flex;
+  height: 100%;
+}
+
+::ng-deep {
+
+  .ts-icon {
+    transition: all .3s ease;
+    height: 85%;
+
+    &.expanded {
+      height: 100%;
+    }
+  }
+
+  .ts-icon:hover {
+    filter: brightness(.7);
+  }
+
+  @each $colorType, $variants in $colors {
+    @each $variant, $color in $variants {
+      $colorVariant: '-' + $variant;
+      @if ($variant == 1) {
+        // if it's first color variant the class will be ej: text-color-blue
+        $colorVariant: ''
+      }
+      .#{$colorType}#{$colorVariant} {
+        use {
+          fill: $color !important;
+        }
+      }
+
+      .stroke-#{$colorType}#{$colorVariant} {
+        stroke: $color;
+      }
+    }
+  }
+}
+
+.icon-label {
+  color: $color-black-3;
+}
+
+.icon-cmp-container {
+  display: flex;
+  align-items: center;
+
+  &.icon-cmp-size-xxs {
+    width: 15px;
+    height: 15px;
+  }
+
+  &.icon-cmp-size-xs {
+    width: 22px;
+    height: 22px;
+  }
+
+  &.icon-cmp-size-sm {
+    width: 30px;
+    height: 30px;
+  }
+
+  &.icon-cmp-size-md {
+    width: 45px;
+    height: 45px;
+  }
+
+  &.icon-cmp-size-lg {
+    width: 65px;
+    height: 65px;
+  }
+
+  &.icon-cmp-size-xl {
+    width: 85px;
+    height: 85px;
+  }
+
+
+  &.assign {
+    width: 25px;
+    height: 17px;
+  }
+
+  &.user-place-holder {
+    height: 40px;
+    width: 50px;
+  }
+
+  &.user-placeholder-online {
+    height: 40px;
+    width: 50px;
+  }
+}
+

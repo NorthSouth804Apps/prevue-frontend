@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="11px" viewBox="0 0 8 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>down arrow white copy 2</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.000000 0 0 0 0 0.062745 0 0 0 0 0.278431 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="down-arrow-white-copy-2" transform="translate(-279.000000, -76.000000)" filter="url(#filter-1)">
+            <g transform="translate(283.000000, 81.908463) rotate(90.000000) translate(-283.000000, -81.908463) translate(278.781250, 79.442547)">
+                <polyline id="Shape" stroke="#0D00FE" stroke-width="1.40625" transform="translate(4.218750, 2.465916) rotate(-90.000000) translate(-4.218750, -2.465916) " points="6.68466568 6.68466568 1.75283432 2.46591568 6.68466568 -1.75283432"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

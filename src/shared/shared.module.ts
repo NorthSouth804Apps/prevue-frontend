@@ -13,6 +13,7 @@ import { ConcatValuesPipe } from './pipes/concat-values.pipe';
 import { FindPipe } from './pipes/find.pipe';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IconComponent } from "./components/icon/icon.component";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CalcPercentPipe,
     ConcatValuesPipe,
     FindPipe,
+    IconComponent,
   ],
   imports: [
     ChartModule,
@@ -43,6 +45,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CalcPercentPipe,
     ConcatValuesPipe,
     FindPipe,
+    IconComponent,
     FormsModule,
     DropdownModule,
   ],

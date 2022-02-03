@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "svg-sprite": "svg2sprite ./src/assets/icons ./src/assets/sprites/sprite.svg --stripAttrs fill --stripAttrs stroke --stripAttrs id --stripAttrs width --stripAttrs height"
   },
   "private": true,
   "dependencies": {
@@ -42,7 +43,9 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "ng-svg-icon-sprite": "^1.10.0",
     "prettier": "^2.5.1",
+    "svg2sprite-cli": "^2.0.1",
     "typescript": "~4.5.2"
   }
 }

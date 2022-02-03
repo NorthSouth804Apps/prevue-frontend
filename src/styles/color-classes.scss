@@ -7,15 +7,15 @@
       // if it's first color variant the class will be ej: text-color-blue
       $colorVariant: '';
     }
-    .text-color-#{$colorType}#{$colorVariant} {
+    .text-#{$colorType}#{$colorVariant} {
       color: $color !important;
     }
 
-    .background-color-#{$colorType}#{$colorVariant} {
+    .bg-#{$colorType}#{$colorVariant} {
       background-color: $color !important;
     }
 
-    .border-color-#{$colorType}#{$colorVariant} {
+    .border-#{$colorType}#{$colorVariant} {
       border-color: $color !important;
     }
   }

@@ -14,6 +14,9 @@ import { FindPipe } from './pipes/find.pipe';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IconComponent } from "./components/icon/icon.component";
+import { IconSpriteModule } from "ng-svg-icon-sprite";
+import { ButtonComponent } from './components/button/button.component';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,7 @@ import { IconComponent } from "./components/icon/icon.component";
     ConcatValuesPipe,
     FindPipe,
     IconComponent,
+    ButtonComponent,
   ],
   imports: [
     ChartModule,
@@ -35,6 +39,8 @@ import { IconComponent } from "./components/icon/icon.component";
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
+    IconSpriteModule,
+    ButtonModule,
   ],
   exports: [
     LineChartComponent,
@@ -46,6 +52,7 @@ import { IconComponent } from "./components/icon/icon.component";
     ConcatValuesPipe,
     FindPipe,
     IconComponent,
+    ButtonComponent,
     FormsModule,
     DropdownModule,
   ],

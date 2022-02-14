@@ -1,0 +1,68 @@
+@import '../../../../styles/colors-variables';
+
+.auth-wrapper {
+    height:100%;
+    left:0;
+    margin:0;
+    padding:0;
+    position:absolute;
+    top:0;
+    width:100%;
+    display: flex;
+    justify-content: space-around;
+}
+.auth-sidebar {
+    background: linear-gradient(-45deg, $color-blue-5, $color-blue-4);
+    float:left;
+    height:100%;
+    position:relative;
+    max-width: 474px;
+    width: 100%;
+}
+.auth-sidebar-logo {
+    background-image:url(../../../../assets/textsurge-login-logo.svg);
+    background-repeat:no-repeat;
+    color:transparent;
+    height:50px;
+    left:4rem;
+    overflow:hidden;
+    position:absolute;
+    top:6rem;
+    width:200px;
+}
+.auth-sidebar-content {
+    margin-top:-8rem;
+    padding:4rem;
+    position:relative;
+    top:50%;
+
+    .slogan-text {
+        color:$color-gray-5;
+        font-size:47px;
+        font-weight:300;
+        display: block;
+        max-width: 455px;
+
+      strong {
+            color:$color-orange-1;
+            font-weight:500;
+        }
+    }
+}
+.auth-body {
+    height:100%;
+    width:100%;
+}
+.auth-body-content {
+    align-items:center;
+    display:flex;
+    height:100%;
+    justify-content:center;
+    left:0;
+    top:0;
+    width:100%;
+}
+.panel-container {
+    margin:auto;
+    width:480px;
+}

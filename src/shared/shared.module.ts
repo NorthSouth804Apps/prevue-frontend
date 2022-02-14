@@ -18,6 +18,7 @@ import { IconSpriteModule } from "ng-svg-icon-sprite";
 import { ButtonComponent } from './components/button/button.component';
 import { ButtonModule } from 'primeng/button';
 
+
 @NgModule({
   declarations: [
     LineChartComponent,
@@ -41,6 +42,7 @@ import { ButtonModule } from 'primeng/button';
     DropdownModule,
     IconSpriteModule,
     ButtonModule,
+    ReactiveFormsModule,
   ],
   exports: [
     LineChartComponent,
@@ -55,6 +57,7 @@ import { ButtonModule } from 'primeng/button';
     ButtonComponent,
     FormsModule,
     DropdownModule,
+    ReactiveFormsModule,
   ],
   providers: [],
 })

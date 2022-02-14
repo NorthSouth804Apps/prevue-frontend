@@ -1,3 +1,29 @@
-input[type=checkbox] {
-  transform: scale(1);
+@import "src/styles/colors-variables";
+@import "src/styles/text-variables";
+
+.login-form {
+  .login-input {
+    margin-bottom: 1.5rem;
+
+    &:nth-of-type(1) {
+      margin-bottom: 2.6875rem;
+    }
+  }
+  ::ng-deep {
+    .login-button {
+      margin-top: 4.125rem;
+    }
+  }
+
+  .login-text {
+    font-size: $font-size-1-2;
+    cursor: pointer;
+  }
+  span.login-text {
+    text-decoration: underline;
+  }
+
+  input[type="checkbox"] {
+    transform: scale(1);
+  }
 }

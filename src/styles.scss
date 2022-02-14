@@ -30,7 +30,24 @@
 }
 
 body {
-  font-size: calc(1em + 1vw) !important;
+  font-size: 16px !important;
   background-color: $color-white-2;
+}
+
+input {
+  border: unset;
+  border-bottom: 0.065625rem solid $color-blue-2;
+  border-radius: 0;
+  padding-left: 0;
+  font-size: $font-size-6;
+
+  &[type="text"], &[type="password"], &[type="email"] {
+    width: 100%;
+  }
+
+  &:focus {
+    box-shadow: unset;
+    outline: unset;
+  }
 }
 

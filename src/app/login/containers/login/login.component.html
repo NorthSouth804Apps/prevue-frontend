@@ -1,52 +1,42 @@
-<form class="form p-4" [formGroup]="form" (ngSubmit)="submitForm()" [generateAndErrorHandlingReactiveForm]="form" @fade>
-    <div class="login-container">
-      <h1 class="app-title">Login</h1>
-      <div class="p-field">
-        <ts-text-box
-          ngDefaultControl
-          #email
-          formControlName="email"
-          type="email"
-          label="Email"
-          email
-          required
-        ></ts-text-box>
-      </div>
-      <div class="p-field">
-        <ts-text-box
-          ngDefaultControl
-          #password
-          formControlName="password"
-          type="password"
-          label="Password"
-          required
-          minlength="4"
-        ></ts-text-box>
-      </div>
-      <div class="p-field flex-full flex-wrap">
-        <div class="">
-            <input
-              type="checkbox"
-              formControlName="remember"
-              name="remember"
-              id="remember"
-              class="me-2"
-              #remember
-            />
-          <label for="remember" arial-label="Remember me" class="label-1">Remember me</label>
-        </div>
-        <div class="">
-            <span class="link-1" (click)="goToResetPassword()">Forgot Password?</span>
-        </div>
-      </div>
-      <div class="p-field">
-        <ts-button
-          value="Sign In"
-          type="button"
-          class="button-1"
-          [disabled]="(loading$ | async) || form.invalid"
-          (click)="submitForm()"
-        ></ts-button>
-      </div>
+<form class="login-form" [formGroup]="form" (ngSubmit)="submitForm()">
+  <input
+    class="login-input"
+    #email
+    formControlName="email"
+    type="email"
+    placeholder="Email"
+    required
+  />
+  <input
+    class="login-input"
+    #password
+    formControlName="password"
+    type="password"
+    placeholder="Password"
+    required
+    minlength="4"
+  />
+  <div class="d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+      <input
+        type="checkbox"
+        formControlName="remember"
+        name="remember"
+        id="remember"
+        #remember
+      />
+      <label class="login-text ms-2" for="remember" arial-label="Remember me"
+        >Remember me</label
+      >
     </div>
-  </form>
+    <span class="link-1 login-text" (click)="goToResetPassword()"
+      >Forgot Password?</span
+    >
+  </div>
+  <pv-button
+    color="blue"
+    [class]="'login-button'"
+    text="Login"
+    (click)="submitForm()"
+  ></pv-button>
+</form>

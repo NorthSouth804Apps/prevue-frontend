@@ -2,22 +2,22 @@ import { NgModule } from '@angular/core';
 import { AuthComponent } from './components/auth/auth.component';
 import { LoginComponent } from './containers/login/login.component';
 import { ForgotPasswordComponent } from './containers/forgot-password/forgot-password.component';
-import { TwoFactorAuthComponent } from './containers/two-factor-auth/two-factor-auth.component';
+import { ResetPasswordComponent } from './containers/reset-password/reset-password.component';
 import { LoginRoutingModule } from './login-routing.module';
-import { SharedModule } from '../shared/shared.module';
-// import { LoginStoreModule } from '../store/login/login-store.module';
-import { CommonModule } from '@angular/common';
 
-import { FormsModule } from '@angular/forms';
+import { SharedModule } from 'src/shared/shared.module';
+import { FormsModule } from "@angular/forms";
 
 
 @NgModule({
-  declarations: [AuthComponent, LoginComponent, ForgotPasswordComponent, TwoFactorAuthComponent],
+  declarations: [AuthComponent, LoginComponent, ForgotPasswordComponent, ResetPasswordComponent],
   imports: [
     SharedModule,
+    FormsModule,
     LoginRoutingModule,
-    CommonModule,
-    FormsModule
+  ],
+  exports: [
+    FormsModule,
   ]
 })
 export class LoginModule { }

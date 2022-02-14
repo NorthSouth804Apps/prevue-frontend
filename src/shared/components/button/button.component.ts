@@ -22,6 +22,7 @@ export class ButtonComponent implements OnInit {
   @Output() onClick?: EventEmitter<any> = new EventEmitter();
   @Input() color: ButtonTypes = 'rose';
   @Input() icon = '';
+  @Input() disabled = false;
   buttonColors: IButtonColors = {} as IButtonColors;
 
   bgAndTextColor: ObjectInterfaceGenerator<IButtonColors, ButtonTypes> = {

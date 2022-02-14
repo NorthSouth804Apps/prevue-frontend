@@ -42,7 +42,11 @@ export class SidebarComponent implements OnInit {
 
   onSelectSidebarOptions(option: { node: TreeNode }) {
     const { label } = option.node;
-    this.router.navigate([label]);
+    if(label === 'log out') {
+      this.router.navigate(['login']);
+    } else {
+      this.router.navigate([label]);
+    }
   }
 
   ngOnInit(): void {

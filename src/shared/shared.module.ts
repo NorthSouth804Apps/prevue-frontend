@@ -13,11 +13,11 @@ import { ConcatValuesPipe } from './pipes/concat-values.pipe';
 import { FindPipe } from './pipes/find.pipe';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IconComponent } from "./components/icon/icon.component";
-import { IconSpriteModule } from "ng-svg-icon-sprite";
+import { IconComponent } from './components/icon/icon.component';
+import { IconSpriteModule } from 'ng-svg-icon-sprite';
 import { ButtonComponent } from './components/button/button.component';
 import { ButtonModule } from 'primeng/button';
-
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +31,7 @@ import { ButtonModule } from 'primeng/button';
     FindPipe,
     IconComponent,
     ButtonComponent,
+    PaginatorComponent,
   ],
   imports: [
     ChartModule,
@@ -55,9 +56,11 @@ import { ButtonModule } from 'primeng/button';
     FindPipe,
     IconComponent,
     ButtonComponent,
+    PaginatorComponent,
     FormsModule,
     DropdownModule,
     ReactiveFormsModule,
+    CommonModule,
   ],
   providers: [],
 })

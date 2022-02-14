@@ -9,10 +9,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ResetPasswordComponent implements OnInit {
   public form: FormGroup = new FormGroup({
-    email: new FormControl(),
-    password: new FormControl(),
-    remember: new FormControl(),
+    newPassword: new FormControl(),
+    confirmPassword: new FormControl(),
   });
+
 
   constructor(private router: Router) {}
 

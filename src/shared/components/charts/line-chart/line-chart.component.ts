@@ -34,7 +34,6 @@ export class LineChartComponent implements OnInit {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
         {
-          label: 'First Dataset',
           data: [40, 50, 60, 81, 90, 100],
           borderColor: this.charBarColor,
         },
@@ -45,11 +44,16 @@ export class LineChartComponent implements OnInit {
       plugins: {
         title: {
           text: 'This is the title',
-        }
+        },
+        legend: {
+          display: false,
+        },
       },
       elements: {
+        dataLabels: {
+          color: 'red'
+        },
         point: {
-          borderColor: '#000',
           backgroundColor: 'transparent',
           borderWidth: 0,
         },
@@ -57,10 +61,10 @@ export class LineChartComponent implements OnInit {
           borderWidth: 5,
           borderCapStyle: 'round',
           borderJoinStyle: 'bevel',
+        },
+        tick: {
+          color: 'red',
         }
-      },
-      legend: {
-        display: false,
       },
       scales: {
         x: {

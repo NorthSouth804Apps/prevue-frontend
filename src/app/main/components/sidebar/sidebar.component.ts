@@ -41,9 +41,14 @@ export class SidebarComponent implements OnInit {
   }
 
   onSelectSidebarOptions(option: { node: TreeNode }) {
-    const { label } = option.node;
+
+    const { parent, children } = option.node;
+    if(children) return;
+    const label = option.node.label ? option.node.label.replace(/[ ]/gi, '-') : '';
     if(label === 'log out') {
       this.router.navigate(['login']);
+    } else if(parent) {
+      this.router.navigate([`${parent.label}/${label}`]);
     } else {
       this.router.navigate([label]);
     }

@@ -18,23 +18,23 @@ export class UserListComponent implements OnInit {
   selectedUserType: any;
   customers: any[] = [{
     user: '1294884',
-    age: 24,
+    reason: 24,
     gender: 'Male',
     showMe: 'Women',
-    ageRange: '12-44',
+    ageRange: '20-44',
     location: 'Brooklyn, NY',
     joined: new Date(),
     matches: 19,
   },
     {
-      user: '1294884',
-      age: 24,
-      gender: 'Male',
-      showMe: 'Women',
-      ageRange: '12-44',
+      user: '3458494',
+      reason: 25,
+      gender: 'Female',
+      showMe: 'Men',
+      ageRange: '20-44',
       location: 'Brooklyn, NY',
       joined: new Date(),
-      matches: 19,
+      matches: 20,
     }];
   representatives: any[] = [];
   statuses: any[] = [];

@@ -16,3 +16,23 @@
     grid-column: 1 / -1;
   }
 }
+
+$columnSizes: (1, 2, 3, 4, 5, 6);
+
+@each $columnSize in $columnSizes {
+  .grid-container-column-#{$columnSize} {
+    @extend .grid-container;
+    grid-template-columns: repeat(auto-fit, minmax($columnSize * 100px, 1fr));
+  }
+
+  .grid-container-row-#{$columnSize} {
+    @extend .grid-container;
+    grid-template-rows: repeat(auto-fit, minmax($columnSize * 100px, 1fr));
+  }
+
+  .grid-container-#{$columnSize} {
+    @extend .grid-container;
+    grid-template-columns: repeat(auto-fit, minmax($columnSize * 100px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax($columnSize * 100px, 1fr));
+  }
+}

@@ -4,14 +4,50 @@ import { Component, OnInit } from '@angular/core';
   selector: 'pv-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  animations: []
+  animations: [],
 })
 export class DashboardComponent implements OnInit {
   display: boolean = true;
+  dataList = [
+    {
+      name: 'User 1232434',
+      reason: 'Spam',
+    },
+    {
+      name: 'User 1232434',
+      reason: 'Inappropriate Content',
+    },
+    {
+      name: 'User 1232434',
+      reason: 'Spam',
+    },
+    {
+      name: 'User 1232434',
+      reason: 'Spam',
+    },
+    {
+      name: 'User 1232434',
+      reason: 'Spam',
+    },
+    {
+      name: 'User 1232434',
+      reason: 'Spam',
+    },
+    {
+      name: 'User 1232434',
+      reason: 'Spam',
+    },
+    {
+      name: 'User 1232434',
+      reason: 'Spam',
+    },
+    {
+      name: 'User 1232434',
+      reason: 'Spam',
+    },
+  ];
+  listColumns: any[] = ['name', 'reason'];
+  constructor() {}
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

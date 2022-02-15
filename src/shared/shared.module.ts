@@ -17,7 +17,7 @@ import { IconComponent } from './components/icon/icon.component';
 import { IconSpriteModule } from 'ng-svg-icon-sprite';
 import { ButtonComponent } from './components/button/button.component';
 import { ButtonModule } from 'primeng/button';
-import { PaginatorComponent } from './components/paginator/paginator.component';
+import { ListComponent } from "./components/list/list.component";
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     FindPipe,
     IconComponent,
     ButtonComponent,
-    PaginatorComponent,
+    ListComponent,
   ],
   imports: [
     ChartModule,
@@ -56,7 +56,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     FindPipe,
     IconComponent,
     ButtonComponent,
-    PaginatorComponent,
+    ListComponent,
     FormsModule,
     DropdownModule,
     ReactiveFormsModule,

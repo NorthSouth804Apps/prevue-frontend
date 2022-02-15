@@ -27,58 +27,49 @@
              [showCurrentPageReport]="true"
              [rowsPerPageOptions]="[1,25,50]"
              [loading]="loading"
-             [showFirstLastIcon]="false"
-             [paginator]="true">
+             [showFirstLastIcon]="false">
 
       <ng-template pTemplate="header">
         <tr>
           <th>
-            <div class="flex justify-content-center align-items-center">
-              User
-              <p-columnFilter #columnFilter type="text" field="user" display="menu">
-              </p-columnFilter>
-            </div>
+            <pv-column-header-filter headerLabel="User"
+                                 field="user">
+            </pv-column-header-filter>
           </th>
           <th>
-            <div class="flex justify-content-center align-items-center">
-              Age
-              <p-columnFilter type="text" field="age" display="menu"></p-columnFilter>
-            </div>
+            <pv-column-header-filter headerLabel="Age"
+                                     field="age">
+            </pv-column-header-filter>
           </th>
           <th>
-            <div class="flex justify-content-center align-items-center">
-              Gender
-              <p-columnFilter type="text" field="gender" display="menu"></p-columnFilter>
-            </div>
+            <pv-column-header-filter headerLabel="Gender"
+                                     field="gender">
+            </pv-column-header-filter>
           </th>
           <th>
-            <div class="flex justify-content-center align-items-center">
-              Show Me
-              <p-columnFilter type="date" field="showMe" display="menu"></p-columnFilter>
-            </div>
+            <pv-column-header-filter headerLabel="Show Me"
+                                     field="showMe">
+            </pv-column-header-filter>
           </th>
           <th>
-            <div class="flex justify-content-center align-items-center">
-              Age range
-              <p-columnFilter type="numeric" field="ageRange" display="menu" currency="USD"></p-columnFilter>
-            </div>
+            <pv-column-header-filter headerLabel="Age Range"
+                                     field="ageRange">
+            </pv-column-header-filter>
           </th>
           <th>
-            <div class="flex justify-content-center align-items-center">
-              Location
-              <p-columnFilter type="numeric" field="location" display="menu" currency="USD"></p-columnFilter>
-            </div>
+            <pv-column-header-filter headerLabel="Location"
+                                     field="location">
+            </pv-column-header-filter>
           </th>
           <th>
-            <div class="flex justify-content-center align-items-center">
-              Joined
-              <p-columnFilter type="joined" field="activity" display="menu" currency="USD"></p-columnFilter>
-            </div>
+            <pv-column-header-filter headerLabel="Joined"
+                                     field="joined">
+            </pv-column-header-filter>
           </th>
-          <th style="width: 8rem">
-            <div class="flex justify-content-center align-items-center">
-              # Matched
-            </div>
+          <th>
+            <pv-column-header-filter headerLabel="# Matches"
+                                     field="matches">
+            </pv-column-header-filter>
           </th>
         </tr>
       </ng-template>

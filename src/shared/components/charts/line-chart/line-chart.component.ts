@@ -35,7 +35,7 @@ export class LineChartComponent implements OnInit {
       datasets: [
         {
           label: 'First Dataset',
-          data: [65, 59, 80, 81, 56, 55, 40],
+          data: [40, 50, 60, 81, 90, 100],
           borderColor: this.charBarColor,
         },
       ]

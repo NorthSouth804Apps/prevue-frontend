@@ -31,7 +31,9 @@ export class ColumnHeaderFilterComponent implements AfterViewInit, OnChanges {
   @Input() headerLabel = '';
   @ViewChild(ColumnFilter) columnFilterRef: ColumnFilter = {} as any;
   @ContentChild('listItem') listItem?: TemplateRef<any>;
-
+  filterIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="25" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+    <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+  </svg>`;
 
   ngAfterViewInit(): void {
 
@@ -39,7 +41,7 @@ export class ColumnHeaderFilterComponent implements AfterViewInit, OnChanges {
       .classList.remove('p-column-filter-menu-button-open');
     const pi = this.columnFilterRef.el.nativeElement.querySelector('.pi');
     pi.classList.remove('pi-filter');
-    pi.classList.add('pi-angle-down');
+    pi.innerHTML = this.filterIconSVG;
     this.data = !this.data || !this.data.length ? this.columnFilterRef.dt.value : this.data;
     this.setDefaultFilters();
   }

@@ -45,7 +45,8 @@ export class SidebarComponent implements OnInit {
     const { parent, children } = option.node;
     if(children) return;
     const label = option.node.label ? option.node.label.replace(/[ ]/gi, '-') : '';
-    if(label === 'log out') {
+    console.log(label, 'label');
+    if(label === 'log-out') {
       this.router.navigate(['login']);
     } else if(parent) {
       this.router.navigate([`${parent.label}/${label}`]);

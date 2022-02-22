@@ -17,7 +17,9 @@ import { IconComponent } from './components/icon/icon.component';
 import { IconSpriteModule } from 'ng-svg-icon-sprite';
 import { ButtonComponent } from './components/button/button.component';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ListComponent } from "./components/list/list.component";
+import { ConfirmationService } from "primeng/api";
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { ListComponent } from "./components/list/list.component";
     IconSpriteModule,
     ButtonModule,
     ReactiveFormsModule,
+    ConfirmDialogModule,
   ],
   exports: [
     LineChartComponent,
@@ -61,7 +64,10 @@ import { ListComponent } from "./components/list/list.component";
     DropdownModule,
     ReactiveFormsModule,
     CommonModule,
+    ConfirmDialogModule,
   ],
-  providers: [],
+  providers: [
+    ConfirmationService,
+  ],
 })
 export class SharedModule {}

@@ -19,7 +19,7 @@ export interface IButtonColors {
 export class ButtonComponent implements OnInit {
   @Input() text = '';
   @Input() class = '';
-  @Output() onClick?: EventEmitter<any> = new EventEmitter();
+  @Output() onClick: EventEmitter<any> = new EventEmitter();
   @Input() color: ButtonTypes = 'rose';
   @Input() icon = '';
   @Input() disabled = false;

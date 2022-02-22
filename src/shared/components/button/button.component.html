@@ -1,5 +1,6 @@
 <button
   pButton
+  (click)="onClick.emit($event)"
   [icon]="icon"
   type="button"
   class="pv-button {{ buttonColors.background }} {{ buttonColors.text }} {{

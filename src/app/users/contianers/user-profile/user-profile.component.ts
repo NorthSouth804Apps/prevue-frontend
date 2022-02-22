@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
+export type DialogTypes = 'warning' | 'delete' | 'suspend' | 'block';
+export type IDialogOptions = {
+  [N in DialogTypes]: {
+    header: string;
+    message: string;
+  };
+};
 @Component({
   selector: 'pv-user-list',
   templateUrl: './user-profile.component.html',
@@ -9,58 +17,58 @@ import { Router } from "@angular/router";
   animations: [],
 })
 export class UserProfileComponent implements OnInit {
-  display: boolean = true;
-  searchValue: string = '';
-  userTypes: any[] = [
-    { label: 'Active Users', value: 1 },
-    { label: 'Suspended Users', value: 2 },
-    { label: 'Blocked Users', value: 0 },
-  ];
-  selectedUserType: any;
-  customers: any[] = [{
-    user: '1294884',
-    reason: 24,
-    gender: 'Male',
-    showMe: 'Women',
-    ageRange: '20-44',
-    location: 'Brooklyn, NY',
-    joined: new Date(),
-    matches: 19,
-  },
-    {
-      user: '3458494',
-      reason: 25,
-      gender: 'Female',
-      showMe: 'Men',
-      ageRange: '20-44',
-      location: 'Brooklyn, NY',
-      joined: new Date(),
-      matches: 20,
-    }];
-  representatives: any[] = [];
-  statuses: any[] = [];
   loading: boolean = false;
+  user = {
+    name: 'Greg',
+    joined: new Date(),
+    location: 'Brooklyn, NY',
+    lookingFor: 'Friendship, Dating',
+    gender: 'Male',
+    age: 24,
+    ageRange: '23-27',
+    showMe: 'Women',
+  };
 
-  activityValues: number[] = [0, 100];
-  constructor(private router: Router) {}
+  dialogOptions: IDialogOptions = {
+    delete: {
+      message: `Are you sure you want to <b>delete</b> this account? <br /> this cannot be undone.`,
+      header: 'Delete Account',
+    },
+    warning: {
+      message: `Warning sent to user.`,
+      header: 'Send Warning',
+    },
+    suspend: {
+      message: 'User has been suspended for one week and added to suspended list.',
+      header: 'Suspend Account',
+    },
+    block: {
+      message: 'User has been blocked from PreVue and added to blocked list.',
+      header: 'Block Account',
+    },
+  };
+  openedDialog?: DialogTypes;
 
-  ngOnInit(): void {
+  constructor(
+    private router: Router,
+    private confirmationService: ConfirmationService
+  ) {}
 
-    this.statuses = [
-      { label: 'Unqualified', value: 'unqualified' },
-      { label: 'Qualified', value: 'qualified' },
-      { label: 'New', value: 'new' },
-      { label: 'Negotiation', value: 'negotiation' },
-      { label: 'Renewal', value: 'renewal' },
-      { label: 'Proposal', value: 'proposal' },
-    ];
-  }
-
-  goToUserProfile(customer: any) {
-    this.router.navigate(['users', customer.user])
-  }
+  ngOnInit(): void {}
 
   clear(table: Table) {
     table.clear();
+  }
+
+  confirm(type: DialogTypes) {
+    this.openedDialog = type;
+    setTimeout(() => {
+      const options = this.dialogOptions[type];
+      this.confirmationService.confirm({
+        ...options,
+        accept: () => {},
+        reject: (type: string) => {},
+      });
+    })
   }
 }

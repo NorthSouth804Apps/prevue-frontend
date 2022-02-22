@@ -11,44 +11,27 @@ export class ReportListComponent implements OnInit {
   display: boolean = true;
   searchValue: string = '';
 
-  customers: any[] = [{
-    report: '1294884',
-    reason: 24,
-    gender: 'Male',
-    showMe: 'Women',
-    ageRange: '20-44',
-    location: 'Brooklyn, NY',
-    joined: new Date(),
-    matches: 19,
-  },
+  customers: any[] = [
     {
-      report: '3458494',
-      reason: 25,
-      gender: 'Female',
-      showMe: 'Men',
-      ageRange: '20-44',
-      location: 'Brooklyn, NY',
-      joined: new Date(),
-      matches: 20,
-    }];
-  representatives: any[] = [];
-  statuses: any[] = [];
+      date: new Date(),
+      user: 12123545,
+      reportType: 'Spam',
+      reports: 0,
+      offenses: 0,
+    },
+    {
+      date: new Date(),
+      user: 4343434,
+      reportType: 'Inappropriate Content',
+      reports: 0,
+      offenses: 0,
+    },
+  ];
   loading: boolean = false;
 
-  activityValues: number[] = [0, 100];
   constructor() {}
 
-  ngOnInit(): void {
-
-    this.statuses = [
-      { label: 'Unqualified', value: 'unqualified' },
-      { label: 'Qualified', value: 'qualified' },
-      { label: 'New', value: 'new' },
-      { label: 'Negotiation', value: 'negotiation' },
-      { label: 'Renewal', value: 'renewal' },
-      { label: 'Proposal', value: 'proposal' },
-    ];
-  }
+  ngOnInit(): void {}
 
   clear(table: Table) {
     table.clear();

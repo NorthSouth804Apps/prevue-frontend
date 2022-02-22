@@ -1,0 +1,17 @@
+.report-list-container {
+  padding: 4rem 1.4375rem 0 1.4375rem;
+
+  .report-list-search-box {
+    width: 19rem;
+  }
+
+  ::ng-deep {
+    .report-list-types-dropdown {
+      width: 12.125rem;
+    }
+  }
+
+  .table-container {
+    margin-top: 3.3125rem;
+  }
+}

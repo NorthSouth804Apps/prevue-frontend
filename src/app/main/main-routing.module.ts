@@ -20,6 +20,10 @@ const routes: Routes = [
         path: 'analytics',
         loadChildren: () => import('../analytics/analytics.module').then(m => m.AnalyticsModule),
       },
+      {
+        path: 'reported',
+        loadChildren: () => import('../reports/reports.module').then(m => m.ReportsModule),
+      },
       {path: '**', redirectTo: '/home' }
     ],
   },

@@ -1,24 +1,18 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
-import { Router } from "@angular/router";
 
 @Component({
-  selector: 'pv-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss'],
+  selector: 'pv-report-list',
+  templateUrl: './report-list.component.html',
+  styleUrls: ['./report-list.component.scss'],
   animations: [],
 })
-export class UserListComponent implements OnInit {
+export class ReportListComponent implements OnInit {
   display: boolean = true;
   searchValue: string = '';
-  userTypes: any[] = [
-    { label: 'Active Users', value: 1 },
-    { label: 'Suspended Users', value: 2 },
-    { label: 'Blocked Users', value: 0 },
-  ];
-  selectedUserType: any;
+
   customers: any[] = [{
-    user: '1294884',
+    report: '1294884',
     reason: 24,
     gender: 'Male',
     showMe: 'Women',
@@ -28,7 +22,7 @@ export class UserListComponent implements OnInit {
     matches: 19,
   },
     {
-      user: '3458494',
+      report: '3458494',
       reason: 25,
       gender: 'Female',
       showMe: 'Men',
@@ -42,7 +36,7 @@ export class UserListComponent implements OnInit {
   loading: boolean = false;
 
   activityValues: number[] = [0, 100];
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {
 
@@ -54,10 +48,6 @@ export class UserListComponent implements OnInit {
       { label: 'Renewal', value: 'renewal' },
       { label: 'Proposal', value: 'proposal' },
     ];
-  }
-
-  goToUserProfile(customer: any) {
-    this.router.navigate(['users', customer.user])
   }
 
   clear(table: Table) {

@@ -1,14 +1,14 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 import { Router } from "@angular/router";
 
 @Component({
   selector: 'pv-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss'],
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.scss'],
   animations: [],
 })
-export class UserListComponent implements OnInit {
+export class UserProfileComponent implements OnInit {
   display: boolean = true;
   searchValue: string = '';
   userTypes: any[] = [

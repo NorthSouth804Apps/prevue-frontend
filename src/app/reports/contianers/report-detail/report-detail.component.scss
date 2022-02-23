@@ -1,0 +1,19 @@
+.report-detail-container {
+  padding: 4rem 5rem 0 4.375rem;
+
+  .custom-container {
+    height: 15rem ;
+    max-height: 15rem !important;
+    overflow: auto;
+  }
+  .reported-gallery-container {
+    img {
+      height: 18.4375rem;
+      margin-right: 1.3125rem;
+    }
+  }
+
+  .header-title {
+    font-weight: bold;
+  }
+}

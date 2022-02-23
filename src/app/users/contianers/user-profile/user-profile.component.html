@@ -1,12 +1,19 @@
 <div class="text-blue-2 user-profile-container">
-  <a routerLink="/users" class="d-flex align-items-center font-size-3 mb-5 text-decoration-none text-blue-2">
-    <i class="me-3 pi pi-chevron-left font-size-3 "></i>
+  <a
+    routerLink=".."
+    class="d-flex align-items-center font-size-3 mb-5 text-decoration-none text-blue-2"
+  >
+    <i class="me-3 pi pi-chevron-left font-size-3"></i>
     <span>Go Back</span>
   </a>
   <div class="grid-container user-profile-main-grid">
     <div class="grid-column-2">
       <div class="user-profile-image-container">
-        <img src="assets/images/profile-img.png" alt="profile image" class="w-100" />
+        <img
+          src="assets/images/profile-img.png"
+          alt="profile image"
+          class="w-100"
+        />
       </div>
     </div>
     <div class="grid-column-6 grid-container-150">
@@ -18,54 +25,89 @@
         <div class="grid-container-150 common-container">
           <div>
             <div class="header-label">Profile Name</div>
-            <span>{{user.name}}</span>
+            <span>{{ user.name }}</span>
           </div>
           <div>
             <div class="header-label">Joined</div>
-            <span>{{ user.joined | date : 'MM/DD/YYYY' }}</span>
+            <span>{{ user.joined | date: "MM/DD/YYYY" }}</span>
           </div>
           <div>
             <div class="header-label">Location Brook</div>
-            <span>{{user.location}}</span>
+            <span>{{ user.location }}</span>
           </div>
           <div>
             <div class="header-label">Looking For</div>
-            <span>{{user.lookingFor}}</span>
+            <span>{{ user.lookingFor }}</span>
           </div>
           <div>
             <div class="header-label">Gender</div>
-            <span>{{user.gender}}</span>
+            <span>{{ user.gender }}</span>
           </div>
           <div>
             <div class="header-label">Show Me</div>
-            <span>{{user.showMe}}</span>
+            <span>{{ user.showMe }}</span>
           </div>
           <div>
             <div class="header-label">Age</div>
-            <span>{{user.age}}</span>
+            <span>{{ user.age }}</span>
           </div>
           <div>
             <div class="header-label">Age Range</div>
-            <span>{{user.ageRange}}</span>
+            <span>{{ user.ageRange }}</span>
           </div>
         </div>
       </div>
       <div class="grid-column-2">
         <div class="d-flex justify-content-end w-100 mb-3">
-          <pv-button color="blue" text="Delete" class="me-1" (onClick)="confirm('delete')"></pv-button>
-          <pv-button color="blue" text="Warning" class="me-1" (onClick)="confirm('warning')"></pv-button>
-          <pv-button color="blue" text="Suspend" class="me-1" (onClick)="confirm('suspend')"></pv-button>
-          <pv-button color="rose" text="Block" (onClick)="confirm('block')"></pv-button>
+          <pv-button
+            color="blue"
+            text="Delete"
+            class="me-1"
+            (onClick)="confirm('delete')"
+          ></pv-button>
+          <pv-button
+            color="blue"
+            text="Warning"
+            class="me-1"
+            (onClick)="confirm('warning')"
+          ></pv-button>
+          <pv-button
+            color="blue"
+            text="Suspend"
+            class="me-1"
+            (onClick)="confirm('suspend')"
+          ></pv-button>
+          <pv-button
+            color="rose"
+            text="Block"
+            (onClick)="confirm('block')"
+          ></pv-button>
         </div>
         <div class="common-container">
-           <h4 class="header-label">Photos</h4>
-           <div class="d-flex align-items-center mb-4">
-             <img src="assets/images/user-photo-1.png" class="user-image-gallery-item" alt="user-photo">
-             <img src="assets/images/user-photo-2.png" class="user-image-gallery-item" alt="user-photo">
-             <img src="assets/images/user-photo-3.png" class="user-image-gallery-item" alt="user-photo">
-           </div>
-            <h4 class="header-label">Bio</h4>
-            <p>An avid hiker and outdoor enthusiast. Currently working to get a Masters in clinical psychology. You can usually find me carrying around my cat, Miller, in his travel backpack.</p>
+          <h4 class="header-label">Photos</h4>
+          <div class="d-flex align-items-center mb-4">
+            <img
+              src="assets/images/user-photo-1.png"
+              class="user-image-gallery-item"
+              alt="user-photo"
+            />
+            <img
+              src="assets/images/user-photo-2.png"
+              class="user-image-gallery-item"
+              alt="user-photo"
+            />
+            <img
+              src="assets/images/user-photo-3.png"
+              class="user-image-gallery-item"
+              alt="user-photo"
+            />
+          </div>
+          <h4 class="header-label">Bio</h4>
+          <p>
+            An avid hiker and outdoor enthusiast. Currently working to get a
+            Masters in clinical psychology. You can usually find me carrying
+            around my cat, Miller, in his travel backpack.
+          </p>
         </div>
       </div>
     </div>
@@ -102,7 +144,7 @@
           <span>1</span>
         </div>
         <div class="mb-4">
-          <div class="header-label">Total Offenses </div>
+          <div class="header-label">Total Offenses</div>
           <span>1</span>
         </div>
       </div>
@@ -116,9 +158,17 @@
           <span>6</span>
         </div>
       </div>
-
     </div>
   </div>
-  <p-confirmDialog acceptIcon="" rejectIcon="" [rejectLabel]="openedDialog === 'delete' ? 'Cancel' : 'Close'" acceptLabel="Yes" [acceptVisible]="openedDialog === 'delete'" [baseZIndex]="10000" ></p-confirmDialog>
-
+  <p-confirmDialog
+    acceptIcon=""
+    rejectIcon=""
+    [rejectLabel]="openedDialog === 'delete' ? 'Cancel' : 'Close'"
+    acceptLabel="Yes"
+    [acceptVisible]="openedDialog === 'delete'"
+    [baseZIndex]="10000"
+    [closable]="false"
+    [dismissableMask]="true"
+    [closeOnEscape]="true"
+  ></p-confirmDialog>
 </div>

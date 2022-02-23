@@ -5,6 +5,8 @@
     margin-bottom: 1.25rem;
     border-collapse: separate !important;
     border-spacing: 0 0.625rem !important;
+    color: $color-blue-2;
+
     .p-datatable-thead {
       tr {
         th {
@@ -14,6 +16,8 @@
           border: unset;
           padding: 0 0.5rem;
           white-space: nowrap;
+          color: $color-blue-2;
+
           &:nth-child(1) {
             padding-left: 1.4375rem;
           }
@@ -30,6 +34,8 @@
           white-space: nowrap;
           background-color: $color-white-1;
           padding: 0.5rem 0.5rem;
+          color: $color-blue-2;
+
           &:nth-child(1) {
             border-top-left-radius: 0.625rem;
             border-bottom-left-radius: 0.625rem;

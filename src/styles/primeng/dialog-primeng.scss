@@ -3,7 +3,7 @@
 .p-dialog {
   border-radius: 10px;
   overflow: hidden;
-  width: 31.25rem;
+  width: 25rem;
   .p-dialog-header {
     display: flex;
     justify-content: center;
@@ -15,6 +15,8 @@
     .p-confirm-dialog-message {
       margin-top: 1.25rem;
       text-align: center;
+      width: 100%;
+      color: #000;
     }
   }
   .p-dialog-footer {
@@ -25,6 +27,7 @@
       border: 1px solid $color-blue-2;
       border-radius: 30px;
       padding: 0.125rem 50px;
+      font-weight: 600;
     }
     .p-confirm-dialog-reject {
       @extend .dialog-button;

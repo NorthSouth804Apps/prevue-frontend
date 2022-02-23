@@ -13,71 +13,97 @@
   </div>
 
   <div class="table-container">
-    <p-table #dt1 [value]="customers"
-             [responsive]="true"
-             responsiveLayout="scroll"
-             dataKey="id"
-             [rows]="10"
-             [showCurrentPageReport]="true"
-             [rowsPerPageOptions]="[1,25,50]"
-             [loading]="loading"
-             [showFirstLastIcon]="false">
-
+    <p-table
+      #dt1
+      [value]="reports"
+      [responsive]="true"
+      responsiveLayout="scroll"
+      dataKey="id"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[1, 25, 50]"
+      [loading]="loading"
+      [showFirstLastIcon]="false"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th>
-            <pv-column-header-filter headerLabel="Date"
-                                 field="date">
+            <pv-column-header-filter headerLabel="Date" field="date">
             </pv-column-header-filter>
           </th>
           <th>
-            <pv-column-header-filter headerLabel="User"
-                                     field="user">
+            <pv-column-header-filter headerLabel="User" field="user">
             </pv-column-header-filter>
           </th>
           <th>
-            <pv-column-header-filter headerLabel="Report Type"
-                                     field="reportType">
+            <pv-column-header-filter
+              headerLabel="Report Type"
+              field="reportType"
+            >
             </pv-column-header-filter>
           </th>
           <th>
-            <pv-column-header-filter headerLabel="Reports"
-                                     field="reports">
+            <pv-column-header-filter headerLabel="Reports" field="reports">
             </pv-column-header-filter>
           </th>
           <th>
-            <pv-column-header-filter headerLabel="Offenses"
-                                     field="offenses">
+            <pv-column-header-filter headerLabel="Offenses" field="offenses">
             </pv-column-header-filter>
           </th>
-          <th colspan="5">
-            Actions
-          </th>
+          <th colspan="5">Actions</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-customer>
+      <ng-template pTemplate="body" let-report>
         <tr>
           <td>
-            {{customer.date | date: 'MM/dd/yyyy'}}
+            {{ report.date | date: "MM/dd/yyyy" }}
           </td>
           <td>
-           <span class="text-decoration-underline text-blue-2"> User {{customer.user}}</span>
+            <span
+              class="text-decoration-underline text-blue-2 cursor-pointer"
+              (click)="goToUserProfile(report)"
+            >
+              User {{ report.user }}</span
+            >
           </td>
           <td>
-            <span class="image-text">{{customer.reportType}}</span>
+            <span
+              class="image-text text-decoration-underline cursor-pointer"
+              (click)="goToReportDetail(report)"
+              >{{ report.reportType }}</span
+            >
           </td>
           <td>
-            <span class="image-text">{{customer.reports}}</span>
+            <span class="image-text">{{ report.reports }}</span>
           </td>
           <td>
-            {{customer.offenses}}
+            {{ report.offenses }}
           </td>
           <td class="text-center">
             <div class="d-flex align-items-center">
-              <pv-button color="blue" class="me-1" text="Ignore"></pv-button>
-              <pv-button color="blue" class="me-1" text="Warning"></pv-button>
-              <pv-button color="blue" class="me-1" text="Suspend"></pv-button>
-              <pv-button color="rose" text="Block"></pv-button>
+              <pv-button
+                color="blue"
+                class="me-1"
+                text="Ignore"
+                (onClick)="confirm('ignore')"
+              ></pv-button>
+              <pv-button
+                color="blue"
+                class="me-1"
+                text="Warning"
+                (onClick)="confirm('warning')"
+              ></pv-button>
+              <pv-button
+                color="blue"
+                class="me-1"
+                text="Suspend"
+                (onClick)="confirm('suspend')"
+              ></pv-button>
+              <pv-button
+                color="rose"
+                text="Block"
+                (onClick)="confirm('block')"
+              ></pv-button>
             </div>
           </td>
         </tr>
@@ -88,6 +114,16 @@
         </tr>
       </ng-template>
     </p-table>
-
   </div>
+
+  <p-confirmDialog
+    acceptIcon=""
+    rejectIcon=""
+    rejectLabel="Cancel"
+    acceptLabel="Yes"
+    [baseZIndex]="10000"
+    [closable]="false"
+    [dismissableMask]="true"
+    [closeOnEscape]="true"
+  ></p-confirmDialog>
 </div>

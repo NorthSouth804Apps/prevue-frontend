@@ -12,11 +12,11 @@ export type IDialogOptions = {
 };
 @Component({
   selector: 'pv-user-list',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss'],
+  templateUrl: './report-detail.component.html',
+  styleUrls: ['./report-detail.component.scss'],
   animations: [],
 })
-export class UserProfileComponent implements OnInit {
+export class ReportDetailComponent implements OnInit {
   loading: boolean = false;
   user = {
     name: 'Greg',
@@ -31,7 +31,7 @@ export class UserProfileComponent implements OnInit {
 
   dialogOptions: IDialogOptions = {
     delete: {
-      message: `Are you sure you want to <b>delete</b> this account? this cannot be undone.`,
+      message: `Are you sure you want to <b>delete</b> this account? <br /> this cannot be undone.`,
       header: 'Delete Account',
     },
     warning: {

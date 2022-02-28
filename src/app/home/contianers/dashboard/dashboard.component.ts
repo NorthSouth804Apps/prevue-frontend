@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from "@ngrx/store";
+import { addMenuItemFormSubmitted, selectMenusItems } from "../../../../core/state/menus";
 
 @Component({
   selector: 'pv-home-dashboard',
@@ -47,7 +49,14 @@ export class DashboardComponent implements OnInit {
     },
   ];
   listColumns: any[] = ['name', 'reason'];
-  constructor() {}
+  $menuItems = this.store.select(selectMenusItems);
+  constructor(private store: Store) {}
 
-  ngOnInit(): void {}
+  onAddMenu() {
+    this.store.dispatch(addMenuItemFormSubmitted({ menuItem: [{ name: 'First Option' }]}))
+
+  }
+  ngOnInit(): void {
+    console.log(this.$menuItems, 'whats up');
+  }
 }

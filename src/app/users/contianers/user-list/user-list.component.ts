@@ -26,6 +26,7 @@ export class UserListComponent implements OnInit {
     location: 'Brooklyn, NY',
     joined: new Date(),
     matches: 19,
+    age: 25,
   },
     {
       user: '3458494',
@@ -36,6 +37,7 @@ export class UserListComponent implements OnInit {
       location: 'Brooklyn, NY',
       joined: new Date(),
       matches: 20,
+      age: 23,
     }];
   representatives: any[] = [];
   statuses: any[] = [];

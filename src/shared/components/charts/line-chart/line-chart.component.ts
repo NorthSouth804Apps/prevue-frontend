@@ -11,7 +11,7 @@ export class LineChartComponent implements OnInit {
   constructor() {
   }
 
-  charBarColor = '#FF53A4';
+  charBarColor = '#FF53A5';
   basicData: any;
   basicOptions: any;
   width: any;

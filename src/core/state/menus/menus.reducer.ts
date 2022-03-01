@@ -7,6 +7,17 @@ const menusReducer = createReducer(
     ...state,
     menuItems: menuItems,
   })),
+  on(MenusActions.deleteMenuItemSuccess, (state, { menuId }) => {
+    const menuItemIndex = state.menuItems.findIndex(
+      (item) => item.id === menuId
+    );
+    const updatedMenuItems = [...state.menuItems];
+    updatedMenuItems.splice(menuItemIndex, 1);
+    return {
+      ...state,
+      menuItems: updatedMenuItems,
+    };
+  })
 
 );
 

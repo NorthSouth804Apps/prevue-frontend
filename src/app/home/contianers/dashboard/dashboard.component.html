@@ -1,31 +1,33 @@
 <div class="dashboard-container">
-<!--  <pv-button (onClick)="onAddMenu()" text="Add New Item"></pv-button>-->
-  <div class="grid-container">
-    <pv-metric-container
-      label="Total Matches"
-      value="5,041"
-      textColor="white"
-      bgColor="rose"
-    ></pv-metric-container>
-    <pv-metric-container
-      label="Matches This Month"
-      value="400"
-    ></pv-metric-container>
-    <pv-metric-container
-      label="Matches This Week"
-      value="19"
-    ></pv-metric-container>
-  </div>
-<!--  <div class="m-4" *ngIf="menuItem$ | async">-->
-<!--&lt;!&ndash;    <p>{{ menuItem$ | async | json }}</p>&ndash;&gt;-->
+  <pv-button (onClick)="onAddMenu()" text="Add New Item"></pv-button>
+<!--  <div class="grid-container">-->
 <!--    <pv-metric-container-->
-<!--      styleClass="selected"-->
 <!--      label="Total Matches"-->
 <!--      value="5,041"-->
 <!--      textColor="white"-->
-<!--      bgColor="gray"-->
+<!--      bgColor="rose"-->
+<!--    ></pv-metric-container>-->
+<!--    <pv-metric-container-->
+<!--      label="Matches This Month"-->
+<!--      value="400"-->
+<!--    ></pv-metric-container>-->
+<!--    <pv-metric-container-->
+<!--      label="Matches This Week"-->
+<!--      value="19"-->
 <!--    ></pv-metric-container>-->
 <!--  </div>-->
+  <div class="m-4" *ngIf="menuItem$ | async">
+<!--    {{( menuItem$ | async)}}-->
+    <p><span class="ms-4 cursor-pointer color-danger text-decoration-underline"
+     (click)="deleteCard()">Delete</span></p>
+    <pv-metric-container
+      styleClass="selected"
+      label="Total Matches"
+      value="5,041"
+      textColor="white"
+      bgColor="gray"
+    ></pv-metric-container>
+  </div>
   <div class="grid-container">
     <ng-container *ngFor="let menuItem of $menuItems | async; let i = index">
       <pv-metric-container

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
-  addMenuItemFormSubmitted,
+  addMenuItemFormSubmitted, deleteMenuItemInitiated,
   selectMenusItem,
-  selectMenusItems,
-} from '../../../../core/state/menus';
-import { Observable, Subject } from "rxjs";
+  selectMenusItems
+} from "../../../../core/state/menus";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { map, switchMap } from 'rxjs/operators';
 
 @Component({
@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
       reason: 'Spam',
     },
   ];
-  menuId$ = new Subject<number>();
+  menuId$ = new BehaviorSubject<number>(0);
   listColumns: any[] = ['name', 'reason'];
   $menuItems = this.store.select(selectMenusItems);
   menuItem$ = this.menuId$.pipe(
@@ -73,14 +73,18 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.$menuItems.subscribe((items: any) => {
+    this.$menuItems.subscribe(async (items: any) => {
       console.log(items, 'items');
     });
   }
 
-  selectCard(item: any){
+  selectCard(item: any) {
     console.log('clicked', item);
     this.menuId$.next(item.id)
+  }
+
+  deleteCard() {
+    this.store.dispatch(deleteMenuItemInitiated({ menuId: this.menuId$.getValue() || 0 }))
   }
 
   setColor(index: number): any {

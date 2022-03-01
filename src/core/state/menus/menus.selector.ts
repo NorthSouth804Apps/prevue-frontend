@@ -11,7 +11,6 @@ export const selectMenusItems = createSelector(
 export const selectMenusItem = (props: { id: number }) => createSelector(
   selectMenusItems,
   (menuItems: any[]) => menuItems.find(item => {
-    console.log(item, props);
     return item.id.toString() === props.id.toString();
   })
 );

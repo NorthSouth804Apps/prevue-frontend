@@ -16,7 +16,7 @@ export class TodoListService {
 
   public loadTodos(parameter?: any): Observable<any> {
     console.log(parameter, 'param');
-    return this.http.get(environment.api,
+    return this.http.get('environment.api',
       {
         headers: {
           // Authorization: localStorage.getItem('token'),

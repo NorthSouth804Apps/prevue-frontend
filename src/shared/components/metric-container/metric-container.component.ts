@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: 'pv-metric-container',
@@ -6,10 +6,16 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./metric-container.component.scss']
 })
 export class MetricContainerComponent {
+  @Input() styleClass?: string;
   @Input() label?: string;
   @Input() value?: string;
   @Input() bgColor: 'rose' | 'blue' | 'gray' | 'white' = 'white';
   @Input() textColor: 'rose' | 'blue' | 'gray' | 'white' | 'blue-2' = 'blue-2';
+  @Output() onClick = new EventEmitter();
 
   constructor() {}
+
+  clicking($event: any) {
+    this.onClick.emit($event);
+  }
 }

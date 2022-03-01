@@ -8,7 +8,10 @@ export const selectMenusItems = createSelector(
   (state: IMenusState) => state.menuItems
 );
 
-export const selectMenusItem = (props: { id: string }) => createSelector(
+export const selectMenusItem = (props: { id: number }) => createSelector(
   selectMenusItems,
-  (menuItems: any[]) => menuItems.find(item => item.id === props.id)
+  (menuItems: any[]) => menuItems.find(item => {
+    console.log(item, props);
+    return item.id.toString() === props.id.toString();
+  })
 );

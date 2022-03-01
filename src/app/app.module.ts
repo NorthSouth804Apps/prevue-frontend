@@ -6,6 +6,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from 'src/environments/environment';
 import { StoreModule } from '@ngrx/store';
+import { metaReducers, reducers } from "../core/state";
+import { EffectsModule } from "@ngrx/effects";
+import { MenusEffects } from "../core/state/menus";
+import { TodoListService } from "../core/services/example.service";
+import { HttpClientModule } from "@angular/common/http";
 
 
 @NgModule({
@@ -16,6 +21,7 @@ import { StoreModule } from '@ngrx/store';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
@@ -23,8 +29,9 @@ import { StoreModule } from '@ngrx/store';
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),
+    EffectsModule.forRoot([MenusEffects])
   ],
-  providers: [],
+  providers: [TodoListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

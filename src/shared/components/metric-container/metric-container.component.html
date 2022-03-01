@@ -1,4 +1,4 @@
-<div class="metric-container bg-{{bgColor}}">
+<div class="metric-container bg-{{bgColor}} {{styleClass}}" (click)="clicking($event)">
   <span class="header-title metric-container-label text-{{textColor}}">{{label}}</span>
   <span class="metric-container-value text-{{textColor}}">{{value}}</span>
 </div>

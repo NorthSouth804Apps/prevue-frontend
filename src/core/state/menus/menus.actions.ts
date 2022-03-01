@@ -24,7 +24,6 @@ export const addMenuItemFailed = createAction(
 
 export const addMenuItemSuccess = createAction(
   "[Menu Api] Add Menu Item Success",
-  props<{menuItem: any}>(),
 );
 
 export const editMenuItemFormSubmitted = createAction(

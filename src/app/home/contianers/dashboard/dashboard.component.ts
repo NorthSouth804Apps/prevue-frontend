@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
-  addMenuItemFormSubmitted, deleteMenuItemInitiated,
+  entitiesActions, entitiesSelectors,
   selectMenusItem,
   selectMenusItems
 } from "../../../../core/state/menus";
-import { BehaviorSubject, Observable, Subject } from "rxjs";
-import { map, switchMap } from 'rxjs/operators';
+import { BehaviorSubject } from "rxjs";
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'pv-home-dashboard',
@@ -56,11 +56,11 @@ export class DashboardComponent implements OnInit {
   ];
   menuId$ = new BehaviorSubject<number>(0);
   listColumns: any[] = ['name', 'reason'];
-  $menuItems = this.store.select(selectMenusItems);
+  $menuItems = this.store.select(entitiesSelectors.menus.all);
   menuItem$ = this.menuId$.pipe(
     switchMap((id) => {
       console.log(id, 'white-offer');
-      return this.store.select(selectMenusItem({ id }));
+      return this.store.select(entitiesSelectors.menus.one({ id }));
     })
   );
 
@@ -68,7 +68,7 @@ export class DashboardComponent implements OnInit {
 
   onAddMenu() {
     this.store.dispatch(
-      addMenuItemFormSubmitted({ menuItem: [{ name: 'First Option' }] })
+      entitiesActions.menus.add.submitted({ data: [{ name: 'First Option' }] })
     );
   }
 
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteCard() {
-    this.store.dispatch(deleteMenuItemInitiated({ menuId: this.menuId$.getValue() || 0 }))
+    this.store.dispatch(entitiesActions.menus.delete.initiated({ id: this.menuId$.getValue() || 0 }))
   }
 
   setColor(index: number): any {

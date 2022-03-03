@@ -1,7 +1,7 @@
 export interface IMenusState {
-  menuItems: any[];
+  data: any[];
 };
 
 export const initialMenuState: IMenusState = {
-  menuItems: [],
+  data: [],
 };

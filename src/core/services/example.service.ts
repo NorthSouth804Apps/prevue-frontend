@@ -24,3 +24,50 @@ export class TodoListService {
       });
   }
 }
+
+@Injectable({
+  providedIn: 'root'
+})
+export class BaseService {
+  constructor(
+    public http: HttpClient,
+  ) {
+  }
+
+  addData(parameter?: any){
+    console.log(parameter, 'param');
+    return this.http.get(environment.api,
+      {
+        headers: {
+          // Authorization: localStorage.getItem('token'),
+        }
+      });
+  };
+  fetchData(parameter?: any){
+    console.log(parameter, 'param');
+    return this.http.get(environment.api,
+      {
+        headers: {
+          // Authorization: localStorage.getItem('token'),
+        }
+      });
+  };
+  editData(parameter?: any){
+    console.log(parameter, 'param');
+    return this.http.get(environment.api,
+      {
+        headers: {
+          // Authorization: localStorage.getItem('token'),
+        }
+      });
+  };
+  deleteData(parameter?: any){
+    console.log(parameter, 'param');
+    return this.http.get(environment.api,
+      {
+        headers: {
+          // Authorization: localStorage.getItem('token'),
+        }
+      });
+  };
+}

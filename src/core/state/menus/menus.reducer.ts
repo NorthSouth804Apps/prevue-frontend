@@ -1,21 +1,26 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import * as MenusActions from "./menus.actions";
 import { initialMenuState, IMenusState } from "./menus.state";
+import { entitiesActions } from "./menus.actions";
 const menusReducer = createReducer(
   initialMenuState,
-  on(MenusActions.fetchMenuSuccess, (state, { menuItems }) => ({
-    ...state,
-    menuItems: menuItems,
-  })),
-  on(MenusActions.deleteMenuItemSuccess, (state, { menuId }) => {
-    const menuItemIndex = state.menuItems.findIndex(
-      (item) => item.id === menuId
+  on(entitiesActions.menus.fetch.success, (state, { data }) => {
+    console.log(data, 'reducer');
+    return ({
+      ...state,
+      data: data
+    })
+
+  }),
+  on(entitiesActions.menus.delete.success, (state, { id }) => {
+    const menuItemIndex = state.data.findIndex(
+      (item) => item.id === id
     );
-    const updatedMenuItems = [...state.menuItems];
+    const updatedMenuItems = [...state.data];
     updatedMenuItems.splice(menuItemIndex, 1);
     return {
       ...state,
-      menuItems: updatedMenuItems,
+      data: updatedMenuItems,
     };
   })
 

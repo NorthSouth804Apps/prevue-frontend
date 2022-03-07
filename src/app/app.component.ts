@@ -1,19 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { Store } from "@ngrx/store";
-import { appLoaded } from "../core/state/menus";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-selector: 'app-root',
-templateUrl: './app.component.html',
-styleUrls: ['./app.component.scss']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-title = 'prevue-frontend';
+  title = 'prevue-frontend';
 
-constructor(private store: Store) {
-}
+  constructor() {}
 
-ngOnInit() {
-  this.store.dispatch(appLoaded())
-}
+  ngOnInit() {}
 }

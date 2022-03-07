@@ -1,0 +1,41 @@
+@import '~src/styles/colors-variables';
+
+::ng-deep {
+  .p-toast {
+    width: auto !important;
+    .p-toast-message {
+      border: none !important;
+      &.p-toast-message-info {
+        background: $color-blue-2;
+        color: #fff;
+      }
+      .p-toast-message-content {
+        display: flex;
+        align-items: center;
+        padding: .75rem .6rem;
+        .p-toast-message-text {
+          margin-right: 3rem;
+          .p-toast-summary {
+          }
+          .p-toast-detail {
+            margin: 0;
+          }
+        }
+
+        .p-toast-message-icon {
+          color: #fff;
+          font-weight: bold;
+          font-size: 1.25rem;
+        }
+
+        .p-toast-icon-close {
+          .p-toast-icon-close-icon {
+            color: #fff !important;
+            font-weight: bolder;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}

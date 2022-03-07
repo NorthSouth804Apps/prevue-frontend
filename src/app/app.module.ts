@@ -9,29 +9,35 @@ import { StoreModule } from '@ngrx/store';
 import { metaReducers, reducers } from "../core/state";
 import { EffectsModule } from "@ngrx/effects";
 import { MenusEffects } from "../core/state/menus";
-import { TodoListService } from "../core/services/example.service";
 import { HttpClientModule } from "@angular/common/http";
-
+import { BaseService } from "../core/services/base.service";
+import { AuthService } from "../core/services/auth.service";
+import { ToastService } from "../core/services/toast.service";
+import { AuthEffects } from "../core/state/auth";
+import { MessageService } from "primeng/api";
+import { MatchEffects } from "../core/state/matches";
+import { MatchService } from "../core/services/match.service";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production,
-    }),
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),
-    EffectsModule.forRoot([MenusEffects])
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+      autoPause: true,
+    }),
+    EffectsModule.forRoot([MenusEffects, AuthEffects, MatchEffects])
   ],
-  providers: [TodoListService],
+  providers: [BaseService, AuthService, ToastService, MessageService, MatchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

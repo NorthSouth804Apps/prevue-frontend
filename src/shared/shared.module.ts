@@ -19,9 +19,10 @@ import { ButtonComponent } from './components/button/button.component';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ListComponent } from "./components/list/list.component";
-import { ConfirmationService } from "primeng/api";
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { environment } from "../environments/environment";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { ToastComponent } from "./components/toast/toast.component";
+import { ToastModule } from "primeng/toast";
+import { LoadingComponent } from "./components/loading/loading.component";
 
 @NgModule({
   declarations: [
@@ -36,6 +37,8 @@ import { environment } from "../environments/environment";
     IconComponent,
     ButtonComponent,
     ListComponent,
+    ToastComponent,
+    LoadingComponent,
   ],
   imports: [
     ChartModule,
@@ -49,6 +52,7 @@ import { environment } from "../environments/environment";
     ButtonModule,
     ReactiveFormsModule,
     ConfirmDialogModule,
+    ToastModule,
   ],
   exports: [
     LineChartComponent,
@@ -62,6 +66,8 @@ import { environment } from "../environments/environment";
     IconComponent,
     ButtonComponent,
     ListComponent,
+    ToastComponent,
+    LoadingComponent,
     FormsModule,
     DropdownModule,
     ReactiveFormsModule,
@@ -70,6 +76,7 @@ import { environment } from "../environments/environment";
   ],
   providers: [
     ConfirmationService,
+    MessageService,
   ],
 })
 export class SharedModule {}

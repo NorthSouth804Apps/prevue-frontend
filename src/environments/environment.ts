@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'https://audsongs-calculator-api-wpadilla.vercel.app/api/products',
+  api: 'http://localhost:8085/api/v1/',
 };
 
 /*

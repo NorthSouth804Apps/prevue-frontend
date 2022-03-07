@@ -1,6 +1,7 @@
 import { ActionCreator, createAction, props } from "@ngrx/store";
 import { TypedAction } from "@ngrx/store/src/models";
-import { modelsStorage } from "../../models";
+import { statesStorage } from "../core.state";
+import ResponseModel from "../../models/response.model";
 
 export enum ActionsStatus {
   SUCCESS = 'Success',
@@ -9,58 +10,53 @@ export enum ActionsStatus {
   INITIAL = 'Initial',
 }
 
-export type MethodTypes = 'fetch' | 'add' | 'edit' | 'delete';
+export type MethodTypes = 'get' | 'post' | 'put' | 'delete';
 export type statusTypes = 'success' | 'initiated' | 'failed' | 'submitted';
 
-export class MenuModel {
-  data?: any;
-  name?: string;
-}
+const methods: MethodTypes[] = ['get', 'post', 'put', 'delete'];
 
-const methods: MethodTypes[] = ['fetch', 'add', 'edit', 'delete'];
-
-const modelsActions: {
-  [N in keyof typeof modelsStorage]: {
+const statesActions: {
+  [N in keyof typeof statesStorage]: {
     [P in MethodTypes]: {
-      [N in statusTypes]: ActionCreator<any, ({}?: any) => any & TypedAction<any>>
+      [N in statusTypes]: ActionCreator<any, (data: ResponseModel<any>) => any & TypedAction<any>>
     };
   };
 } = {} as any;
 
-export const getModelsActions = () => {
-  if(JSON.stringify(modelsActions) !== "{}") {
-    return modelsActions;
+export const getStatesActions = () => {
+  if(JSON.stringify(statesActions) !== "{}") {
+    return statesActions;
   }
 
-  (Object.keys(modelsStorage) as any[]).forEach((entity: keyof typeof modelsStorage) => {
-    const entityModel = modelsStorage[entity];
-    modelsActions[entity] = {} as any;
+  (Object.keys(statesStorage) as any[]).forEach((entity: keyof typeof statesStorage) => {
+    const entityModel = statesStorage[entity];
+    statesActions[entity] = {} as any;
 
     methods.forEach((method: MethodTypes) => {
-      modelsActions[entity][method] = {} as any;
+      statesActions[entity][method] = {} as any;
 
-      modelsActions[entity][method].success = createAction(
+      statesActions[entity][method].success = createAction(
         `[${entity}] ${method} ${entity} ${ActionsStatus.SUCCESS}`,
-        props<{ data: typeof entityModel[] }>()
+        props<any>()
       )
 
-      modelsActions[entity][method].failed = createAction(
+      statesActions[entity][method].failed = createAction(
         `[${entity}] ${method} ${entity} ${ActionsStatus.FAILED}`,
-        props<{ error: any }>()
+        props<any>()
       );
 
-      modelsActions[entity][method].submitted = createAction(
+      statesActions[entity][method].submitted = createAction(
         `[${entity}] ${method} ${entity} ${ActionsStatus.SUBMITTED}`,
-        props<{ data: typeof entityModel }>()
+        props<any>()
       );
 
-      modelsActions[entity][method].initiated = createAction(
+      statesActions[entity][method].initiated = createAction(
         `[${entity}] ${method} ${entity} ${ActionsStatus.INITIAL}`,
-        props<{ id: number }>()
+        props<any>()
       );
     });
   });
 
-  return modelsActions;
+  return statesActions;
 }
 

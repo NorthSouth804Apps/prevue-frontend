@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {
-  entitiesActions, entitiesSelectors,
-  selectMenusItem,
-  selectMenusItems
-} from "../../../../core/state/menus";
 import { BehaviorSubject } from "rxjs";
-import { switchMap } from 'rxjs/operators';
+import { HomeFacadeService } from "../../../../core/services/facades/home.facade.service";
+import { MatchModel } from "../../../../core/models";
 
 @Component({
   selector: 'pv-home-dashboard',
@@ -56,26 +52,14 @@ export class DashboardComponent implements OnInit {
   ];
   menuId$ = new BehaviorSubject<number>(0);
   listColumns: any[] = ['name', 'reason'];
-  $menuItems = this.store.select(entitiesSelectors.menus.all);
-  menuItem$ = this.menuId$.pipe(
-    switchMap((id) => {
-      console.log(id, 'white-offer');
-      return this.store.select(entitiesSelectors.menus.one({ id }));
-    })
-  );
 
-  constructor(private store: Store) {}
-
-  onAddMenu() {
-    this.store.dispatch(
-      entitiesActions.menus.add.submitted({ data: [{ name: 'First Option' }] })
-    );
-  }
+  constructor(public homeFacadeService: HomeFacadeService) {}
 
   ngOnInit(): void {
-    this.$menuItems.subscribe(async (items: any) => {
-      console.log(items, 'items');
-    });
+    this.homeFacadeService.getMatches();
+    this.homeFacadeService.matches$.subscribe((data: MatchModel[]) => {
+      console.log(data, 'matches');
+    })
   }
 
   selectCard(item: any) {
@@ -83,9 +67,7 @@ export class DashboardComponent implements OnInit {
     this.menuId$.next(item.id)
   }
 
-  deleteCard() {
-    this.store.dispatch(entitiesActions.menus.delete.initiated({ id: this.menuId$.getValue() || 0 }))
-  }
+
 
   setColor(index: number): any {
     if ((index / 2).toString().includes('.')) {

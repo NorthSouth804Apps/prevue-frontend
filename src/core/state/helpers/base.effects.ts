@@ -1,120 +1,112 @@
-import { entitiesActions, entitiesStorage } from "../menus";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { BaseService } from "../../services/example.service";
-import * as MenusActions from "../menus/menus.actions";
-import { catchError, map, switchMap } from "rxjs/operators";
-import { of, tap } from "rxjs";
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { BaseService } from '../../services/base.service';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { of, tap } from 'rxjs';
+import { getStatesActions } from './base.actions';
+import { statesStorage } from '../core.state';
+import ResponseModel from '../../models/response.model';
 
-export class BaseEffects {
+const statesActions = getStatesActions();
+
+export class BaseEffects<DataModel> {
   constructor(
-    private entityName: keyof typeof entitiesStorage,
+    private entityName: keyof typeof statesStorage,
     private actions$: Actions<any>,
-    private service: BaseService,
-    private enableLog?: boolean,
-  ) {
-  }
-  fetchData$ = createEffect(() =>
+    private service: BaseService<DataModel>,
+    private enableLog?: boolean
+  ) {}
+
+  get$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(MenusActions.appLoaded.type, entitiesActions[this.entityName].add.success),
+      ofType(statesActions[this.entityName].get.submitted),
       switchMap(() =>
-        this.service.fetchData().pipe(
-          map(() => {
-            const menus = JSON.parse(localStorage.getItem('menus') || '[]');
-            console.log('getting', menus);
-
-            return entitiesActions[this.entityName].fetch.success({
-              data: menus,
-            });
+        this.service.get().pipe(
+          map((response: ResponseModel<DataModel> | any) => {
+            return statesActions[this.entityName].get.success(response);
           }),
-          catchError((error) =>
-            of(entitiesActions[this.entityName].fetch.failed({ error: error }))
+          catchError((errorData: { error: ResponseModel<null> }) =>
+            of(statesActions[this.entityName].get.failed(errorData.error))
           )
         )
       )
     )
   );
 
-  addData$ = createEffect(() =>
+  post$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(entitiesActions[this.entityName].add.submitted.type),
+      ofType(statesActions[this.entityName].post.submitted.type),
       switchMap((action) =>
-        this.service.addData().pipe(
-          map(() => {
-            const menus = JSON.parse(localStorage.getItem('menus') || '[]');
-            console.log('menus', menus);
-            localStorage.setItem(
-              'menus',
-              JSON.stringify([
-                ...menus,
-                { name: 'Option', id: new Date().getTime() },
-              ])
-            );
-            return entitiesActions[this.entityName].add.success();
+        this.service.post(action.data).pipe(
+          map((response: ResponseModel<DataModel>) => {
+            return statesActions[this.entityName].post.success(response);
           }),
-          catchError((error) =>
-            of(entitiesActions[this.entityName].add.failed({ s: error }))
-          )
+          catchError((errorData: { error: ResponseModel<null> }) => {
+            return of(
+              statesActions[this.entityName].post.failed(errorData.error)
+            );
+          })
         )
       )
     )
   );
 
-  deleteData$ = createEffect(() =>
+  delete$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(entitiesActions[this.entityName].delete.initiated.type),
+      ofType(statesActions[this.entityName].delete.submitted.type),
       switchMap((action) =>
-        this.service.deleteData(action.id).pipe(
-          // tap(() => this.router.navigate(["/menu"])),
-          map(() => {
-            const menus = JSON.parse(localStorage.getItem('menus') || '[]').filter((item: any) => item.id !== action.id);
-            localStorage.setItem(
-              'menus',
-              JSON.stringify([
-                ...menus,
-              ])
-            );
-            console.log('delete menus', menus);
-            return entitiesActions[this.entityName].delete.success({
-              data: action.id,
-            });
+        this.service.delete(action.id).pipe(
+          map((response: ResponseModel<DataModel>) => {
+            return statesActions[this.entityName].delete.success(response);
           }),
-          catchError((error) =>
-            of(entitiesActions[this.entityName].delete.failed({ error: error }))
+          catchError((errorData: { error: ResponseModel<null> }) =>
+            of(statesActions[this.entityName].delete.failed(errorData.error))
           )
         )
       )
     )
   );
 
-  editData$ = createEffect(() =>
+  put$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(entitiesActions[this.entityName].delete.initiated.type),
+      ofType(statesActions[this.entityName].delete.submitted.type),
       switchMap((action) =>
-        this.service.editData(action.data).pipe(
-          // tap(() => this.router.navigate(["/menu"])),
-          map(() => {
-            const menus = JSON.parse(localStorage.getItem('menus') || '[]').filter((item: any) => item.id !== action.id);
-            localStorage.setItem(
-              'menus',
-              JSON.stringify([
-                ...menus,
-              ])
-            );
-            console.log('delete menus', menus);
-            return entitiesActions[this.entityName].delete.success({
-              data: action.id,
-            });
+        this.service.put(action.data).pipe(
+          map((response: ResponseModel<DataModel>) => {
+            return statesActions[this.entityName].delete.success(response);
           }),
-          catchError((error) =>
-            of(entitiesActions[this.entityName].delete.failed({ error: error }))
+          catchError((errorData: { error: ResponseModel<null> }) =>
+            of(statesActions[this.entityName].delete.failed(errorData.error))
           )
         )
       )
     )
   );
 
-  init$ = this.enableLog ? createEffect(
-    () => this.actions$.pipe(tap((action) => console.log(action))),
-    { dispatch: false }
-  ) : null;
+  init$ = this.enableLog
+    ? createEffect(
+        () =>
+          this.actions$.pipe(
+            ofType(
+              ...this.getAllTypes()
+            ),
+            tap((action) => console.log(action))
+          ),
+        { dispatch: false }
+      )
+    : null;
+
+  /* get all */
+  getAllTypes(): string[] {
+    let allTypes: string[] = [];
+    Object.keys(statesActions[this.entityName]).forEach((method:any) => {
+      allTypes = allTypes.concat(allTypes, [
+        (statesActions[this.entityName] as any)[method].success.type,
+        (statesActions[this.entityName] as any)[method].submitted.type,
+        (statesActions[this.entityName] as any)[method].failed.type,
+        (statesActions[this.entityName] as any)[method].initiated.type,
+      ])
+    });
+
+    return allTypes;
+  }
 }

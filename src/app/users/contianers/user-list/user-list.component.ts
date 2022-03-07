@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
+import { ToastService } from '../../../../core/services/toast.service';
 
 @Component({
   selector: 'pv-user-list',
@@ -17,17 +18,18 @@ export class UserListComponent implements OnInit {
     { label: 'Blocked Users', value: 0 },
   ];
   selectedUserType: any;
-  customers: any[] = [{
-    user: '1294884',
-    reason: 24,
-    gender: 'Male',
-    showMe: 'Women',
-    ageRange: '20-44',
-    location: 'Brooklyn, NY',
-    joined: new Date(),
-    matches: 19,
-    age: 25,
-  },
+  customers: any[] = [
+    {
+      user: '1294884',
+      reason: 24,
+      gender: 'Male',
+      showMe: 'Women',
+      ageRange: '20-44',
+      location: 'Brooklyn, NY',
+      joined: new Date(),
+      matches: 19,
+      age: 25,
+    },
     {
       user: '3458494',
       reason: 25,
@@ -38,16 +40,16 @@ export class UserListComponent implements OnInit {
       joined: new Date(),
       matches: 20,
       age: 23,
-    }];
+    },
+  ];
   representatives: any[] = [];
   statuses: any[] = [];
   loading: boolean = false;
 
   activityValues: number[] = [0, 100];
-  constructor(private router: Router) {}
+  constructor(private router: Router, private toastService: ToastService) {}
 
   ngOnInit(): void {
-
     this.statuses = [
       { label: 'Unqualified', value: 'unqualified' },
       { label: 'Qualified', value: 'qualified' },
@@ -59,7 +61,7 @@ export class UserListComponent implements OnInit {
   }
 
   goToUserProfile(customer: any) {
-    this.router.navigate(['users', customer.user])
+    this.router.navigate(['users', customer.user]);
   }
 
   clear(table: Table) {

@@ -6,6 +6,9 @@ import {TreeModule} from 'primeng/tree';
 import {SidebarModule} from 'primeng/sidebar';
 import {ButtonModule} from 'primeng/button';
 import { SharedModule } from "../../shared/shared.module";
+import { ToastService } from "../../core/services/toast.service";
+import { MatchFacadeService } from "../../core/services/facades/match.facade.service";
+import { HomeFacadeService } from "../../core/services/facades/home.facade.service";
 
 
 @NgModule({
@@ -17,7 +20,7 @@ import { SharedModule } from "../../shared/shared.module";
     ButtonModule,
     SharedModule
   ],
-  providers: []
+  providers: [ToastService, MatchFacadeService, HomeFacadeService]
 })
 export class MainModule {
 }

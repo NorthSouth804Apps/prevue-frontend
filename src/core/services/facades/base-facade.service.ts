@@ -1,6 +1,6 @@
-import statesActions from '../../state/core.actions';
+import { statesActions } from '../../state/core.actions';
 import { Store } from '@ngrx/store';
-import statesSelectors from '../../state/core.selectors';
+import { statesSelectors } from '../../state/core.selectors';
 import { statesStorage } from '../../state';
 import { ToastService } from '../toast.service';
 
@@ -11,7 +11,9 @@ export class BaseFacadeService<DataModel> {
   error$ = this.store
     .select(statesSelectors[this.stateName].error)
     .subscribe((error) => {
-      this.toastService.showError({ summary: 'Fail', detail: error.message, sticky: true })
+      if(error) {
+        this.toastService.showError({ summary: 'Fail', detail: error.message, sticky: true })
+      }
     });
 
   constructor(

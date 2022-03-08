@@ -7,7 +7,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 
 import { SharedModule } from 'src/shared/shared.module';
 import { FormsModule } from "@angular/forms";
-import { AuthFacadeService } from "../../core/services/facades/auth.facade.service";
+import { AuthFacadeService } from "../../core/services/facades/auth-facade.service";
 import { ToastService } from "../../core/services/toast.service";
 import { MessageService } from "primeng/api";
 

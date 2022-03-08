@@ -1,10 +1,14 @@
 import { ActionReducer, INIT, UPDATE } from '@ngrx/store';
 import { AppState, statesStorage } from '..';
+import { environment } from "../../../environments/environment";
 
-// place here the key of the state data you want to persist
+// place here the key of the state data you want to persist, to be storage in the localStorage
 const persistStateKeys: (keyof typeof statesStorage)[] = ['auth'];
 
-/* hydrationMetaReducer, */
+/* hydrationMetaReducer, this is a meta reducer to store the specified keys above in the localStorage for future requests to it
+* @param reducer: this is the reducer what is in ejecution at the moment
+* @return: new state
+*  */
 export const hydrationMetaReducer = (
   reducer: ActionReducer<AppState>
 ): ActionReducer<AppState> => {
@@ -18,14 +22,13 @@ export const hydrationMetaReducer = (
     const nextState = reducer(state, action);
     const persistValues: any = {};
     const storageValue = JSON.parse(
-      localStorage.getItem('storageState') || '{}'
+      localStorage.getItem(environment.localStateKey) || '{}'
     );
-    console.log('storage', storageValue);
 
+    // when init and when update wi will restore the state from the storage state
     if (action.type === INIT || action.type === UPDATE) {
-
-
       if (storageValue) {
+        // here we update just the keys that are specified in persistStateKeys constant
         Object.keys(storageValue).forEach((storageKey: any) => {
           if (persistStateKeys.indexOf(storageKey as any) > -1) {
             persistValues[storageKey] = storageValue[storageKey];
@@ -36,8 +39,10 @@ export const hydrationMetaReducer = (
     }
 
     if (persistKey && action.type.toLocaleLowerCase().includes('success')) {
-      localStorage.setItem('storageState', JSON.stringify({ ...storageValue, [persistKey]: nextState[persistKey] }));
+      // just will set the localStorage when the call is of success type
+      localStorage.setItem(environment.localStateKey, JSON.stringify({ ...storageValue, [persistKey]: nextState[persistKey] }));
     }
+
     return { ...nextState, ...persistValues };
   };
 };

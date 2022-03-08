@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AuthFacadeService } from '../../../../core/services/facades/auth.facade.service';
+import { AuthFacadeService } from '../../../../core/services/facades/auth-facade.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { Store } from '@ngrx/store';
 import AuthModel from '../../../../core/models/auth.model';

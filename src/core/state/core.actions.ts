@@ -1,5 +1,12 @@
-import { getStatesActions } from "./helpers/base.actions";
+import { getStatesActions, AppStateActionsType } from "./helpers/base.actions";
+import { extraReportActions } from "./reports/report.actions";
 
-const statesActions = getStatesActions();
+const statesActionsProvider = getStatesActions();
 
-export default statesActions;
+export const statesActions: AppStateActionsType = {
+  ...statesActionsProvider,
+  report: {
+    ...statesActionsProvider.report,
+    ...extraReportActions,
+  }
+};

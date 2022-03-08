@@ -1,5 +1,12 @@
-import { getStatesSelectors } from "./helpers/base.selectors";
+import { getStatesSelectors, StateSelectorsType } from "./helpers/base.selectors";
+import { reportExtraSelectors } from "./reports/report.selectors";
 
-const statesSelectors = getStatesSelectors();
+const statesSelectorsProvider = getStatesSelectors();
 
-export default statesSelectors;
+export const statesSelectors: StateSelectorsType = {
+  ...statesSelectorsProvider,
+  report: {
+    ...statesSelectorsProvider.report,
+    ...reportExtraSelectors
+  }
+};

@@ -3,6 +3,9 @@ import { TypedAction } from "@ngrx/store/src/models";
 import { statesStorage } from "../core.state";
 import ResponseModel from "../../models/response.model";
 
+// here we are going to put the extra methods whiches have their own actions
+export type ExtraMethodTypes = 'matches';
+
 export enum ActionsStatus {
   SUCCESS = 'Success',
   FAILED = 'Failed',
@@ -10,20 +13,24 @@ export enum ActionsStatus {
   INITIAL = 'Initial',
 }
 
-export type MethodTypes = 'get' | 'post' | 'put' | 'delete';
+export type MethodTypes = 'get' | 'post' | 'put' | 'delete' | ExtraMethodTypes;
 export type statusTypes = 'success' | 'initiated' | 'failed' | 'submitted';
 
 const methods: MethodTypes[] = ['get', 'post', 'put', 'delete'];
 
-const statesActions: {
-  [N in keyof typeof statesStorage]: {
-    [P in MethodTypes]: {
-      [N in statusTypes]: ActionCreator<any, (data: ResponseModel<any>) => any & TypedAction<any>>
-    };
+export type StatesActionsType = {
+  [P in MethodTypes]: {
+    [N in statusTypes]: ActionCreator<any, (data: ResponseModel<any>) => any & TypedAction<any>>
   };
-} = {} as any;
+};
 
-export const getStatesActions = () => {
+export type AppStateActionsType = {
+  [N in keyof typeof statesStorage]: StatesActionsType
+};
+
+const statesActions: AppStateActionsType  = {} as any;
+
+export const getStatesActions = (): AppStateActionsType => {
   if(JSON.stringify(statesActions) !== "{}") {
     return statesActions;
   }

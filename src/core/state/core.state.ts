@@ -1,6 +1,6 @@
 import { MenusState } from "./menus";
 import { AuthState } from "./auth";
-import { MatchState } from "./matches";
+import { ReportState } from "./reports";
 
 // general state here we can put non-crud states
 interface State {
@@ -11,7 +11,7 @@ interface State {
 export var statesStorage = {
   menus:  {} as MenusState,
   auth:  {} as AuthState,
-  match:  {} as MatchState,
+  report:  {} as ReportState,
 };
 
 // state of the application is the sum of all crud state plus the general state

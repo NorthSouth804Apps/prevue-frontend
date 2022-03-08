@@ -5,14 +5,22 @@ import {
 } from '@ngrx/store';
 import { statesStorage } from '../core.state';
 
-const statesSelectors: {
+export type extraSelectors = 'matches';
+
+export type extraSelectorTypes = {
+  [N in extraSelectors]: MemoizedSelector<any, any>;
+}
+
+export type StateSelectorsType =  {
   [N in keyof typeof statesStorage]: {
     get: MemoizedSelector<any, any>;
     error: MemoizedSelector<any, any>;
     loading: MemoizedSelector<any, any>;
     getById: (props: { id: number }) => MemoizedSelector<any, any>;
-  };
-} = {} as any;
+  } & extraSelectorTypes;
+};
+
+const statesSelectors: StateSelectorsType = {} as any;
 
 export const getStatesSelectors = () => {
   if (JSON.stringify(statesSelectors) !== '{}') {

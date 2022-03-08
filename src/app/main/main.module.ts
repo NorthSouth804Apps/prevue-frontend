@@ -7,8 +7,8 @@ import {SidebarModule} from 'primeng/sidebar';
 import {ButtonModule} from 'primeng/button';
 import { SharedModule } from "../../shared/shared.module";
 import { ToastService } from "../../core/services/toast.service";
-import { MatchFacadeService } from "../../core/services/facades/match.facade.service";
-import { HomeFacadeService } from "../../core/services/facades/home.facade.service";
+import { ReportFacadeService } from "../../core/services/facades/report-facade.service";
+import { HomeFacadeService } from "../../core/services/facades/home-facade.service";
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { HomeFacadeService } from "../../core/services/facades/home.facade.servi
     ButtonModule,
     SharedModule
   ],
-  providers: [ToastService, MatchFacadeService, HomeFacadeService]
+  providers: [ToastService, ReportFacadeService, HomeFacadeService]
 })
 export class MainModule {
 }

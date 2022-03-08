@@ -5,7 +5,7 @@ import { DialogTypes, IDialogOptions } from "../../../users/contianers/user-prof
 import { ConfirmationService } from "primeng/api";
 
 @Component({
-  selector: 'pv-report-list',
+  selector: 'pv-reports-list',
   templateUrl: './report-list.component.html',
   styleUrls: ['./report-list.component.scss'],
   animations: [],

@@ -8,7 +8,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 export class MetricContainerComponent {
   @Input() styleClass?: string;
   @Input() label?: string;
-  @Input() value?: string;
+  @Input() value?: number;
+  @Input() loading?: boolean;
   @Input() bgColor: 'rose' | 'blue' | 'gray' | 'white' = 'white';
   @Input() textColor: 'rose' | 'blue' | 'gray' | 'white' | 'blue-2' = 'blue-2';
   @Output() onClick = new EventEmitter();

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { HttpClient } from "@angular/common/http";
-import { MatchStatsModel, ReportModel } from "../models";
+import { ReportModel } from "../models";
 import { environment } from "../../environments/environment";
 
 @Injectable()

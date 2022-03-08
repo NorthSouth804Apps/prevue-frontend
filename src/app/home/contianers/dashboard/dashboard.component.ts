@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Subscription } from "rxjs";
 import { HomeFacadeService } from "../../../../core/services/facades/home-facade.service";
-import { MatchModel } from "../../../../core/models";
+import { MatchModel, MatchStatsModel } from "../../../../core/models";
 
 @Component({
   selector: 'pv-home-dashboard',
@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.homeFacadeService.getMatches();
-    this.homeFacadeService.matchesStats$.subscribe((data: MatchModel[]) => {
+    this.homeFacadeService.matchesStats$.subscribe((data: MatchStatsModel) => {
       console.log(data, 'matches');
     })
   }

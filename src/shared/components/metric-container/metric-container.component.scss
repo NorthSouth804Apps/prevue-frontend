@@ -1,6 +1,8 @@
 @import "src/styles/text-variables";
 
 .metric-container {
+  position: relative;
+  overflow: hidden;
   border-radius: 0.375rem;
   display: flex;
   width: 100%;

@@ -1,18 +1,21 @@
 <div class="dashboard-container">
   <div class="grid-container">
     <pv-metric-container
+      [loading]="homeFacadeService.loading$ | async"
       label="Total Matches"
-      value="5,041"
+      [value]="(homeFacadeService.matchesStats$ | async)?.totalMatches"
       textColor="white"
       bgColor="rose"
     ></pv-metric-container>
     <pv-metric-container
+      [loading]="homeFacadeService.loading$ | async"
       label="Matches This Month"
-      value="400"
+      [value]="(homeFacadeService.matchesStats$ | async)?.monthMatches"
     ></pv-metric-container>
     <pv-metric-container
+      [loading]="homeFacadeService.loading$ | async"
       label="Matches This Week"
-      value="19"
+      [value]="(homeFacadeService.matchesStats$ | async)?.weekMatches"
     ></pv-metric-container>
   </div>
   <div class="grid-container chart-grid-container">

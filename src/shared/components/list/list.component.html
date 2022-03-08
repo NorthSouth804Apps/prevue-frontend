@@ -1,7 +1,15 @@
-  <div class="list-item-container" [class.bigger]="bigger"
-       *ngFor="let item of data; index as i">
-    <section class="list-item {{ pointer ? 'cursor-pointer' : '' }}" [ngClass]="class"
-             (click)="onClickItem($event, item)">
+<div class="position-relative">
+  <pv-loading [visible]="loading"></pv-loading>
+  <div
+    class="list-item-container"
+    [class.bigger]="bigger"
+    *ngFor="let item of data; index as i"
+  >
+    <section
+      class="list-item {{ pointer ? 'cursor-pointer' : '' }}"
+      [ngClass]="class"
+      (click)="onClickItem($event, item)"
+    >
       <ng-container *ngIf="listItem; else commonListItem">
         <ng-container
           *ngTemplateOutlet="listItem; context: { $implicit: item, index: i }"
@@ -9,8 +17,9 @@
       </ng-container>
       <ng-template #commonListItem>
         <div *ngFor="let column of columns">
-          {{item[column]}}
+          {{ item[column] }}
         </div>
       </ng-template>
     </section>
   </div>
+</div>

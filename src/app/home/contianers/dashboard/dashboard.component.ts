@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { BehaviorSubject, Subscription } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import { HomeFacadeService } from "../../../../core/services/facades/home-facade.service";
-import { MatchModel, MatchStatsModel } from "../../../../core/models";
+
 
 @Component({
   selector: 'pv-home-dashboard',
@@ -12,54 +11,15 @@ import { MatchModel, MatchStatsModel } from "../../../../core/models";
 })
 export class DashboardComponent implements OnInit {
   display: boolean = true;
-  dataList = [
-    {
-      name: 'User 1232434',
-      reason: 'Spam',
-    },
-    {
-      name: 'User 1232434',
-      reason: 'Inappropriate Content',
-    },
-    {
-      name: 'User 1232434',
-      reason: 'Spam',
-    },
-    {
-      name: 'User 1232434',
-      reason: 'Spam',
-    },
-    {
-      name: 'User 1232434',
-      reason: 'Spam',
-    },
-    {
-      name: 'User 1232434',
-      reason: 'Spam',
-    },
-    {
-      name: 'User 1232434',
-      reason: 'Spam',
-    },
-    {
-      name: 'User 1232434',
-      reason: 'Spam',
-    },
-    {
-      name: 'User 1232434',
-      reason: 'Spam',
-    },
-  ];
+  recentReports$ = this.homeFacadeService.recentReports$;
   menuId$ = new BehaviorSubject<number>(0);
-  listColumns: any[] = ['name', 'reason'];
+  listColumns: any[] = ['firstName', 'reportType'];
 
   constructor(public homeFacadeService: HomeFacadeService) {}
 
   ngOnInit(): void {
     this.homeFacadeService.getMatches();
-    this.homeFacadeService.matchesStats$.subscribe((data: MatchStatsModel) => {
-      console.log(data, 'matches');
-    })
+    this.homeFacadeService.getReports();
   }
 
   selectCard(item: any) {
@@ -77,3 +37,43 @@ export class DashboardComponent implements OnInit {
     }
   }
 }
+
+
+// [
+//   {
+//     name: 'User 1232434',
+//     reason: 'Spam',
+//   },
+//   {
+//     name: 'User 1232434',
+//     reason: 'Inappropriate Content',
+//   },
+//   {
+//     name: 'User 1232434',
+//     reason: 'Spam',
+//   },
+//   {
+//     name: 'User 1232434',
+//     reason: 'Spam',
+//   },
+//   {
+//     name: 'User 1232434',
+//     reason: 'Spam',
+//   },
+//   {
+//     name: 'User 1232434',
+//     reason: 'Spam',
+//   },
+//   {
+//     name: 'User 1232434',
+//     reason: 'Spam',
+//   },
+//   {
+//     name: 'User 1232434',
+//     reason: 'Spam',
+//   },
+//   {
+//     name: 'User 1232434',
+//     reason: 'Spam',
+//   },
+// ];

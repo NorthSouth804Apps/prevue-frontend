@@ -24,15 +24,20 @@
       <pv-line-chart title="Total Users"></pv-line-chart>
     </div>
     <div class="recent-reports-container bg-white">
+      <pv-loading [visible]="homeFacadeService.loading$ | async"></pv-loading>
       <div class="d-flex align-items-center justify-content-between mb-4 mx-4">
         <span class="header-title">Recent Reports</span>
-        <a routerLink="/reported" class="cursor-pointer text-decoration-underline text-blue-2">View All</a>
+        <a
+          routerLink="/reported"
+          class="cursor-pointer text-decoration-underline text-blue-2"
+          >View All</a
+        >
       </div>
-<!--      <pv-list-->
-<!--        [data]="dataList"-->
-<!--        [columns]="listColumns"-->
-<!--      >-->
-<!--      </pv-list>-->
+      <pv-list
+        [data]="recentReports$ | async"
+        [columns]="listColumns"
+      >
+      </pv-list>
     </div>
   </div>
 </div>

@@ -12,6 +12,7 @@ export class ListComponent<T> {
   @Input() columns: (keyof T)[] = [];
   @Input() bigger = false;
   @Input() pointer?: boolean;
+  @Input() loading?: boolean;
   @ContentChild('listItem') listItem?: TemplateRef<any>;
 
 

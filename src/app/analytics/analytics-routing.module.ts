@@ -12,7 +12,7 @@ const routes: Routes = [
         component: MatchDataComponent,
       },
       {
-        path: 'user-data',
+        path: 'users-data',
         component: UserDataComponent,
       }
     ]

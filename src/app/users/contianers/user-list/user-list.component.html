@@ -17,87 +17,87 @@
       [(ngModel)]="selectedUserType"
       optionLabel="label"
     ></p-dropdown>
-
   </div>
 
   <div class="table-container">
-    <p-table #dt1 [value]="customers"
-             dataKey="id"
-             [rows]="10"
-             [showCurrentPageReport]="true"
-             [rowsPerPageOptions]="[1,25,50]"
-             [loading]="loading"
-             [showFirstLastIcon]="false">
-
+    <p-table
+      #dt1
+      [value]="users$ | async"
+      dataKey="id"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[1, 25, 50]"
+      [loading]="loading$ | async"
+      [showFirstLastIcon]="false"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th>
-            <pv-column-header-filter headerLabel="User"
-                                 field="user">
+            <pv-column-header-filter headerLabel="User" field="user">
             </pv-column-header-filter>
           </th>
           <th>
-            <pv-column-header-filter headerLabel="Age"
-                                     field="age">
+            <pv-column-header-filter headerLabel="Age" field="age">
             </pv-column-header-filter>
           </th>
           <th>
-            <pv-column-header-filter headerLabel="Gender"
-                                     field="gender">
+            <pv-column-header-filter headerLabel="Gender" field="gender">
             </pv-column-header-filter>
           </th>
           <th>
-            <pv-column-header-filter headerLabel="Show Me"
-                                     field="showMe">
+            <pv-column-header-filter headerLabel="Show Me" field="showMe">
             </pv-column-header-filter>
           </th>
           <th>
-            <pv-column-header-filter headerLabel="Age Range"
-                                     field="ageRange">
+            <pv-column-header-filter headerLabel="Age Range" field="ageRange">
             </pv-column-header-filter>
           </th>
           <th>
-            <pv-column-header-filter headerLabel="Location"
-                                     field="location">
+            <pv-column-header-filter headerLabel="Location" field="location">
             </pv-column-header-filter>
           </th>
           <th>
-            <pv-column-header-filter headerLabel="Joined"
-                                     field="joined">
+            <pv-column-header-filter headerLabel="Joined" field="joined">
             </pv-column-header-filter>
           </th>
           <th>
-            <pv-column-header-filter headerLabel="# Matches"
-                                     field="matches">
+            <pv-column-header-filter
+              headerLabel="# Matches"
+              field="userMatches"
+            >
             </pv-column-header-filter>
           </th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-customer>
+      <ng-template pTemplate="body" let-user>
         <tr>
           <td>
-           <span class="text-decoration-underline text-blue-2 cursor-pointer" (click)="goToUserProfile(customer)">User {{customer.user}}</span>
+            <span
+              class="text-decoration-underline text-blue-2 cursor-pointer"
+              (click)="goToUserProfile(user)"
+              >User {{ user.userId }}</span
+            >
           </td>
           <td>
-            <span class="image-text">{{customer.age}}</span>
+            <span class="image-text">{{ user.age }}</span>
           </td>
           <td>
-            <span class="image-text">{{customer.gender}}</span>
+            <span class="image-text">{{ user.gender }}</span>
           </td>
           <td>
-            {{customer.showMe}}
+            {{ user.showMe }}
           </td>
           <td>
-            {{customer.ageRange}}
+            {{ user.ageRangeMin }} - {{  user.ageRangeMax }}
           </td>
           <td>
-            {{customer.location}}
+            {{ user.location }}
           </td>
           <td>
-            {{customer.joined | date: 'MM/dd/yyyy'}}
+            {{ user.timeCreated | date: "MM/dd/yyyy" }}
           </td>
           <td class="text-center">
-            {{customer.matches}}
+            {{ user.userMatches }}
           </td>
         </tr>
       </ng-template>
@@ -107,6 +107,5 @@
         </tr>
       </ng-template>
     </p-table>
-
   </div>
 </div>

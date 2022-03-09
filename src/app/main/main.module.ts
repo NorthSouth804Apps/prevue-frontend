@@ -7,7 +7,7 @@ import {SidebarModule} from 'primeng/sidebar';
 import {ButtonModule} from 'primeng/button';
 import { SharedModule } from "../../shared/shared.module";
 import { ToastService } from "../../core/services/toast.service";
-import { ReportFacadeService } from "../../core/services/facades/report-facade.service";
+import { ReportsFacadeService } from "../../core/services/facades/reports-facade.service";
 import { HomeFacadeService } from "../../core/services/facades/home-facade.service";
 
 
@@ -20,7 +20,7 @@ import { HomeFacadeService } from "../../core/services/facades/home-facade.servi
     ButtonModule,
     SharedModule
   ],
-  providers: [ToastService, ReportFacadeService, HomeFacadeService]
+  providers: [ToastService, ReportsFacadeService, HomeFacadeService]
 })
 export class MainModule {
 }

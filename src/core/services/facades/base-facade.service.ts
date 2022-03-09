@@ -3,10 +3,9 @@ import { Store } from '@ngrx/store';
 import { statesSelectors } from '../../state/core.selectors';
 import { statesStorage } from '../../state';
 import { ToastService } from '../toast.service';
+import { Observable } from "rxjs";
 
 export class BaseFacadeService<DataModel> {
-
-
   data$ = this.store.select(statesSelectors[this.stateName].get);
   loading$ = this.store.select(statesSelectors[this.stateName].loading);
   error$ = this.store
@@ -29,6 +28,10 @@ export class BaseFacadeService<DataModel> {
         data,
       })
     );
+  }
+
+  getById(id: number): Observable<DataModel> {
+    return this.store.select(statesSelectors[this.stateName].getById({ id }))
   }
 
   get(data?: DataModel) {

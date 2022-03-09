@@ -16,8 +16,8 @@ import { ToastService } from '../core/services/toast.service';
 import { AuthEffects } from '../core/state/auth/auth-state-management';
 import { MessageService } from 'primeng/api';
 import { ReportEffects } from '../core/state/reports/reports-state-management';
-import { ReportService } from '../core/services/report.service';
 import { AuthInterceptor } from '../utils/interceptors/auth.interceptor';
+import { UserEffects } from "../core/state/users/users-state-management";
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,14 +34,13 @@ import { AuthInterceptor } from '../utils/interceptors/auth.interceptor';
       logOnly: environment.production,
       autoPause: true,
     }),
-    EffectsModule.forRoot([MenusEffects, AuthEffects, ReportEffects]),
+    EffectsModule.forRoot([MenusEffects, AuthEffects, ReportEffects, UserEffects]),
   ],
   providers: [
     BaseService,
     AuthService,
     ToastService,
     MessageService,
-    ReportService,
     // auth interceptor to add the token to each request
     {
       provide: HTTP_INTERCEPTORS,

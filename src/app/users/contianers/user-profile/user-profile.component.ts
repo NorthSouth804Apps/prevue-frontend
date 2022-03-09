@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from "@angular/router";
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { UsersFacadeService } from "../../../../core/services/facades/users-facade.service";
+import { catchError, map, switchMap } from "rxjs/operators";
+import { throwError } from "rxjs";
 
 export type DialogTypes = 'warning' | 'delete' | 'suspend' | 'block' | 'ignore';
 export type IDialogOptions = {
@@ -11,7 +14,7 @@ export type IDialogOptions = {
   };
 };
 @Component({
-  selector: 'pv-user-list',
+  selector: 'pv-users-list',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
   animations: [],
@@ -49,12 +52,28 @@ export class UserProfileComponent implements OnInit {
   };
   openedDialog?: DialogTypes;
 
+  userData$ = this.activatedRoute.params.pipe(switchMap((params: any) => {
+    return this.usersFacade.getById(params.id)
+  }), catchError(error => {
+    return throwError(error);
+  }));
+
   constructor(
     private router: Router,
-    private confirmationService: ConfirmationService
+    private activatedRoute: ActivatedRoute,
+    private confirmationService: ConfirmationService,
+    private usersFacade: UsersFacadeService,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // check is the user list doesn't exist then try to load it
+    this.userData$.subscribe(user => {
+      console.log('user', user);
+      if(!user) {
+        this.usersFacade.get();
+      }
+    });
+  }
 
   clear(table: Table) {
     table.clear();

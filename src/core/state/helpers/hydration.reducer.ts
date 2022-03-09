@@ -3,7 +3,7 @@ import { AppState, statesStorage } from '..';
 import { environment } from "../../../environments/environment";
 
 // place here the key of the state data you want to persist, to be storage in the localStorage
-const persistStateKeys: (keyof typeof statesStorage)[] = ['auth'];
+const persistStateKeys: (keyof typeof statesStorage)[] = ['auth', 'user'];
 
 /* hydrationMetaReducer, this is a meta reducer to store the specified keys above in the localStorage for future requests to it
 * @param reducer: this is the reducer what is in ejecution at the moment

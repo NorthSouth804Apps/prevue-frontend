@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
           label: 'match data',
         },
         {
-          label: 'user data',
+          label: 'users data',
         },
       ],
     },

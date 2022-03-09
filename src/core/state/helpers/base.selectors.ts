@@ -44,11 +44,12 @@ export const getStatesSelectors = () => {
       statesSelectors[entity].getById = (props) =>
         createSelector(
           statesSelectors[entity].get,
-          (data: any[]) =>
-            data.find &&
+          (data: any[]) => {
+            return data && Array.isArray(data) &&
             data.find((item) => {
-              return item.id.toString() === props.id.toString();
-            })
+              return item.userId.toString() === props.id.toString();
+            });
+          }
         );
 
       statesSelectors[entity].error = createSelector(

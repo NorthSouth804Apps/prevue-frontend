@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'pv-user-data',
+  selector: 'pv-users-data',
   templateUrl: './user-data.component.html',
   styleUrls: ['./user-data.component.scss'],
   animations: [],

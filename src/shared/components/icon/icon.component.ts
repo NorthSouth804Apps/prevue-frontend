@@ -25,8 +25,8 @@ export class IconComponent implements OnInit {
   @Input() wrapperClass = '';
   customTypes: any = {
     assign: 'assets/icons/assign.svg#Assign',
-    'user-placeholder': 'assets/icons/user-placeholder.svg#user-placeholder',
-    'user-placeholder-online': 'assets/icons/user-placeholder-online.svg#User-Placeholder-Online',
+    'user-placeholder': 'assets/icons/users-placeholder.svg#users-placeholder',
+    'user-placeholder-online': 'assets/icons/users-placeholder-online.svg#User-Placeholder-Online',
   };
 
   get expanded(): boolean {

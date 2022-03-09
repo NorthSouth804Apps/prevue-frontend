@@ -2,9 +2,11 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
 import { ToastService } from '../../../../core/services/toast.service';
+import { UsersFacadeService } from "../../../../core/services/facades/users-facade.service";
+import { UserModel } from "../../../../core/models";
 
 @Component({
-  selector: 'pv-user-list',
+  selector: 'pv-users-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
   animations: [],
@@ -44,12 +46,14 @@ export class UserListComponent implements OnInit {
   ];
   representatives: any[] = [];
   statuses: any[] = [];
-  loading: boolean = false;
+  loading$ = this.usersFacade.loading$;
+  users$ = this.usersFacade.data$;
 
   activityValues: number[] = [0, 100];
-  constructor(private router: Router, private toastService: ToastService) {}
+  constructor(private router: Router, private toastService: ToastService, private usersFacade: UsersFacadeService) {}
 
   ngOnInit(): void {
+    this.usersFacade.get();
     this.statuses = [
       { label: 'Unqualified', value: 'unqualified' },
       { label: 'Qualified', value: 'qualified' },
@@ -60,8 +64,8 @@ export class UserListComponent implements OnInit {
     ];
   }
 
-  goToUserProfile(customer: any) {
-    this.router.navigate(['users', customer.user]);
+  goToUserProfile(customer: UserModel) {
+    this.router.navigate(['users', customer.userId]);
   }
 
   clear(table: Table) {

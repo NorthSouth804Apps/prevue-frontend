@@ -19,17 +19,17 @@
     <div class="grid-column-6 grid-container-150">
       <div class="grid-column-2">
         <div class="d-flex mb-2">
-          <h4 class="header-title me-3">User 1234</h4>
-          <i class="text-rose">Account Blocked</i>
+          <h4 class="header-title me-3">User {{ (userData$ | async)?.userId }}</h4>
+          <i *ngIf="!!(userData$ | async)?.isBlocked" class="text-rose">Account Blocked</i>
         </div>
         <div class="grid-container-150 common-container">
           <div>
             <div class="header-label">Profile Name</div>
-            <span>{{ user.name }}</span>
+            <span>{{ (userData$ | async)?.firstName }} {{ (userData$ | async)?.lastName }}</span>
           </div>
           <div>
             <div class="header-label">Joined</div>
-            <span>{{ user.joined | date: "MM/DD/YYYY" }}</span>
+            <span>{{ (userData$ | async)?.timeCreated | date: "MM/dd/yyyy" }}</span>
           </div>
           <div>
             <div class="header-label">Location Brook</div>
@@ -37,23 +37,23 @@
           </div>
           <div>
             <div class="header-label">Looking For</div>
-            <span>{{ user.lookingFor }}</span>
+            <span>{{ (userData$ | async)?.lookingFor }}</span>
           </div>
           <div>
             <div class="header-label">Gender</div>
-            <span>{{ user.gender }}</span>
+            <span>{{ (userData$ | async)?.gender }}</span>
           </div>
           <div>
             <div class="header-label">Show Me</div>
-            <span>{{ user.showMe }}</span>
+            <span>{{ (userData$ | async)?.showMe }}</span>
           </div>
           <div>
             <div class="header-label">Age</div>
-            <span>{{ user.age }}</span>
+            <span>{{ (userData$ | async)?.age }}</span>
           </div>
           <div>
             <div class="header-label">Age Range</div>
-            <span>{{ user.ageRange }}</span>
+            <span>{{ (userData$ | async)?.ageRangeMin }} - {{(userData$ | async)?.ageRangeMax }}</span>
           </div>
         </div>
       </div>
@@ -104,9 +104,7 @@
           </div>
           <h4 class="header-label">Bio</h4>
           <p>
-            An avid hiker and outdoor enthusiast. Currently working to get a
-            Masters in clinical psychology. You can usually find me carrying
-            around my cat, Miller, in his travel backpack.
+            {{ (userData$ | async)?.bio }}
           </p>
         </div>
       </div>

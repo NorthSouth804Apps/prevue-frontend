@@ -11,7 +11,7 @@ export type IDialogOptions = {
   };
 };
 @Component({
-  selector: 'pv-user-list',
+  selector: 'pv-users-list',
   templateUrl: './report-detail.component.html',
   styleUrls: ['./report-detail.component.scss'],
   animations: [],

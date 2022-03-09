@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReportFacadeService } from './report-facade.service';
+import { ReportsFacadeService } from './reports-facade.service';
 import { map } from 'rxjs/operators';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class HomeFacadeService {
     map((reports) => (reports ? reports.slice(0, 10) : reports))
   );
 
-  constructor(private reportFacadeService: ReportFacadeService) {}
+  constructor(private reportFacadeService: ReportsFacadeService) {}
 
   getMatchesStats() {
     this.reportFacadeService.getMatchesStats();

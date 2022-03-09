@@ -91,7 +91,7 @@ export const reportReducer = baseReducer<ReportState>(
       };
     }),
     on(statesActions.report.usersStats.success, (state, { data }) => {
-      console.log('state user', data)
+      console.log('state users', data)
       return {
         ...state,
         usersStats: data,

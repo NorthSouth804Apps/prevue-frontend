@@ -4,7 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { ReportModel } from "../models";
 import { environment } from "../../environments/environment";
 
-@Injectable()
+@Injectable({ providedIn: "root" })
 export class ReportService extends BaseService<ReportModel> {
   constructor(private http: HttpClient) {
     super(http);

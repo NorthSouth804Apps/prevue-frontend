@@ -1,23 +1,34 @@
 import { Injectable } from '@angular/core';
 import { ReportFacadeService } from './report-facade.service';
-import { map, switchMap } from "rxjs/operators";
-import { MatchStatsModel, ReportModel } from "../../models";
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class HomeFacadeService {
-  constructor(private reportFacadeService: ReportFacadeService) {}
   matchesStats$ = this.reportFacadeService.matchesStats$.pipe(
-    map((item) => (item ? item[0] : ({} as MatchStatsModel)))
+    map((item) => item[0])
   );
+
+  userStats$ = this.reportFacadeService.usersStats$.pipe(
+    map((item) => item.summary)
+  );
+
   loading$ = this.reportFacadeService.loading$;
   errorMatches$ = this.reportFacadeService.error$;
-  recentReports$ = this.reportFacadeService.data$;
+  recentReports$ = this.reportFacadeService.data$.pipe(
+    map((reports) => (reports ? reports.slice(0, 10) : reports))
+  );
 
-  getMatches() {
+  constructor(private reportFacadeService: ReportFacadeService) {}
+
+  getMatchesStats() {
     this.reportFacadeService.getMatchesStats();
   }
 
   getReports() {
     this.reportFacadeService.get();
+  }
+
+  getUsersStats(options?: any) {
+    this.reportFacadeService.getUserStats(options);
   }
 }

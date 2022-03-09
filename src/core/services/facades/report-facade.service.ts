@@ -1,23 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BaseFacadeService } from "./base-facade.service";
-import { ToastService } from "../toast.service";
-import { MatchStatsModel, ReportModel } from "src/core/models";
-import { statesSelectors } from "../../state/core.selectors";
-import { statesActions } from "../../state/core.actions";
+import { BaseFacadeService } from './base-facade.service';
+import { ToastService } from '../toast.service';
+import { MatchStatsModel, ReportModel, UsersStatsModel } from "src/core/models";
+import { statesSelectors } from '../../state/core.selectors';
+import { statesActions } from '../../state/core.actions';
 
 @Injectable()
-export class ReportFacadeService extends BaseFacadeService<ReportModel>{
+export class ReportFacadeService extends BaseFacadeService<ReportModel> {
+  matchesStats$ = this.storeProvider.select<MatchStatsModel[]>(
+    statesSelectors.report.matchesStats
+  );
+  usersStats$ = this.storeProvider.select<UsersStatsModel>(
+    statesSelectors.report.usersStats
+  );
 
-  matchesStats$ = this.storeProvider.select<MatchStatsModel[]>(statesSelectors.report.matches);
-
-  constructor(private storeProvider: Store, private toastServiceProvider: ToastService) {
+  constructor(
+    private storeProvider: Store,
+    private toastServiceProvider: ToastService
+  ) {
     super('report', storeProvider, toastServiceProvider);
   }
 
-  getMatchesStats(data?: any)  {
+  getMatchesStats(data?: any) {
     this.storeProvider.dispatch(
-      statesActions.report.matches.submitted({
+      statesActions.report.matchesStats.submitted({
+        data,
+      })
+    );
+  }
+
+  getUserStats(data?: any) {
+    this.storeProvider.dispatch(
+      statesActions.report.usersStats.submitted({
         data,
       })
     );

@@ -10,7 +10,7 @@ export class ReportModel {
 }
 
 export class MatchStatsModel {
-  totalMatches = 5;
+  totalMatches = 0;
   weekMatches = 0;
   monthMatches = 0;
 }
@@ -42,7 +42,7 @@ export interface IStats {
   total: number;
 }
 
-export class UserStatsModel {
+export class UsersStatsModel {
   summary: {
     allUsers: IStats[];
     activeUsers: IStats[];
@@ -52,4 +52,4 @@ export class UserStatsModel {
 export type ReportStateModel =
   | ReportModel
   | MatchStatsModel
-  | MessageHistoryModel | UserStatsModel;
+  | MessageHistoryModel | UsersStatsModel;

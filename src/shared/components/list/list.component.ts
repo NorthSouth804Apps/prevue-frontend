@@ -8,7 +8,7 @@ import { Component, OnInit, Input, Output, ContentChild, EventEmitter, TemplateR
 export class ListComponent<T> {
   @Output() click: EventEmitter<T> = new EventEmitter<T>();
   @Input() class = '';
-  @Input() data: T[] = [];
+  @Input() data?: T[] | null = [];
   @Input() columns: (keyof T)[] = [];
   @Input() bigger = false;
   @Input() pointer?: boolean;

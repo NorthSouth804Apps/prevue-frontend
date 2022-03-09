@@ -1,4 +1,5 @@
 <div class="line-chart-cmp-container">
+  <pv-loading [visible]="loading"></pv-loading>
   <span class="header-title chart-title">{{title}}</span>
   <p-chart type="line" [data]="basicData" [options]="basicOptions" [plugins]="[plugin]"></p-chart>
 </div>

@@ -1,30 +1,38 @@
 <div class="dashboard-container">
   <div class="grid-container">
     <pv-metric-container
-      [loading]="homeFacadeService.loading$ | async"
+      [loading]="loading$ | async"
       label="Total Matches"
-      [value]="(homeFacadeService.matchesStats$ | async)?.totalMatches"
+      [value]="(matchesStats$ | async)?.totalMatches"
       textColor="white"
       bgColor="rose"
     ></pv-metric-container>
     <pv-metric-container
-      [loading]="homeFacadeService.loading$ | async"
+      [loading]="loading$ | async"
       label="Matches This Month"
-      [value]="(homeFacadeService.matchesStats$ | async)?.monthMatches"
+      [value]="(matchesStats$ | async)?.monthMatches"
     ></pv-metric-container>
     <pv-metric-container
-      [loading]="homeFacadeService.loading$ | async"
+      [loading]="loading$ | async"
       label="Matches This Week"
-      [value]="(homeFacadeService.matchesStats$ | async)?.weekMatches"
+      [value]="(matchesStats$ | async)?.weekMatches"
     ></pv-metric-container>
   </div>
   <div class="grid-container chart-grid-container">
     <div class="grid-container-column-3">
-      <pv-line-chart title="Active Users"></pv-line-chart>
-      <pv-line-chart title="Total Users"></pv-line-chart>
+      <pv-line-chart
+        [data]="activeUserStats | async"
+        [loading]="loading$ | async"
+        title="Active Users"
+      ></pv-line-chart>
+      <pv-line-chart
+        [data]="allUserStats | async"
+        [loading]="loading$ | async"
+        title="Total Users"
+      ></pv-line-chart>
     </div>
     <div class="recent-reports-container bg-white">
-      <pv-loading [visible]="homeFacadeService.loading$ | async"></pv-loading>
+      <pv-loading [visible]="loading$ | async"></pv-loading>
       <div class="d-flex align-items-center justify-content-between mb-4 mx-4">
         <span class="header-title">Recent Reports</span>
         <a
@@ -33,10 +41,7 @@
           >View All</a
         >
       </div>
-      <pv-list
-        [data]="recentReports$ | async"
-        [columns]="listColumns"
-      >
+      <pv-list [data]="recentReports$ | async" [columns]="listColumns">
       </pv-list>
     </div>
   </div>

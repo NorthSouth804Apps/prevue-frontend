@@ -1,6 +1,6 @@
 import { MenusState } from "./menus";
-import { AuthState } from "./auth";
-import { ReportState } from "./reports";
+import { AuthState } from "./auth/auth-state-management";
+import { ReportState } from "./reports/reports-state-management";
 
 // general state here we can put non-crud states
 interface State {

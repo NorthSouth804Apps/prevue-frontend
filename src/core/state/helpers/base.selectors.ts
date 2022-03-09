@@ -5,7 +5,7 @@ import {
 } from '@ngrx/store';
 import { statesStorage } from '../core.state';
 
-export type extraSelectors = 'matches';
+export type extraSelectors = 'matchesStats' | 'usersStats';
 
 export type extraSelectorTypes = {
   [N in extraSelectors]: MemoizedSelector<any, any>;
@@ -35,7 +35,10 @@ export const getStatesSelectors = () => {
       statesSelectors[entity] = {} as any;
       statesSelectors[entity].get = createSelector(
         featureSelector,
-        (state: typeof entityModel) => state.data
+        (state: typeof entityModel) => {
+          console.log('data get', state)
+          return state.data;
+        }
       );
 
       statesSelectors[entity].getById = (props) =>

@@ -13,9 +13,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BaseService } from '../core/services/base.service';
 import { AuthService } from '../core/services/auth.service';
 import { ToastService } from '../core/services/toast.service';
-import { AuthEffects } from '../core/state/auth';
+import { AuthEffects } from '../core/state/auth/auth-state-management';
 import { MessageService } from 'primeng/api';
-import { ReportEffects } from '../core/state/reports';
+import { ReportEffects } from '../core/state/reports/reports-state-management';
 import { ReportService } from '../core/services/report.service';
 import { AuthInterceptor } from '../utils/interceptors/auth.interceptor';
 

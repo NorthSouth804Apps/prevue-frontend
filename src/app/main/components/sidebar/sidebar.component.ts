@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from "primeng/api";
 import { Router } from "@angular/router";
+import { Store } from "@ngrx/store";
+import { statesActions } from "../../../../core/state/core.actions";
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'ts-sidebar',
@@ -37,7 +40,16 @@ export class SidebarComponent implements OnInit {
     }
   ]
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private store: Store) {
+  }
+
+
+  logOut(){
+    const localState = JSON.parse(localStorage.getItem(environment.localStateKey) || '{}');
+    localState.auth = undefined;
+    this.store.dispatch(statesActions.auth.post.success({ data: null }))
+    localStorage.setItem(environment.localStateKey, JSON.stringify(localState));
+    this.router.navigate(['login']);
   }
 
   onSelectSidebarOptions(option: { node: TreeNode }) {
@@ -47,7 +59,7 @@ export class SidebarComponent implements OnInit {
     const label = option.node.label ? option.node.label.replace(/[ ]/gi, '-') : '';
     console.log(label, 'label');
     if(label === 'log-out') {
-      this.router.navigate(['login']);
+     this.logOut();
     } else if(parent) {
       this.router.navigate([`${parent.label}/${label}`]);
     } else {

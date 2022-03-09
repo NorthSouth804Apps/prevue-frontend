@@ -11,9 +11,16 @@ export class ReportService extends BaseService<ReportModel> {
     this.entity = 'report';
   }
 
-  getMatchesReport(options?: any) {
+  getMatchesStats(options?: any) {
     return this.http.get<any>(
       `${environment.api}${this.entity}/matchstats`,
+      options
+    );
+  }
+
+  getUserStats(options?: any) {
+    return this.http.get<any>(
+      `${environment.api}${this.entity}/userStats`,
       options
     );
   }

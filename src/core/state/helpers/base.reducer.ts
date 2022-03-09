@@ -22,6 +22,7 @@ function baseReducer<T extends BaseState<any>>(
           statesActions[stateName].put.success,
         ],
         (state, { data }) => {
+          console.log('get data reducer', data);
           return {
             ...state,
             data,

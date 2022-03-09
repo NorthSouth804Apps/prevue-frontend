@@ -1,15 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { IStats } from '../../../../core/models';
 
 @Component({
   selector: 'pv-line-chart',
   templateUrl: './line-chart.component.html',
-  styleUrls: ['./line-chart.component.scss']
+  styleUrls: ['./line-chart.component.scss'],
 })
-export class LineChartComponent implements OnInit {
+export class LineChartComponent implements OnInit, OnChanges {
   @Input() title?: string;
+  @Input() loading?: boolean;
+  @Input() data?: IStats[] | null = [];
 
-  constructor() {
-  }
+  constructor() {}
 
   charBarColor = '#FF53A5';
   basicData: any;
@@ -26,20 +34,48 @@ export class LineChartComponent implements OnInit {
       ctx.fillStyle = '#FFF';
       ctx.fillRect(0, 0, chart.width, chart.height);
       ctx.restore();
-    }
+    },
   };
+  moths = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'November',
+    'December',
+  ];
 
+  ngOnChanges(changes: SimpleChanges) {
+    this.loadStats();
+  }
+
+  loadStats() {
+    if (this.data && this.data.length) {
+      const minorMonth =
+        this.data.map((item) => item.month).reduce((a, b) => (a < b ? a : b)) -
+        1;
+      const mayorMonth = this.data
+        .map((item) => item.month)
+        .reduce((a, b) => (a > b ? a : b));
+      const totals = this.data.map((stat) => stat.total);
+      this.basicData = {
+        labels: this.moths.slice(minorMonth, mayorMonth),
+        datasets: [
+          {
+            data: totals,
+            borderColor: this.charBarColor,
+          },
+        ],
+      };
+    }
+  }
   ngOnInit(): void {
-    this.basicData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          data: [40, 50, 60, 81, 90, 100],
-          borderColor: this.charBarColor,
-        },
-      ]
-    };
-
+    this.loadStats();
     this.basicOptions = {
       plugins: {
         title: {
@@ -51,7 +87,7 @@ export class LineChartComponent implements OnInit {
       },
       elements: {
         dataLabels: {
-          color: 'red'
+          color: 'red',
         },
         point: {
           backgroundColor: 'transparent',
@@ -64,21 +100,20 @@ export class LineChartComponent implements OnInit {
         },
         tick: {
           color: 'red',
-        }
+        },
       },
       scales: {
         x: {
           grid: {
-            color: '#fff'
-          }
+            color: '#fff',
+          },
         },
         y: {
           grid: {
-            color: '#fff'
-          }
+            color: '#fff',
+          },
         },
       },
     };
   }
-
 }

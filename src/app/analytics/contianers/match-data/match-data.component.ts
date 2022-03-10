@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ReportsFacadeService } from "../../../../core/services/facades/reports-facade.service";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: 'pv-match-data',
@@ -8,7 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MatchDataComponent implements OnInit {
   display: boolean = true;
-  constructor() {}
+  loading$ = this.reportFacade.loading$;
+  matchesStatsSummary$ = this.reportFacade.matchesStats$.pipe(
+    map((item) => item.summary)
+  );
 
-  ngOnInit(): void {}
+  matchesStatsAvg$ = this.reportFacade.matchesStats$.pipe(
+    map((item) => item.avg)
+  );
+
+  constructor(private reportFacade: ReportsFacadeService) {}
+
+  ngOnInit(): void {
+    this.reportFacade.getMatchesStats();
+  }
 }

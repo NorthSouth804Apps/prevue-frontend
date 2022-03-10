@@ -58,11 +58,13 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   openedDialog?: DialogTypes;
 
   status = StatusValues;
-  userData$ = this.activatedRoute.params.pipe(switchMap((params: any) => {
-    return this.usersFacade.getById(params.id)
-  }), catchError(error => {
-    return throwError(error);
-  }));
+  // userData$ = this.activatedRoute.params.pipe(switchMap((params: any) => {
+  //   return this.usersFacade.getById(params.id)
+  // }), catchError(error => {
+  //   return throwError(error);
+  // }));
+
+  userData$ = this.usersFacade.userDetails$;
   userMedias$ = this.usersFacade.userMedias$;
   usersLoaded?: boolean;
   userSubscription?: Subscription;
@@ -84,12 +86,13 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     // check is the user list doesn't exist then try to load it
     this.userSubscription = this.userData$.subscribe(user => {
+      console.log(user, 'klk');
       if(!user) {
         history.back()
       }
     });
     if(this.activatedRoute.snapshot.params['id']) {
-      this.usersFacade.getUserMedias(this.activatedRoute.snapshot.params['id']);
+      this.usersFacade.getUserDetails(this.activatedRoute.snapshot.params['id']);
     }
 
     this.userMedias$.subscribe(medias => console.log('user medias', medias));

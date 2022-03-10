@@ -136,47 +136,47 @@
       <div class="common-container">
         <div class="mb-4">
           <div class="header-label">Likes Given</div>
-          <span>25</span>
+          <span>{{ (userData$ | async)?.likesGiven}}</span>
         </div>
         <div class="mb-4">
           <div class="header-label">Likes Received</div>
-          <span>21</span>
+          <span>{{ (userData$ | async)?.likesReceived }}</span>
         </div>
         <div class="mb-4">
           <div class="header-label">Nexts Given</div>
-          <span>8</span>
+          <span>{{ (userData$ | async)?.nextsGiven }}</span>
         </div>
         <div class="mb-4">
           <div class="header-label">Nexts Received</div>
-          <span>24</span>
+          <span>{{ (userData$ | async)?.nextsReceived }}</span>
         </div>
       </div>
       <div class="common-container">
         <div class="mb-4">
           <div class="header-label">Total Matches</div>
-          <span>19</span>
+          <span>{{ (userData$ | async)?.totalMatches }}</span>
         </div>
         <div class="mb-4">
           <div class="header-label">Matches This Month</div>
-          <span>2</span>
+          <span>{{ (userData$ | async)?.currentMonthMatches }}</span>
         </div>
         <div class="mb-4">
           <div class="header-label">Total Reports</div>
-          <span>1</span>
+          <span>{{ (userData$ | async)?.totalReports }}</span>
         </div>
         <div class="mb-4">
           <div class="header-label">Total Offenses</div>
-          <span>1</span>
+          <span>{{ (userData$ | async)?.totalOffenses }}</span>
         </div>
       </div>
       <div class="common-container">
         <div class="mb-4">
           <div class="header-label">Avg. Message Per Month</div>
-          <span>6</span>
+          <span>{{ (userData$ | async)?.avgMessagesPerMatch }}</span>
         </div>
         <div class="mb-4">
           <div class="header-label">Times Profile PreVue Watches</div>
-          <span>6</span>
+          <span>{{ (userData$ | async)?.totalWatched }}</span>
         </div>
       </div>
     </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ReportsFacadeService } from "../../../../core/services/facades/reports-facade.service";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: 'pv-users-data',
@@ -8,7 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserDataComponent implements OnInit {
   display: boolean = true;
-  constructor() {}
+  userStatsSummary$ = this.reportFacade.usersStats$.pipe(map(stats => stats.summary));
+  userStatsAvg$ = this.reportFacade.usersStats$.pipe(map(stats => stats.avg));
+  loading$ = this.reportFacade.loading$;
 
-  ngOnInit(): void {}
+  constructor(private reportFacade: ReportsFacadeService) {}
+
+  ngOnInit(): void {
+    this.reportFacade.getUserStats();
+  }
 }

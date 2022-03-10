@@ -13,14 +13,14 @@ export class ReportService extends BaseService<ReportModel> {
 
   getMatchesStats(options?: any) {
     return this.http.get<any>(
-      `${environment.api}${this.entity}/matchstats`,
+      `${environment.api}${this.entity}/matchstats?showDetails=1`,
       options
     );
   }
 
   getUserStats(options?: any) {
     return this.http.get<any>(
-      `${environment.api}${this.entity}/userStats`,
+      `${environment.api}${this.entity}/userStats?showDetails=1`,
       options
     );
   }

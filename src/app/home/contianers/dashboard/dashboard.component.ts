@@ -13,7 +13,9 @@ import { map } from 'rxjs/operators';
 export class DashboardComponent implements OnInit {
   display: boolean = true;
   recentReports$ = this.homeFacadeService.recentReports$;
-  matchesStats$ = this.homeFacadeService.matchesStats$;
+  matchesStatsSummary$ = this.homeFacadeService.matchesStats$.pipe(
+    map((item) => item.summary)
+  );
   listColumns: any[] = ['firstName', 'reportType'];
   loading$ = this.homeFacadeService.loading$;
   get allUserStats(): Observable<IStats[]> {
@@ -35,6 +37,6 @@ export class DashboardComponent implements OnInit {
     this.homeFacadeService.getUsersStats();
 
     // testing
-    this.matchesStats$.subscribe((item) => console.log('matches stats', item));
+    this.matchesStatsSummary$.subscribe((item) => console.log('matches stats', item));
   }
 }

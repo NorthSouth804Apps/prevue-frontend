@@ -4,9 +4,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class HomeFacadeService {
-  matchesStats$ = this.reportFacadeService.matchesStats$.pipe(
-    map((item) => item.summary)
-  );
+  matchesStats$ = this.reportFacadeService.matchesStats$;
 
   userStats$ = this.reportFacadeService.usersStats$.pipe(
     map((item) => item.summary)

@@ -3,19 +3,19 @@
     <pv-metric-container
       [loading]="loading$ | async"
       label="Total Matches"
-      [value]="(matchesStats$ | async)?.totalMatches"
+      [value]="(matchesStatsSummary$ | async)?.totalMatches"
       textColor="white"
       bgColor="rose"
     ></pv-metric-container>
     <pv-metric-container
       [loading]="loading$ | async"
       label="Matches This Month"
-      [value]="(matchesStats$ | async)?.monthMatches"
+      [value]="(matchesStatsSummary$ | async)?.monthMatches"
     ></pv-metric-container>
     <pv-metric-container
       [loading]="loading$ | async"
       label="Matches This Week"
-      [value]="(matchesStats$ | async)?.weekMatches"
+      [value]="(matchesStatsSummary$ | async)?.weekMatches"
     ></pv-metric-container>
   </div>
   <div class="grid-container chart-grid-container">

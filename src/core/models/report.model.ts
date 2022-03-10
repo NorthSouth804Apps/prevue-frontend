@@ -15,6 +15,14 @@ export class MatchStatsModel {
     weekMatches: 0,
     monthMatches: 0,
   };
+  avg = {
+    avgMessagesPerMatch: 0,
+    avgTimesPrevueUpdated: 0,
+    percentMatchesWithNoMessages: 0,
+    percentPrevuesFullyWatched: 0,
+    totalPrevuesReported: 0,
+    totalPrevuesViewed: 0
+  }
 }
 
 export class MessageHistoryModel {
@@ -49,6 +57,21 @@ export class UsersStatsModel {
     allUsers: IStats[];
     activeUsers: IStats[];
   } = { allUsers: [], activeUsers: [] };
+  avg = {
+    likesGiven: 0,
+    nextsGiven:0,
+    avgMatchPerUser:0,
+    avgAge: 0,
+    avgAgeRange: 0,
+    avgShowMeMen: '',
+    avgShowMeWomen: '',
+    avgShowMeEveryone: '',
+    avgGenderMen: '',
+    avgGenderWomen: '',
+    avgGenderNonBinary: '',
+    avgGenderUnknown: '',
+    avgGenderOther: '',
+  }
 };
 
 export type ReportStateModel =

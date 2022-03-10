@@ -4,7 +4,7 @@ import { statesStorage } from "../core.state";
 import ResponseModel from "../../models/response.model";
 
 // here we are going to put the extra methods whiches have their own actions
-export type ExtraMethodTypes = 'matchesStats' | 'usersStats';
+export type ExtraMethodTypes = 'matchesStats' | 'usersStats' | 'userMedias';
 
 export enum ActionsStatus {
   SUCCESS = 'Success',
@@ -20,7 +20,7 @@ const methods: MethodTypes[] = ['get', 'post', 'put', 'delete'];
 
 export type StatesActionsType = {
   [P in MethodTypes]: {
-    [N in statusTypes]: ActionCreator<any, (data: ResponseModel<any>) => any & TypedAction<any>>
+    [N in statusTypes]: ActionCreator<any, (data?: ResponseModel<any>) => any & TypedAction<any>>
   };
 };
 

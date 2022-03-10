@@ -5,10 +5,10 @@ import { MatchStatsModel, UsersStatsModel } from "../../models";
 
 const featureSelector = createFeatureSelector<ReportState>('report');
 
-export const reportExtraSelectors: extraSelectorTypes = {
+export const reportExtraSelectors: Partial<extraSelectorTypes> = {
   matchesStats: createSelector(
     featureSelector,
-    (state: ReportState) => state.matchesStats || [new MatchStatsModel()],
+    (state: ReportState) => state.matchesStats || new MatchStatsModel(),
   ),
   usersStats: createSelector(
     featureSelector,

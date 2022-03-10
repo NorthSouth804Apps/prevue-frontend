@@ -5,7 +5,7 @@ import {
 } from '@ngrx/store';
 import { statesStorage } from '../core.state';
 
-export type extraSelectors = 'matchesStats' | 'usersStats';
+export type extraSelectors = 'matchesStats' | 'usersStats' | 'userMedias';
 
 export type extraSelectorTypes = {
   [N in extraSelectors]: MemoizedSelector<any, any>;

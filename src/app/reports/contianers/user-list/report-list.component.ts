@@ -3,6 +3,9 @@ import { Table } from 'primeng/table';
 import { Router } from "@angular/router";
 import { DialogTypes, IDialogOptions } from "../../../users/contianers/user-profile/user-profile.component";
 import { ConfirmationService } from "primeng/api";
+import { ReportsFacadeService } from "../../../../core/services/facades/reports-facade.service";
+import { ReportModel } from "../../../../core/models";
+import { StatusValues } from "../../../../core/interfaces/common.interface";
 
 @Component({
   selector: 'pv-reports-list',
@@ -36,23 +39,26 @@ export class ReportListComponent implements OnInit {
       message: `Are you sure you want to <b>ignore</b> this <br> report for <b>spam content</b>?`,
       header: 'Ignore Report',
     },
-    warning: {
+    WARNING: {
       message: `Are you sure you want to <b>send a warning</b><br>for <b>spam content</b>?`,
       header: 'Send Warning',
     },
-    suspend: {
+    SUSPENDED: {
       message: `Are you sure you want to <b>suspend</b><br>this account for <b>spam content</b>?`,
       header: 'Suspend Account',
     },
-    block: {
+    BLOCKED: {
       message: `Are you sure you want to <b>block</b><br>this account for <b>inappropriate content</b>?`,
       header: 'Block Account',
     },
   };
+  reports$ = this.reportFacade.data$;
+  status = StatusValues;
 
-  constructor(private router: Router, private confirmationService: ConfirmationService) {}
+  constructor(private router: Router, private confirmationService: ConfirmationService, private reportFacade: ReportsFacadeService) {}
 
   ngOnInit(): void {
+    this.reportFacade.get();
   }
 
   confirm(type: DialogTypes) {
@@ -66,12 +72,12 @@ export class ReportListComponent implements OnInit {
     })
   }
 
-  goToUserProfile(report: any) {
-    this.router.navigate(['users', report.user])
+  goToUserProfile(report: ReportModel) {
+    this.router.navigate(['users', report.reportedUserId])
   }
 
   goToReportDetail(report: any) {
-    this.router.navigate(['reported', report.user])
+    this.router.navigate(['reported', report.userReportId])
   }
 
   clear(table: Table) {

@@ -1,14 +1,14 @@
 import { ActionReducer, INIT, UPDATE } from '@ngrx/store';
 import { AppState, statesStorage } from '..';
-import { environment } from "../../../environments/environment";
+import { environment } from '../../../environments/environment';
 
 // place here the key of the state data you want to persist, to be storage in the localStorage
 const persistStateKeys: (keyof typeof statesStorage)[] = ['auth', 'user'];
 
 /* hydrationMetaReducer, this is a meta reducer to store the specified keys above in the localStorage for future requests to it
-* @param reducer: this is the reducer what is in ejecution at the moment
-* @return: new state
-*  */
+ * @param reducer: this is the reducer what is in ejecution at the moment
+ * @return: new state
+ *  */
 export const hydrationMetaReducer = (
   reducer: ActionReducer<AppState>
 ): ActionReducer<AppState> => {
@@ -35,12 +35,17 @@ export const hydrationMetaReducer = (
           }
         });
       }
-
     }
 
     if (persistKey && action.type.toLocaleLowerCase().includes('success')) {
       // just will set the localStorage when the call is of success type
-      localStorage.setItem(environment.localStateKey, JSON.stringify({ ...storageValue, [persistKey]: nextState[persistKey] }));
+      localStorage.setItem(
+        environment.localStateKey,
+        JSON.stringify({
+          ...storageValue,
+          [persistKey]: { data: nextState[persistKey].data },
+        })
+      );
     }
 
     return { ...nextState, ...persistValues };

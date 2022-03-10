@@ -8,7 +8,7 @@ import { statesActions } from '../../state/core.actions';
 
 @Injectable()
 export class ReportsFacadeService extends BaseFacadeService<ReportModel> {
-  matchesStats$ = this.storeProvider.select<MatchStatsModel[]>(
+  matchesStats$ = this.storeProvider.select<MatchStatsModel>(
     statesSelectors.report.matchesStats
   );
   usersStats$ = this.storeProvider.select<UsersStatsModel>(

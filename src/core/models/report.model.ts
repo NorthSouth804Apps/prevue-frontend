@@ -10,9 +10,11 @@ export class ReportModel {
 }
 
 export class MatchStatsModel {
-  totalMatches = 0;
-  weekMatches = 0;
-  monthMatches = 0;
+  summary = {
+    totalMatches: 0,
+    weekMatches: 0,
+    monthMatches: 0,
+  };
 }
 
 export class MessageHistoryModel {

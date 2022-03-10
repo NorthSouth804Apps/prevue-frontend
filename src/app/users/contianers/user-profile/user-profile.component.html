@@ -1,4 +1,5 @@
 <div class="text-blue-2 user-profile-container">
+  <pv-loading [visible]="loading$ | async"></pv-loading>
   <a
     routerLink=".."
     class="d-flex align-items-center font-size-3 mb-5 text-decoration-none text-blue-2"
@@ -9,27 +10,46 @@
   <div class="grid-container user-profile-main-grid">
     <div class="grid-column-2">
       <div class="user-profile-image-container">
+        <pv-loading [visible]="videoLoading"></pv-loading>
+        <video
+          [src]="(userVideo$ | async)?.contentUrl"
+          class="invisible"
+          #profileVideo
+          controls
+          (click)="togglePlay($event)"
+        ></video>
         <img
-          src="assets/images/profile-img.png"
-          alt="profile image"
-          class="w-100"
+          src="assets/images/play.png"
+          class="play-button"
+          alt="Play Button"
+          *ngIf="isPaused"
+          (click)="togglePlay($event)"
         />
       </div>
     </div>
     <div class="grid-column-6 grid-container-150">
       <div class="grid-column-2">
         <div class="d-flex mb-2">
-          <h4 class="header-title me-3">User {{ (userData$ | async)?.userId }}</h4>
-          <i *ngIf="!!(userData$ | async)?.isBlocked" class="text-rose">Account Blocked</i>
+          <h4 class="header-title me-3">
+            User {{ (userData$ | async)?.userId }}
+          </h4>
+          <i *ngIf="!!(userData$ | async)?.isBlocked" class="text-rose"
+            >Account Blocked</i
+          >
         </div>
         <div class="grid-container-150 common-container">
           <div>
             <div class="header-label">Profile Name</div>
-            <span>{{ (userData$ | async)?.firstName }} {{ (userData$ | async)?.lastName }}</span>
+            <span
+              >{{ (userData$ | async)?.firstName }}
+              {{ (userData$ | async)?.lastName }}</span
+            >
           </div>
           <div>
             <div class="header-label">Joined</div>
-            <span>{{ (userData$ | async)?.timeCreated | date: "MM/dd/yyyy" }}</span>
+            <span>{{
+              (userData$ | async)?.timeCreated | date: "MM/dd/yyyy"
+            }}</span>
           </div>
           <div>
             <div class="header-label">Location Brook</div>
@@ -53,7 +73,10 @@
           </div>
           <div>
             <div class="header-label">Age Range</div>
-            <span>{{ (userData$ | async)?.ageRangeMin }} - {{(userData$ | async)?.ageRangeMax }}</span>
+            <span
+              >{{ (userData$ | async)?.ageRangeMin }} -
+              {{ (userData$ | async)?.ageRangeMax }}</span
+            >
           </div>
         </div>
       </div>
@@ -63,41 +86,41 @@
             color="blue"
             text="Delete"
             class="me-1"
-            (onClick)="confirm('delete')"
+            (onClick)="confirm(status.delete)"
           ></pv-button>
           <pv-button
             color="blue"
             text="Warning"
             class="me-1"
-            (onClick)="confirm('warning')"
+            (onClick)="confirm(status.warning)"
           ></pv-button>
           <pv-button
             color="blue"
             text="Suspend"
             class="me-1"
-            (onClick)="confirm('suspend')"
+            (onClick)="confirm(status.suspended)"
           ></pv-button>
           <pv-button
             color="rose"
             text="Block"
-            (onClick)="confirm('block')"
+            (onClick)="confirm(status.blocked)"
           ></pv-button>
         </div>
         <div class="common-container">
           <h4 class="header-label">Photos</h4>
           <div class="d-flex align-items-center mb-4">
             <img
-              src="assets/images/user-photo-1.png"
+              [src]="getMediaContent(userMedias$ | async, 0)"
               class="user-image-gallery-item"
               alt="user-photo"
             />
             <img
-              src="assets/images/user-photo-2.png"
+              [src]="getMediaContent(userMedias$ | async, 1)"
               class="user-image-gallery-item"
               alt="user-photo"
             />
             <img
-              src="assets/images/user-photo-3.png"
+              [src]="getMediaContent(userMedias$ | async, 2)"
               class="user-image-gallery-item"
               alt="user-photo"
             />
@@ -161,9 +184,9 @@
   <p-confirmDialog
     acceptIcon=""
     rejectIcon=""
-    [rejectLabel]="openedDialog === 'delete' ? 'Cancel' : 'Close'"
+    [rejectLabel]="openedDialog === 'DELETED' ? 'Cancel' : 'Close'"
     acceptLabel="Yes"
-    [acceptVisible]="openedDialog === 'delete'"
+    [acceptVisible]="openedDialog === 'DELETED'"
     [baseZIndex]="10000"
     [closable]="false"
     [dismissableMask]="true"

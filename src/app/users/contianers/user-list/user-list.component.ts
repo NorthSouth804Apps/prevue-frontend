@@ -1,9 +1,11 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
 import { ToastService } from '../../../../core/services/toast.service';
 import { UsersFacadeService } from "../../../../core/services/facades/users-facade.service";
 import { UserModel } from "../../../../core/models";
+import { StatusTypes } from "../../../../core/interfaces/common.interface";
+
 
 @Component({
   selector: 'pv-users-list',
@@ -14,38 +16,15 @@ import { UserModel } from "../../../../core/models";
 export class UserListComponent implements OnInit {
   display: boolean = true;
   searchValue: string = '';
-  userTypes: any[] = [
-    { label: 'Active Users', value: 1 },
-    { label: 'Suspended Users', value: 2 },
-    { label: 'Blocked Users', value: 0 },
+  userTypes: { label: string, status: StatusTypes }[] = [
+    { label: 'All Users', status: 'all' },
+    { label: 'Active Users', status: 'active' },
+    { label: 'Suspended Users', status: 'suspended' },
+    { label: 'Blocked Users', status: 'blocked' },
   ];
+
   selectedUserType: any;
-  customers: any[] = [
-    {
-      user: '1294884',
-      reason: 24,
-      gender: 'Male',
-      showMe: 'Women',
-      ageRange: '20-44',
-      location: 'Brooklyn, NY',
-      joined: new Date(),
-      matches: 19,
-      age: 25,
-    },
-    {
-      user: '3458494',
-      reason: 25,
-      gender: 'Female',
-      showMe: 'Men',
-      ageRange: '20-44',
-      location: 'Brooklyn, NY',
-      joined: new Date(),
-      matches: 20,
-      age: 23,
-    },
-  ];
   representatives: any[] = [];
-  statuses: any[] = [];
   loading$ = this.usersFacade.loading$;
   users$ = this.usersFacade.data$;
 
@@ -54,14 +33,10 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.usersFacade.get();
-    this.statuses = [
-      { label: 'Unqualified', value: 'unqualified' },
-      { label: 'Qualified', value: 'qualified' },
-      { label: 'New', value: 'new' },
-      { label: 'Negotiation', value: 'negotiation' },
-      { label: 'Renewal', value: 'renewal' },
-      { label: 'Proposal', value: 'proposal' },
-    ];
+  }
+
+  onChangeUserStatus({  value: { status } }: { value: { status: string } }) {
+    this.usersFacade.get({ status });
   }
 
   goToUserProfile(customer: UserModel) {

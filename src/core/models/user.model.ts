@@ -29,3 +29,13 @@ export class UserModel {
   timeUpdated?: Date;
   userMatches = 0;
 };
+
+export class UserMediaModel  {
+  userMediaId = 1;
+  userId = 2;
+  contentType?: 'PHOTO' | 'VIDEO';
+  contentUrl = '';
+  isDeleted = 0;
+  timeCreated?: Date;
+  timeUpdated?: Date;
+};

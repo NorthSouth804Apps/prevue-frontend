@@ -60,7 +60,34 @@ export class ReportDetailComponent implements OnInit {
     table.clear();
   }
 
+
   confirm(type: DialogTypes) {
+    this.openedDialog = type;
+    // if(type !== 'DELETED') {
+    //   this.reportD(type);
+    // }
+
+    // const loadSubs = this.loading$.subscribe(loading => {
+    //   setTimeout(() => {
+    //     if(!loading) {
+    //       const options = this.dialogOptions[type];
+    //       this.confirmationService.confirm({
+    //         ...options,
+    //         accept: () => {
+    //           loadSubs.unsubscribe();
+    //           this.changeUserStatus(type);
+    //         },
+    //         reject: (type: string) => {
+    //           loadSubs.unsubscribe();
+    //         },
+    //       });
+    //     }
+    //   })
+    //
+    // });
+  }
+
+  confirm2(type: DialogTypes) {
     this.openedDialog = type;
     setTimeout(() => {
       const options = this.dialogOptions[type];

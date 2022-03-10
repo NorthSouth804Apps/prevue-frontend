@@ -5,6 +5,8 @@ import { ToastService } from '../toast.service';
 import { MatchStatsModel, ReportModel, UsersStatsModel } from "src/core/models";
 import { statesSelectors } from '../../state/core.selectors';
 import { statesActions } from '../../state/core.actions';
+import { UsersFacadeService } from "./users-facade.service";
+import { DialogTypes } from "../../../app/reports/contianers/report-detail/report-detail.component";
 
 @Injectable()
 export class ReportsFacadeService extends BaseFacadeService<ReportModel> {
@@ -17,7 +19,8 @@ export class ReportsFacadeService extends BaseFacadeService<ReportModel> {
 
   constructor(
     private storeProvider: Store,
-    private toastServiceProvider: ToastService
+    private toastServiceProvider: ToastService,
+    private usersFacade: UsersFacadeService,
   ) {
     super('report', storeProvider, toastServiceProvider);
   }
@@ -36,5 +39,13 @@ export class ReportsFacadeService extends BaseFacadeService<ReportModel> {
         data,
       })
     );
+  }
+
+  changeUserStatus(id: number, status: DialogTypes) {
+    this.usersFacade.put({
+      userId: id,
+      status: status,
+      statusValue: true,
+    } as any);
   }
 }

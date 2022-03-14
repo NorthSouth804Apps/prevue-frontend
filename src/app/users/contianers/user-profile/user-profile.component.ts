@@ -1,21 +1,15 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { Table } from 'primeng/table';
 import { ActivatedRoute, Router } from "@angular/router";
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { UsersFacadeService } from "../../../../core/services/facades/users-facade.service";
-import { catchError, map, switchMap } from "rxjs/operators";
-import { Observable, Subscription, throwError } from "rxjs";
-import { StatusValues } from "../../../../core/interfaces/common.interface";
+import { map } from "rxjs/operators";
+import { Observable, Subscription } from "rxjs";
+import { IDialogOptions, StatusValues, StatusValuesType } from "../../../../core/interfaces/common.interface";
 import { UserMediaModel } from "../../../../core/models";
 import { MediaTypes } from "../../../../core/interfaces/media.interface";
 
-export type DialogTypes = 'WARNING' | 'DELETED' | 'SUSPENDED' | 'BLOCKED' | 'ignore';
-export type IDialogOptions = {
-  [N in DialogTypes]?: {
-    header: string;
-    message: string;
-  };
-};
+
 @Component({
   selector: 'pv-users-list',
   templateUrl: './user-profile.component.html',
@@ -55,7 +49,7 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       header: 'Block Account',
     },
   };
-  openedDialog?: DialogTypes;
+  openedDialog?: StatusValuesType
 
   status = StatusValues;
   // userData$ = this.activatedRoute.params.pipe(switchMap((params: any) => {
@@ -84,6 +78,9 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+    if(this.activatedRoute.snapshot.params['id']) {
+      this.usersFacade.getUserDetails(this.activatedRoute.snapshot.params['id']);
+    }
     // check is the user list doesn't exist then try to load it
     this.userSubscription = this.userData$.subscribe(user => {
       console.log(user, 'klk');
@@ -91,9 +88,7 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         history.back()
       }
     });
-    if(this.activatedRoute.snapshot.params['id']) {
-      this.usersFacade.getUserDetails(this.activatedRoute.snapshot.params['id']);
-    }
+
 
     this.userMedias$.subscribe(medias => console.log('user medias', medias));
   }
@@ -125,14 +120,14 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     table.clear();
   }
 
-  changeUserStatus(status: DialogTypes) {
+  changeUserStatus(status: StatusValuesType) {
     this.usersFacade.put({
       userId: this.activatedRoute.snapshot.params['id'] || '',
       status: status,
       statusValue: true,
     } as any);
   }
-  confirm(type: DialogTypes) {
+  confirm(type: StatusValuesType) {
     this.openedDialog = type;
     if(type !== 'DELETED') {
       this.changeUserStatus(type);
@@ -163,15 +158,15 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     return !!(video.paused || video.ended);
   }
 
-  togglePlay(event: any) {
-    event.stopPropagation();
-    const video = this.profileVideoElement ? this.profileVideoElement.nativeElement : {} as any;
-    if (video.paused || video.ended) {
-      video.play();
-    } else {
-      video.pause();
+    togglePlay(event: any) {
+      event.stopPropagation();
+      const video = this.profileVideoElement ? this.profileVideoElement.nativeElement : {} as any;
+      if (video.paused || video.ended) {
+        video.play();
+      } else {
+        video.pause();
+      }
     }
-  }
 
   getMediaContent(medias: UserMediaModel[] | null = [], index: number) {
     return medias && medias[index] && medias[index].contentUrl || new UserMediaModel();

@@ -16,7 +16,7 @@ export type StateSelectorsType =  {
     get: MemoizedSelector<any, any>;
     error: MemoizedSelector<any, any>;
     loading: MemoizedSelector<any, any>;
-    getById: (props: { id: number }) => MemoizedSelector<any, any>;
+    getByPropertyValue: (props: { value: number, property: string | any }) => MemoizedSelector<any, any>;
   } & extraSelectorTypes;
 };
 
@@ -41,13 +41,14 @@ export const getStatesSelectors = () => {
         }
       );
 
-      statesSelectors[entity].getById = (props) =>
+      statesSelectors[entity].getByPropertyValue = (props =  { property: 'userId', value: 0 }) =>
         createSelector(
           statesSelectors[entity].get,
           (data: any[]) => {
             return data && Array.isArray(data) &&
             data.find((item) => {
-              return item.userId.toString() === props.id.toString();
+              const propertyValue = item[props.property] && item[props.property].toString();
+              return propertyValue === props.value.toString();
             });
           }
         );

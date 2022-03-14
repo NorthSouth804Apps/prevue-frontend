@@ -1,22 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Table } from 'primeng/table';
-import { Router } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ActivatedRoute, Router } from "@angular/router";
+import { ConfirmationService } from 'primeng/api';
+import { ReportsFacadeService } from "../../../../core/services/facades/reports-facade.service";
+import { IDialogOptions, StatusValues, StatusValuesType } from "src/core/interfaces/common.interface";
+import { ReportModel } from "../../../../core/models";
+import { Subscription, switchMap } from "rxjs";
 
-export type DialogTypes = 'warning' | 'delete' | 'suspend' | 'block' | 'ignore';
-export type IDialogOptions = {
-  [N in DialogTypes]?: {
-    header: string;
-    message: string;
-  };
-};
 @Component({
   selector: 'pv-report-detail',
   templateUrl: './report-detail.component.html',
   styleUrls: ['./report-detail.component.scss'],
   animations: [],
 })
-export class ReportDetailComponent implements OnInit {
+export class ReportDetailComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   user = {
     name: 'Greg',
@@ -30,72 +27,80 @@ export class ReportDetailComponent implements OnInit {
   };
 
   dialogOptions: IDialogOptions = {
-    delete: {
-      message: `Are you sure you want to <b>delete</b> this account? <br /> this cannot be undone.`,
-      header: 'Delete Account',
-    },
-    warning: {
+    WARNING: {
       message: `Warning sent to user.`,
       header: 'Send Warning',
     },
-    suspend: {
+    SUSPENDED: {
       message: 'User has been suspended for one week and added to suspended list.',
       header: 'Suspend Account',
     },
-    block: {
+    BLOCKED: {
       message: 'User has been blocked from PreVue and added to blocked list.',
       header: 'Block Account',
     },
   };
-  openedDialog?: DialogTypes;
+  openedDialog?: StatusValuesType;
+  report$ = this.activatedRoute.params.pipe<ReportModel>(switchMap((params) => {
+    return this.reportFacade.getByProperty(params['id'], 'userReportId');
+  }));
+
+  reportModel: ReportModel = {} as any;
+  loading$ = this.reportFacade.loading$;
+  statusLoading$ = this.reportFacade.statusLoading$;
+  reportSubscription = new Subscription();
+  userMedia = this.reportFacade.userMedia$;
+  status = StatusValues;
 
   constructor(
     private router: Router,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private reportFacade: ReportsFacadeService,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.reportFacade.get();
+    this.reportSubscription = this.report$.subscribe(report => {
+      this.reportModel = report;
+      // search for user details to get usermedia
+      this.reportFacade.getUserDetails(report.reportedUserId)
+    });
+  }
 
   clear(table: Table) {
     table.clear();
   }
 
 
-  confirm(type: DialogTypes) {
-    this.openedDialog = type;
-    // if(type !== 'DELETED') {
-    //   this.reportD(type);
-    // }
+  async confirm(type: StatusValuesType) {
 
-    // const loadSubs = this.loading$.subscribe(loading => {
-    //   setTimeout(() => {
-    //     if(!loading) {
-    //       const options = this.dialogOptions[type];
-    //       this.confirmationService.confirm({
-    //         ...options,
-    //         accept: () => {
-    //           loadSubs.unsubscribe();
-    //           this.changeUserStatus(type);
-    //         },
-    //         reject: (type: string) => {
-    //           loadSubs.unsubscribe();
-    //         },
-    //       });
-    //     }
-    //   })
-    //
-    // });
+    this.openedDialog = type;
+    if(type !== 'DELETED') {
+      this.reportFacade.changeUserStatus(this.reportModel.userReportId, type);
+    }
+
+    const loadSubs = this.loading$.subscribe(loading => {
+      setTimeout(() => {
+        if(!loading) {
+          const options = this.dialogOptions[type];
+          this.confirmationService.confirm({
+            ...options,
+            accept: () => {
+              loadSubs.unsubscribe();
+              this.reportFacade.changeUserStatus(this.reportModel.userReportId, type);
+            },
+            reject: (type: string) => {
+              loadSubs.unsubscribe();
+            },
+          });
+        }
+      })
+
+    });
   }
 
-  confirm2(type: DialogTypes) {
-    this.openedDialog = type;
-    setTimeout(() => {
-      const options = this.dialogOptions[type];
-      this.confirmationService.confirm({
-        ...options,
-        accept: () => {},
-        reject: (type: string) => {},
-      });
-    })
+  ngOnDestroy() {
+    this.reportSubscription.unsubscribe();
   }
 }

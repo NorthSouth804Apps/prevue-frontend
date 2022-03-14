@@ -7,7 +7,9 @@ import { statesActions } from '../../state/core.actions';
 import { statesSelectors } from '../../state/core.selectors';
 import { map } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class UsersFacadeService extends BaseFacadeService<UserModel> {
 
   userDetails$ = this.storeProvider

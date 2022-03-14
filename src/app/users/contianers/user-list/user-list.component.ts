@@ -26,7 +26,7 @@ export class UserListComponent implements OnInit {
   selectedUserType: any;
   representatives: any[] = [];
   loading$ = this.usersFacade.loading$;
-  users$ = this.usersFacade.data$;
+  users$: any = this.usersFacade.data$;
 
   activityValues: number[] = [0, 100];
   constructor(private router: Router, private toastService: ToastService, private usersFacade: UsersFacadeService) {}

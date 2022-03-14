@@ -15,7 +15,7 @@
   <div class="table-container">
     <p-table
       #dt1
-      [value]="reports$ | async"
+      [value]="(reports$ | async) || []"
       [responsive]="true"
       responsiveLayout="scroll"
       dataKey="id"
@@ -85,24 +85,24 @@
                 color="blue"
                 class="me-1"
                 text="Ignore"
-                (onClick)="confirm('ignore')"
+                (onClick)="confirm(status.ignore, report)"
               ></pv-button>
               <pv-button
                 color="blue"
                 class="me-1"
                 text="Warning"
-                (onClick)="confirm(status.warning)"
+                (onClick)="confirm(status.warning, report)"
               ></pv-button>
               <pv-button
                 color="blue"
                 class="me-1"
                 text="Suspend"
-                (onClick)="confirm(status.suspended)"
+                (onClick)="confirm(status.suspended, report)"
               ></pv-button>
               <pv-button
                 color="rose"
                 text="Block"
-                (onClick)="confirm(status.blocked)"
+                (onClick)="confirm(status.blocked, report)"
               ></pv-button>
             </div>
           </td>

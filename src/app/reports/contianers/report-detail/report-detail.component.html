@@ -1,4 +1,5 @@
-<div class="text-blue-2 report-detail-container mb-4">
+<div class="text-blue-2 report-detail-container mb-4 h-100">
+  <pv-loading [visible]="(loading$ | async) || (statusLoading$ | async)"></pv-loading>
   <div class="mb-5 d-flex align-items-center justify-content-between">
     <a
       routerLink=".."
@@ -12,18 +13,18 @@
         color="blue"
         text="Warning"
         class="me-1"
-        (onClick)="confirm('warning')"
+        (onClick)="confirm(status.warning)"
       ></pv-button>
       <pv-button
         color="blue"
         text="Suspend"
         class="me-1"
-        (onClick)="confirm('suspend')"
+        (onClick)="confirm(status.suspended)"
       ></pv-button>
       <pv-button
         color="rose"
         text="Block"
-        (onClick)="confirm('block')"
+        (onClick)="confirm(status.blocked)"
       ></pv-button>
     </div>
   </div>
@@ -68,19 +69,19 @@
       <div
         class="common-container d-flex w-100 align-items-center reported-gallery-container"
       >
-        <img src="assets/images/profile-img.png" alt="report image" />
-        <img src="assets/images/image1.png" alt="report image" />
-        <img src="assets/images/image2.png" alt="report image" />
-        <img src="assets/images/image3.png" alt="report image" />
+        <div class="gallery-item" *ngFor="let media of (userMedia | async)">
+          <pv-video *ngIf="media.contentType === 'VIDEO'" [url]="media.contentUrl || ''" alt="User Shared Video"></pv-video>
+          <img *ngIf="media.contentType === 'PHOTO'" [src]="media.contentUrl || ''" alt="User Shared Photo" />
+        </div>
       </div>
     </div>
   </div>
   <p-confirmDialog
     acceptIcon=""
     rejectIcon=""
-    [rejectLabel]="openedDialog === 'delete' ? 'Cancel' : 'Close'"
+    [rejectLabel]="openedDialog === 'DELETED' ? 'Cancel' : 'Close'"
     acceptLabel="Yes"
-    [acceptVisible]="openedDialog === 'delete'"
+    [acceptVisible]="openedDialog === 'DELETED'"
     [baseZIndex]="10000"
     [closable]="false"
     [dismissableMask]="true"

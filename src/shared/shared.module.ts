@@ -23,6 +23,7 @@ import { ConfirmationService, MessageService } from "primeng/api";
 import { ToastComponent } from "./components/toast/toast.component";
 import { ToastModule } from "primeng/toast";
 import { LoadingComponent } from "./components/loading/loading.component";
+import { VideoComponent } from "./components/video/video.component";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { LoadingComponent } from "./components/loading/loading.component";
     ListComponent,
     ToastComponent,
     LoadingComponent,
+    VideoComponent,
   ],
   imports: [
     ChartModule,
@@ -68,6 +70,7 @@ import { LoadingComponent } from "./components/loading/loading.component";
     ListComponent,
     ToastComponent,
     LoadingComponent,
+    VideoComponent,
     FormsModule,
     DropdownModule,
     ReactiveFormsModule,

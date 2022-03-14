@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 import { Router } from "@angular/router";
-import { DialogTypes, IDialogOptions } from "../../../users/contianers/user-profile/user-profile.component";
 import { ConfirmationService } from "primeng/api";
 import { ReportsFacadeService } from "../../../../core/services/facades/reports-facade.service";
 import { ReportModel } from "../../../../core/models";
-import { StatusValues } from "../../../../core/interfaces/common.interface";
+import { IDialogOptions, StatusValues, StatusValuesType } from "../../../../core/interfaces/common.interface";
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'pv-reports-list',
@@ -33,26 +33,29 @@ export class ReportListComponent implements OnInit {
       offenses: 0,
     },
   ];
+  reportType = 'SPAM';
+
   loading: boolean = false;
-  dialogOptions: IDialogOptions = {
-    ignore: {
-      message: `Are you sure you want to <b>ignore</b> this <br> report for <b>spam content</b>?`,
+  dialogOptions: any = {
+    IGNORE: (reportType: string) => ({
+      message: `Are you sure you want to <b>ignore</b> this <br> report for <b>${reportType}</b>?`,
       header: 'Ignore Report',
-    },
-    WARNING: {
-      message: `Are you sure you want to <b>send a warning</b><br>for <b>spam content</b>?`,
+    }),
+    WARNING: (reportType: string) => ({
+      message: `Are you sure you want to <b>send a warning</b><br>for <b>${reportType}</b>?`,
       header: 'Send Warning',
-    },
-    SUSPENDED: {
-      message: `Are you sure you want to <b>suspend</b><br>this account for <b>spam content</b>?`,
+    }),
+    SUSPENDED: (reportType: string) => ({
+      message: `Are you sure you want to <b>suspend</b><br>this account for <b>${reportType}</b>?`,
       header: 'Suspend Account',
-    },
-    BLOCKED: {
-      message: `Are you sure you want to <b>block</b><br>this account for <b>inappropriate content</b>?`,
+    }),
+    BLOCKED: (reportType: string) => ({
+      message: `Are you sure you want to <b>block</b><br>this account for <b>${reportType}</b>?`,
       header: 'Block Account',
-    },
+    }),
   };
-  reports$ = this.reportFacade.data$;
+  reports$: any = this.reportFacade.data$;
+  loading$ = this.reportFacade.loading$;
   status = StatusValues;
 
   constructor(private router: Router, private confirmationService: ConfirmationService, private reportFacade: ReportsFacadeService) {}
@@ -61,15 +64,25 @@ export class ReportListComponent implements OnInit {
     this.reportFacade.get();
   }
 
-  confirm(type: DialogTypes) {
-    setTimeout(() => {
-      const options = this.dialogOptions[type];
-      this.confirmationService.confirm({
-        ...options,
-        accept: () => {},
-        reject: (type: string) => {},
-      });
-    })
+  confirm(type: StatusValuesType, report: ReportModel) {
+    this.reportType = report.reportType
+    const loadSubs = this.loading$.subscribe(loading => {
+      setTimeout(() => {
+        if (!loading) {
+          const options = this.dialogOptions[type](report.reportType);
+          this.confirmationService.confirm({
+            ...options,
+            accept: () => {
+              loadSubs.unsubscribe();
+              this.reportFacade.changeUserStatus(report.reportedUserId, type);
+            },
+            reject: (type: string) => {
+              loadSubs.unsubscribe();
+            },
+          });
+        }
+      })
+    });
   }
 
   goToUserProfile(report: ReportModel) {

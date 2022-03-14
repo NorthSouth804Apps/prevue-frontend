@@ -1,0 +1,17 @@
+<div class="video-container">
+  <pv-loading [visible]="loading"></pv-loading>
+  <video
+    [src]="url"
+    class="invisible"
+    #profileVideo
+    controls
+    (click)="togglePlay($event)"
+  ></video>
+  <img
+    src="assets/images/play.png"
+    class="play-button"
+    alt="Play Button"
+    *ngIf="isPaused"
+    (click)="togglePlay($event)"
+  />
+</div>

@@ -12,13 +12,21 @@ export type QueryParamsType = {
 
 export enum StatusValues {
   suspended = 'SUSPENDED',
-  active = 'SUSPENDED',
+  active = 'ACTIVED',
   blocked = 'BLOCKED',
   all = 'ALL',
   delete = 'DELETED',
+  ignore = 'IGNORE',
   warning = 'WARNING',
 }
 
 export type StatusTypes = keyof typeof StatusValues;
 
+export type StatusValuesType = 'WARNING' | 'DELETED' | 'SUSPENDED' | 'BLOCKED' | 'IGNORE';
 
+export type IDialogOptions = {
+  [N in StatusValuesType]?: {
+    header: string;
+    message: string;
+  };
+};

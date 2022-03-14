@@ -9,23 +9,11 @@
   </a>
   <div class="grid-container user-profile-main-grid">
     <div class="grid-column-2">
-      <div class="user-profile-image-container">
-        <pv-loading [visible]="videoLoading"></pv-loading>
-        <video
-          [src]="(userVideo$ | async)?.contentUrl"
-          class="invisible"
-          #profileVideo
-          controls
-          (click)="togglePlay($event)"
-        ></video>
-        <img
-          src="assets/images/play.png"
-          class="play-button"
-          alt="Play Button"
-          *ngIf="isPaused"
-          (click)="togglePlay($event)"
-        />
-      </div>
+      <pv-video
+        [loading]="loading$ | async"
+        [url]="(userVideo$ | async)?.contentUrl"
+      >
+      </pv-video>
     </div>
     <div class="grid-column-6 grid-container-150">
       <div class="grid-column-2">
@@ -136,7 +124,7 @@
       <div class="common-container">
         <div class="mb-4">
           <div class="header-label">Likes Given</div>
-          <span>{{ (userData$ | async)?.likesGiven}}</span>
+          <span>{{ (userData$ | async)?.likesGiven }}</span>
         </div>
         <div class="mb-4">
           <div class="header-label">Likes Received</div>

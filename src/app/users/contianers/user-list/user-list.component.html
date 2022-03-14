@@ -19,11 +19,10 @@
       optionLabel="label"
     ></p-dropdown>
   </div>
-
   <div class="table-container">
     <p-table
       #dt1
-      [value]="users$ | async"
+      [value]="(users$ | async) || []"
       dataKey="id"
       [rows]="10"
       [showCurrentPageReport]="true"
@@ -34,7 +33,7 @@
       <ng-template pTemplate="header">
         <tr>
           <th>
-            <pv-column-header-filter headerLabel="User" field="user">
+            <pv-column-header-filter headerLabel="User" field="userId">
             </pv-column-header-filter>
           </th>
           <th>

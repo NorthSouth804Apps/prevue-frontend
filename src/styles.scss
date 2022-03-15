@@ -15,6 +15,10 @@
 .pi {
   color: $color-blue-2 !important;
 }
+// red color for toast error
+.p-toast .pi-times-circle {
+  color: #73000c !important;
+}
 //GRID
 @import './styles/grid.scss';
 

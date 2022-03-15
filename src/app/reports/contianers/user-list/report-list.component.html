@@ -22,7 +22,7 @@
       [rows]="10"
       [showCurrentPageReport]="true"
       [rowsPerPageOptions]="[1, 25, 50]"
-      [loading]="loading"
+      [loading]="loading$ | async"
       [showFirstLastIcon]="false"
     >
       <ng-template pTemplate="header">

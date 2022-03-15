@@ -74,7 +74,32 @@ export class UsersStatsModel {
   }
 };
 
+
+export class UserMessageModel {
+  userId = 1;
+  firstName = '';
+  lastName = '';
+  isDeactivated = 0;
+  isDeleted = 0;
+  profilePicUrl = '';
+  isSuspended = 0;
+  isBlocked = 0;
+  recipientUserId = 4;
+  recipientFirstName = '';
+  recipientLastName = '';
+  recipientIsDeactivated = 0;
+  recipientIsDeleted = 0;
+  recipientProfilePicUrl = '';
+  recipientIsSuspended = 1;
+  recipientIsBlocked = 0;
+  content = '';
+  timeCreated?: Date;
+}
+
+export interface IUserMessagesParams { userId: number, recipientUserId: number }
+
 export type ReportStateModel =
   | ReportModel
   | MatchStatsModel
   | MessageHistoryModel | UsersStatsModel;
+

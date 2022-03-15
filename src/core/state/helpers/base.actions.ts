@@ -4,7 +4,7 @@ import { statesStorage } from "../core.state";
 import ResponseModel from "../../models/response.model";
 
 // here we are going to put the extra methods whiches have their own actions
-export type ExtraMethodTypes = 'matchesStats' | 'usersStats' | 'userDetails';
+export type ExtraMethodTypes = 'matchesStats' | 'usersStats' | 'userDetails' | 'userMessages';
 
 export enum ActionsStatus {
   SUCCESS = 'Success',

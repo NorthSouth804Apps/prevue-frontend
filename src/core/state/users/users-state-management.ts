@@ -10,6 +10,7 @@ import ResponseModel from '../../models/response.model';
 import { of } from 'rxjs';
 import { statesActions } from '../core.actions';
 import { on } from '@ngrx/store';
+import { commonReducerValidationsGenerator } from "../helpers/common-reducer-validations-generator";
 
 // STATE OF MENUS
 export class UserState extends BaseState<UserModel> {
@@ -48,25 +49,5 @@ export class UserEffects extends BaseEffects<UserModel> {
 }
 // REDUCER OF MENUS
 export const userReducer = baseReducer<UserState>('user', new UserState(), [
-  on(statesActions.user.userDetails.success, (state, { data }) => {
-    return {
-      ...state,
-      userDetails: data,
-      loading: false,
-    };
-  }),
-  on(statesActions.user.userDetails.failed, (state, error) => {
-    return {
-      ...state,
-      error,
-      loading: false,
-    };
-  }),
-  on(statesActions.user.userDetails.submitted, (state, { data }) => {
-    return {
-      ...state,
-      userDetails: data,
-      loading: true,
-    };
-  }),
+  ...commonReducerValidationsGenerator('user', 'userDetails'),
 ]);

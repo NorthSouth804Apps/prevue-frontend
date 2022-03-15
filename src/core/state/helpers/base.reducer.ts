@@ -21,10 +21,11 @@ function baseReducer<T extends BaseState<any>>(
           statesActions[stateName].delete.success,
           statesActions[stateName].put.success,
         ],
-        (state, { data }) => {
+        (state, { data, message }) => {
           return {
             ...state,
             data,
+            message,
             loading: false,
           };
         }
@@ -41,6 +42,7 @@ function baseReducer<T extends BaseState<any>>(
             ...state,
             error,
             loading: false,
+            message: error.message,
           };
         }
       ),
@@ -51,10 +53,11 @@ function baseReducer<T extends BaseState<any>>(
           statesActions[stateName].delete.submitted,
           statesActions[stateName].put.submitted,
         ],
-        (state, { data }) => {
+        (state, { data, message }) => {
           return {
             ...state,
             data,
+            message,
             loading: true,
           };
         }

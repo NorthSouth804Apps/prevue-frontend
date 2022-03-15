@@ -39,4 +39,23 @@ export const extraReportActions: Partial<StatesActionsType> = {
       props<any>()
     ),
   },
+  userMessages: {
+    success: createAction(
+      `[report] get user messages ${ActionsStatus.SUCCESS}`,
+      props<any>()
+    ),
+    failed: createAction(
+      `[report] get user messages ${ActionsStatus.FAILED}`,
+      props<any>()
+    ),
+    submitted: createAction(
+      `[report] get user messages ${ActionsStatus.SUBMITTED}`,
+      props<any>()
+    ),
+    initiated: createAction(
+      `[report] get user messages ${ActionsStatus.INITIAL}`,
+      props<any>()
+    ),
+  },
+
 };

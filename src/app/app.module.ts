@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { metaReducers, reducers } from '../core/state';
 import { EffectsModule } from '@ngrx/effects';
-import { MenusEffects } from '../core/state/menus';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BaseService } from '../core/services/base.service';
 import { AuthService } from '../core/services/auth.service';
@@ -34,7 +33,7 @@ import { UserEffects } from "../core/state/users/users-state-management";
       logOnly: environment.production,
       autoPause: true,
     }),
-    EffectsModule.forRoot([MenusEffects, AuthEffects, ReportEffects, UserEffects]),
+    EffectsModule.forRoot([AuthEffects, ReportEffects, UserEffects]),
   ],
   providers: [
     BaseService,

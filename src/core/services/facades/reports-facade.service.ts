@@ -2,12 +2,19 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BaseFacadeService } from './base-facade.service';
 import { ToastService } from '../toast.service';
-import { MatchStatsModel, ReportModel, UserMediaModel, UsersStatsModel } from "src/core/models";
+import {
+  IUserMessagesParams,
+  MatchStatsModel,
+  ReportModel,
+  UserMediaModel,
+  UserMessageModel,
+  UsersStatsModel,
+} from 'src/core/models';
 import { statesSelectors } from '../../state/core.selectors';
 import { statesActions } from '../../state/core.actions';
-import { UsersFacadeService } from "./users-facade.service";
-import { StatusValuesType } from "../../interfaces/common.interface";
-import { map } from "rxjs/operators";
+import { UsersFacadeService } from './users-facade.service';
+import { StatusValuesType } from '../../interfaces/common.interface';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -20,17 +27,23 @@ export class ReportsFacadeService extends BaseFacadeService<ReportModel> {
     statesSelectors.report.usersStats
   );
 
+  usersMessages$ = this.storeProvider.select<UserMessageModel[]>(
+    statesSelectors.report.userMessages
+  );
+
   statusLoading$ = this.usersFacade.loading$;
+  statusMessage$ = this.usersFacade.message$;
 
-
-  userMedia$ = this.usersFacade.userMedias$.pipe<UserMediaModel[]>(map(medias => {
-    return medias
-  }))
+  userMedia$ = this.usersFacade.userMedias$.pipe<UserMediaModel[]>(
+    map((medias) => {
+      return medias;
+    })
+  );
 
   constructor(
     private storeProvider: Store,
     private toastServiceProvider: ToastService,
-    private usersFacade: UsersFacadeService,
+    private usersFacade: UsersFacadeService
   ) {
     super('report', storeProvider, toastServiceProvider);
   }
@@ -61,5 +74,11 @@ export class ReportsFacadeService extends BaseFacadeService<ReportModel> {
 
   getUserDetails(userId: number) {
     this.usersFacade.getUserDetails(userId);
+  }
+
+  getUserMessages(params: IUserMessagesParams) {
+    this.storeProvider.dispatch(
+      statesActions.report.userMessages.submitted({ data: params })
+    );
   }
 }

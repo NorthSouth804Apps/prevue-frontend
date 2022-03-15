@@ -8,6 +8,6 @@ header="Whats up">
   <object type="image/svg+xml" data="assets/images/logo.svg" class="logo">
     Prevue Logo
   </object>
-  <p-tree selectionMode="multiple" [value]="sidebarOptions" (onNodeSelect)="onSelectSidebarOptions($event)" styleClass="sidebar-tree">
+  <p-tree selectionMode="multiple" [selection]="[selectedOption]" [value]="sidebarOptions" (onNodeSelect)="onSelectSidebarOptions($event)" styleClass="sidebar-tree">
   </p-tree>
 </p-sidebar>

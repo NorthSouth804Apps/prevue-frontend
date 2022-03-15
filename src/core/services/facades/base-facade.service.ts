@@ -3,15 +3,16 @@ import { Store } from '@ngrx/store';
 import { statesSelectors } from '../../state/core.selectors';
 import { statesStorage } from '../../state';
 import { ToastService } from '../toast.service';
-import { Observable, tap } from "rxjs";
+import { Observable } from "rxjs";
 import { QueryParamsType } from "../../interfaces/common.interface";
-import { map } from "rxjs/operators";
+import ResponseModel from "../../models/response.model";
 
 export class BaseFacadeService<DataModel> {
   data$ = this.store.select(statesSelectors[this.stateName].get);
+  message$ = this.store.select<string>(statesSelectors[this.stateName].message);
   loading$ = this.store.select(statesSelectors[this.stateName].loading);
   error$ = this.store
-    .select(statesSelectors[this.stateName].error);
+    .select<ResponseModel<null>>(statesSelectors[this.stateName].error);
 
   constructor(
     private stateName: keyof typeof statesStorage,

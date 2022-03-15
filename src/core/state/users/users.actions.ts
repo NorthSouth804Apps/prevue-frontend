@@ -20,5 +20,4 @@ export const extraUsersActions: Partial<StatesActionsType> = {
       props<any>()
     ),
   },
-
 };

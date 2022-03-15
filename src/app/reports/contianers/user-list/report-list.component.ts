@@ -4,8 +4,7 @@ import { Router } from "@angular/router";
 import { ConfirmationService } from "primeng/api";
 import { ReportsFacadeService } from "../../../../core/services/facades/reports-facade.service";
 import { ReportModel } from "../../../../core/models";
-import { IDialogOptions, StatusValues, StatusValuesType } from "../../../../core/interfaces/common.interface";
-import { Observable } from "rxjs";
+import { StatusValues, StatusValuesType } from "../../../../core/interfaces/common.interface";
 
 @Component({
   selector: 'pv-reports-list',

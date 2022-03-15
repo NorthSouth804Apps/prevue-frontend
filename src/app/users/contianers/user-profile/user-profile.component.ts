@@ -50,18 +50,13 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     },
   };
   openedDialog?: StatusValuesType
-
   status = StatusValues;
-  // userData$ = this.activatedRoute.params.pipe(switchMap((params: any) => {
-  //   return this.usersFacade.getById(params.id)
-  // }), catchError(error => {
-  //   return throwError(error);
-  // }));
 
   userData$ = this.usersFacade.userDetails$;
   userMedias$ = this.usersFacade.userMedias$;
   usersLoaded?: boolean;
-  userSubscription?: Subscription;
+  userSubscription = new Subscription();
+  messageSubscription = new Subscription();
   @ViewChild('profileVideo') profileVideoElement?: ElementRef<HTMLVideoElement>;
 
   get userVideo$(): Observable<UserMediaModel> {
@@ -133,18 +128,18 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       this.changeUserStatus(type);
     }
 
-    const loadSubs = this.loading$.subscribe(loading => {
+    this.messageSubscription = this.usersFacade.message$.subscribe(message => {
       setTimeout(() => {
-        if(!loading) {
+        if(message === 'success') {
           const options = this.dialogOptions[type];
           this.confirmationService.confirm({
             ...options,
             accept: () => {
-              loadSubs.unsubscribe();
+              this.messageSubscription.unsubscribe();
               this.changeUserStatus(type);
             },
             reject: (type: string) => {
-              loadSubs.unsubscribe();
+              this.messageSubscription.unsubscribe();
             },
           });
         }
@@ -173,6 +168,7 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.userSubscription && this.userSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
+    this.messageSubscription.unsubscribe();
   }
 }

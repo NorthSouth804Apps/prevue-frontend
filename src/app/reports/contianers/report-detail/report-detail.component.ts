@@ -1,11 +1,15 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
-import { ReportsFacadeService } from "../../../../core/services/facades/reports-facade.service";
-import { IDialogOptions, StatusValues, StatusValuesType } from "src/core/interfaces/common.interface";
-import { ReportModel } from "../../../../core/models";
-import { Subscription, switchMap } from "rxjs";
+import { ReportsFacadeService } from '../../../../core/services/facades/reports-facade.service';
+import {
+  IDialogOptions,
+  StatusValues,
+  StatusValuesType,
+} from 'src/core/interfaces/common.interface';
+import { ReportModel } from '../../../../core/models';
+import { Subscription, switchMap } from 'rxjs';
 
 @Component({
   selector: 'pv-report-detail',
@@ -32,7 +36,8 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
       header: 'Send Warning',
     },
     SUSPENDED: {
-      message: 'User has been suspended for one week and added to suspended list.',
+      message:
+        'User has been suspended for one week and added to suspended list.',
       header: 'Suspend Account',
     },
     BLOCKED: {
@@ -41,30 +46,38 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
     },
   };
   openedDialog?: StatusValuesType;
-  report$ = this.activatedRoute.params.pipe<ReportModel>(switchMap((params) => {
-    return this.reportFacade.getByProperty(params['id'], 'userReportId');
-  }));
+  report$ = this.activatedRoute.params.pipe<ReportModel>(
+    switchMap((params) => {
+      return this.reportFacade.getByProperty(params['id'], 'userReportId');
+    })
+  );
 
   reportModel: ReportModel = {} as any;
   loading$ = this.reportFacade.loading$;
   statusLoading$ = this.reportFacade.statusLoading$;
+  statusMessage$ = this.reportFacade.statusMessage$;
   reportSubscription = new Subscription();
   userMedia = this.reportFacade.userMedia$;
   status = StatusValues;
+  messageSubscription = new Subscription();
 
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
     private reportFacade: ReportsFacadeService,
-    private activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.reportFacade.get();
-    this.reportSubscription = this.report$.subscribe(report => {
+    this.reportSubscription = this.report$.subscribe((report) => {
       this.reportModel = report;
       // search for user details to get usermedia
-      this.reportFacade.getUserDetails(report.reportedUserId)
+      this.reportFacade.getUserDetails(report.reportedUserId);
+      this.reportFacade.getUserMessages({
+        userId: report.reportedUserId,
+        recipientUserId: report.reportedByUserId,
+      });
     });
   }
 
@@ -72,35 +85,36 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
     table.clear();
   }
 
-
   async confirm(type: StatusValuesType) {
-
     this.openedDialog = type;
-    if(type !== 'DELETED') {
+    if (type !== 'DELETED') {
       this.reportFacade.changeUserStatus(this.reportModel.userReportId, type);
     }
 
-    const loadSubs = this.loading$.subscribe(loading => {
+    this.messageSubscription = this.statusMessage$.subscribe((message) => {
       setTimeout(() => {
-        if(!loading) {
+        if (message === 'success') {
           const options = this.dialogOptions[type];
           this.confirmationService.confirm({
             ...options,
             accept: () => {
-              loadSubs.unsubscribe();
-              this.reportFacade.changeUserStatus(this.reportModel.userReportId, type);
+              this.messageSubscription.unsubscribe();
+              this.reportFacade.changeUserStatus(
+                this.reportModel.userReportId,
+                type
+              );
             },
             reject: (type: string) => {
-              loadSubs.unsubscribe();
+              this.messageSubscription.unsubscribe();
             },
           });
         }
-      })
-
+      });
     });
   }
 
   ngOnDestroy() {
     this.reportSubscription.unsubscribe();
+    this.messageSubscription.unsubscribe();
   }
 }

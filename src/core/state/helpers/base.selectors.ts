@@ -5,7 +5,7 @@ import {
 } from '@ngrx/store';
 import { statesStorage } from '../core.state';
 
-export type extraSelectors = 'matchesStats' | 'usersStats' | 'userDetails';
+export type extraSelectors = 'matchesStats' | 'usersStats' | 'userDetails' | 'userMessages';
 
 export type extraSelectorTypes = {
   [N in extraSelectors]: MemoizedSelector<any, any>;
@@ -15,6 +15,7 @@ export type StateSelectorsType =  {
   [N in keyof typeof statesStorage]: {
     get: MemoizedSelector<any, any>;
     error: MemoizedSelector<any, any>;
+    message: MemoizedSelector<any, any>;
     loading: MemoizedSelector<any, any>;
     getByPropertyValue: (props: { value: number, property: string | any }) => MemoizedSelector<any, any>;
   } & extraSelectorTypes;
@@ -61,6 +62,11 @@ export const getStatesSelectors = () => {
       statesSelectors[entity].loading = createSelector(
         featureSelector,
         (state: typeof entityModel) => state.loading
+      );
+
+      statesSelectors[entity].message = createSelector(
+        featureSelector,
+        (state: typeof entityModel) => state.message
       );
     }
   );

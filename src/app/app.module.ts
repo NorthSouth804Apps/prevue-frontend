@@ -17,6 +17,8 @@ import { MessageService } from 'primeng/api';
 import { ReportEffects } from '../core/state/reports/reports-state-management';
 import { AuthInterceptor } from '../utils/interceptors/auth.interceptor';
 import { UserEffects } from "../core/state/users/users-state-management";
+import { JWT_OPTIONS, JwtHelperService } from "@auth0/angular-jwt";
+import { AuthGuardService } from "../core/services/auth-guard.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,6 +42,10 @@ import { UserEffects } from "../core/state/users/users-state-management";
     AuthService,
     ToastService,
     MessageService,
+    // this options are needed to use jwt lib
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+    AuthGuardService,
     // auth interceptor to add the token to each request
     {
       provide: HTTP_INTERCEPTORS,

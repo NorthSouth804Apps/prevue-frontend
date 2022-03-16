@@ -13,7 +13,7 @@
   [showOperator]="false"
   [showAddButton]="false">
   <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-    <p-listbox [options]="data | uniqueValuesArrayElementsPipe: field | concatValuesPipe : !listItem ? ['any'] : [] : 'unshift'"
+    <p-listbox [options]="columnFilterRef.dt.value || [] | uniqueValuesArrayElementsPipe: field | concatValuesPipe : !listItem ? ['any'] : [] : 'unshift'"
                (onClick)="onSelectOption($event, filter)"
                (onChange)="onChange.emit($event);"
                filterPlaceHolder="Search"
@@ -21,7 +21,7 @@
                [ngModel]="selectedValue"
                [filter]="enableSearch">
       <ng-template pTemplate="item" let-item let-index="index" *ngIf="listItem">
-          <ng-container *ngTemplateOutlet="listItem; context: { $implicit: (data || []) | tsFindBy : field : item }"></ng-container>
+          <ng-container *ngTemplateOutlet="listItem; context: { $implicit: (columnFilterRef.dt.value || []) | tsFindBy : field : item }"></ng-container>
       </ng-template>
     </p-listbox>
   </ng-template>

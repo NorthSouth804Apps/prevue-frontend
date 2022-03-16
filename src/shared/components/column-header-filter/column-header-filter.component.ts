@@ -23,7 +23,7 @@ export class ColumnHeaderFilterComponent implements AfterViewInit, OnChanges {
   static defaultFilteredWasSet = false;
   @Output() onChange: EventEmitter<any> = new EventEmitter();
   @Output() clickOutside: EventEmitter<any> = new EventEmitter();
-  @Input() data: any[] = [];
+  data: any[] = [];
   @Input() enableSearch = false;
   selectedValue = '';
   @Input() field = '';
@@ -42,11 +42,15 @@ export class ColumnHeaderFilterComponent implements AfterViewInit, OnChanges {
     const pi = this.columnFilterRef.el.nativeElement.querySelector('.pi');
     pi.classList.remove('pi-filter');
     pi.innerHTML = this.filterIconSVG;
-    this.data = !this.data || !this.data.length ? this.columnFilterRef.dt.value : this.data;
+    this.data = [...this.columnFilterRef.dt.value];
+    console.log('data', this.data);
+
     this.setDefaultFilters();
   }
 
   onSelectOption($event: any, filterCallback: Function): void {
+    console.log('what is', this.data.length, this.columnFilterRef.dt.value);
+
     this.selectedValue = $event.value !== 'any' && $event.value !== this.selectedValue ? $event.value : null;
     filterCallback(!this.selectedValue ? null : [this.selectedValue]);
   }

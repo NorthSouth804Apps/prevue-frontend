@@ -93,7 +93,7 @@ export class UserMessageModel {
   recipientIsSuspended = 1;
   recipientIsBlocked = 0;
   content = '';
-  timeCreated?: Date;
+  timeCreated = '';
 }
 
 export interface IUserMessagesParams { userId: number, recipientUserId: number }

@@ -46,4 +46,8 @@ export class UserListComponent implements OnInit {
   clear(table: Table) {
     table.clear();
   }
+  onScroll($event: any) {
+    console.log($event, 'scrolling')
+    this.usersFacade.get();
+  }
 }

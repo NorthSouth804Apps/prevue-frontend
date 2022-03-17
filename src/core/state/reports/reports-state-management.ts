@@ -16,7 +16,7 @@ import { commonReducerValidationsGenerator } from "../helpers/common-reducer-val
 export class ReportState extends BaseState<ReportModel> {
   matchesStats = new MatchStatsModel();
   usersStats = new UsersStatsModel();
-  userMessages = new UserMessageModel();
+  userMessages = [new UserMessageModel()];
 
   constructor() {
     super();

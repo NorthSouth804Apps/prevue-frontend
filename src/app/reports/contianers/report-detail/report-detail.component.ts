@@ -51,11 +51,11 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
       return this.reportFacade.getByProperty(params['id'], 'userReportId');
     })
   );
-
-  reportModel: ReportModel = {} as any;
+  reportModel: ReportModel = new ReportModel();
   loading$ = this.reportFacade.loading$;
   statusLoading$ = this.reportFacade.statusLoading$;
   statusMessage$ = this.reportFacade.statusMessage$;
+  usersMessages$ = this.reportFacade.usersMessages$;
   reportSubscription = new Subscription();
   userMedia = this.reportFacade.userMedia$;
   status = StatusValues;
@@ -71,7 +71,7 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.reportFacade.get();
     this.reportSubscription = this.report$.subscribe((report) => {
-      this.reportModel = report;
+      this.reportModel = report || this.reportModel;
       // search for user details to get usermedia
       this.reportFacade.getUserDetails(report.reportedUserId);
       this.reportFacade.getUserMessages({
@@ -79,6 +79,10 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
         recipientUserId: report.reportedByUserId,
       });
     });
+
+    this.usersMessages$.subscribe(item => {
+      console.log('messages', item);
+    })
   }
 
   clear(table: Table) {

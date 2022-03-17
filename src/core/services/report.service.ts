@@ -28,8 +28,8 @@ export class ReportService extends BaseService<ReportModel> {
 
   getUserMessages(params: IUserMessagesParams = {} as any) {
     return this.http.get<any>(
-      `${environment.api}${this.entity}/userMessages`,
-      { params: { ...params } }
+      `${environment.api}${this.entity}/userMessages?userId=4&recipientUserId=1`,
+      // { params: { ...params } }
     );
   }
 }

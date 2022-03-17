@@ -95,4 +95,9 @@ export class ReportListComponent implements OnInit {
   clear(table: Table) {
     table.clear();
   }
+
+  onScroll($event: any) {
+    console.log($event, 'scrolling')
+    this.reportFacade.get();
+  }
 }

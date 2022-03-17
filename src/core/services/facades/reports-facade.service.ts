@@ -14,7 +14,9 @@ import { statesSelectors } from '../../state/core.selectors';
 import { statesActions } from '../../state/core.actions';
 import { UsersFacadeService } from './users-facade.service';
 import { StatusValuesType } from '../../interfaces/common.interface';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { sortArray } from './objects.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -27,9 +29,11 @@ export class ReportsFacadeService extends BaseFacadeService<ReportModel> {
     statesSelectors.report.usersStats
   );
 
-  usersMessages$ = this.storeProvider.select<UserMessageModel[]>(
-    statesSelectors.report.userMessages
-  );
+  usersMessages$ = this.storeProvider
+    .select<UserMessageModel[]>(statesSelectors.report.userMessages)
+    .pipe(
+      map((messages) => sortArray<UserMessageModel>(messages, 'timeCreated'))
+    );
 
   statusLoading$ = this.usersFacade.loading$;
   statusMessage$ = this.usersFacade.message$;

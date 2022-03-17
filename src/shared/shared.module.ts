@@ -24,6 +24,8 @@ import { ToastComponent } from "./components/toast/toast.component";
 import { ToastModule } from "primeng/toast";
 import { LoadingComponent } from "./components/loading/loading.component";
 import { VideoComponent } from "./components/video/video.component";
+import { InfiniteScrollComponent } from "./components/infinite-scroll/infinite-scroll.component";
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { VideoComponent } from "./components/video/video.component";
     ToastComponent,
     LoadingComponent,
     VideoComponent,
+    InfiniteScrollComponent,
   ],
   imports: [
     ChartModule,
@@ -55,6 +58,7 @@ import { VideoComponent } from "./components/video/video.component";
     ReactiveFormsModule,
     ConfirmDialogModule,
     ToastModule,
+    InfiniteScrollModule
   ],
   exports: [
     LineChartComponent,
@@ -71,11 +75,13 @@ import { VideoComponent } from "./components/video/video.component";
     ToastComponent,
     LoadingComponent,
     VideoComponent,
+    InfiniteScrollComponent,
     FormsModule,
     DropdownModule,
     ReactiveFormsModule,
     CommonModule,
     ConfirmDialogModule,
+
   ],
   providers: [
     ConfirmationService,

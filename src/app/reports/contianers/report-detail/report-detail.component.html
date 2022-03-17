@@ -1,5 +1,7 @@
 <div class="text-blue-2 report-detail-container mb-4 h-100">
-  <pv-loading [visible]="(loading$ | async) || (statusLoading$ | async)"></pv-loading>
+  <pv-loading
+    [visible]="(loading$ | async) || (statusLoading$ | async)"
+  ></pv-loading>
   <div class="mb-5 d-flex align-items-center justify-content-between">
     <a
       routerLink=".."
@@ -34,19 +36,9 @@
       <h4 class="header-title">User 12345 Message History</h4>
       <div class="common-container custom-container">
         <p class="font-size-1-2">
-          User 198304: Hey, how’s it going?
-          <br />
-          <br />
-
-          Recipient: Hey! I loved the background of your PreVue. Where was that?
-          <br />
-          <br />
-          User 198304: I was hiking out west in Oregon. It was at a state park
-          near where my family lives. Do you go hiking much?
-          <br />
-          <br />
-          Recipient: That’s awesome. I’m not much of a hiker, tbh, but I love
-          photography.
+          <span *ngFor="let message of usersMessages$ | async" class="message-item"
+            >{{ reportModel.reportedUserId === message.userId ? "User " + reportModel.reportedUserId : "Recipient" }}: {{message.content}}
+          </span>
         </p>
       </div>
     </div>
@@ -69,9 +61,17 @@
       <div
         class="common-container d-flex w-100 align-items-center reported-gallery-container"
       >
-        <div class="gallery-item" *ngFor="let media of (userMedia | async)">
-          <pv-video *ngIf="media.contentType === 'VIDEO'" [url]="media.contentUrl || ''" alt="User Shared Video"></pv-video>
-          <img *ngIf="media.contentType === 'PHOTO'" [src]="media.contentUrl || ''" alt="User Shared Photo" />
+        <div class="gallery-item" *ngFor="let media of userMedia | async">
+          <pv-video
+            *ngIf="media.contentType === 'VIDEO'"
+            [url]="media.contentUrl || ''"
+            alt="User Shared Video"
+          ></pv-video>
+          <img
+            *ngIf="media.contentType === 'PHOTO'"
+            [src]="media.contentUrl || ''"
+            alt="User Shared Photo"
+          />
         </div>
       </div>
     </div>

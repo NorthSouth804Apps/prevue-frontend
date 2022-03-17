@@ -19,6 +19,7 @@ import { AuthInterceptor } from '../utils/interceptors/auth.interceptor';
 import { UserEffects } from "../core/state/users/users-state-management";
 import { JWT_OPTIONS, JwtHelperService } from "@auth0/angular-jwt";
 import { AuthGuardService } from "../core/services/auth-guard.service";
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,6 +37,7 @@ import { AuthGuardService } from "../core/services/auth-guard.service";
       autoPause: true,
     }),
     EffectsModule.forRoot([AuthEffects, ReportEffects, UserEffects]),
+    InfiniteScrollModule,
   ],
   providers: [
     BaseService,

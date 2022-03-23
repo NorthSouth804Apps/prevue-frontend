@@ -34,7 +34,7 @@ export class ReportsFacadeService extends BaseFacadeService<ReportModel> {
     .pipe(
       map((messages) => sortArray<UserMessageModel>(messages, 'timeCreated'))
     );
-
+  userDetails$ = this.usersFacade.userDetails$;
   statusLoading$ = this.usersFacade.loading$;
   statusMessage$ = this.usersFacade.message$;
 
@@ -68,12 +68,12 @@ export class ReportsFacadeService extends BaseFacadeService<ReportModel> {
     );
   }
 
-  changeUserStatus(id: number, status: StatusValuesType) {
+  changeUserStatus(id: number, status: StatusValuesType, statusValue?: boolean, callBack?: Function) {
     this.usersFacade.put({
+      statusValue,
       userId: id,
       status: status,
-      statusValue: true,
-    } as any);
+    } as any, callBack);
   }
 
   getUserDetails(userId: number) {

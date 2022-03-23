@@ -3,11 +3,12 @@
   [style]="{height: height + 'px'}"
   infiniteScroll
   [infiniteScrollThrottle]="scrollThrottle"
+  [infiniteScrollDisabled]="!!disableScroll"
   (scrolled)="onScrollDownHandler($event)"
   (scrolledUp)="onScrollUpHandler($event)"
 >
   <ng-content></ng-content>
-  <div class="go-up-button cursor-pointer">
-    <i class="pi pi-upload"></i>
+  <div class="go-up-button cursor-pointer" (click)="goUp()" *ngIf="enableGoUp">
+    <i class="pi pi-arrow-up"></i>
   </div>
 </div>

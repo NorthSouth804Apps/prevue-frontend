@@ -6,8 +6,9 @@ import { UsersFacadeService } from "../../../../core/services/facades/users-faca
 import { map } from "rxjs/operators";
 import { Observable, Subscription } from "rxjs";
 import { IDialogOptions, StatusValues, StatusValuesType } from "../../../../core/interfaces/common.interface";
-import { UserMediaModel } from "../../../../core/models";
+import { UserMediaModel, UserModel } from "../../../../core/models";
 import { MediaTypes } from "../../../../core/interfaces/media.interface";
+import { MatchFacadeService } from "../../../../core/services/facades/match-facade.service";
 
 
 @Component({
@@ -18,18 +19,10 @@ import { MediaTypes } from "../../../../core/interfaces/media.interface";
 })
 export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   loading$ = this.usersFacade.loading$;
+  matchLoading$ = this.matchFacade.loading$;
   videoLoading?: boolean;
 
-  user = {
-    name: 'Greg',
-    joined: new Date(),
-    location: 'Brooklyn, NY',
-    lookingFor: 'Friendship, Dating',
-    gender: 'Male',
-    age: 24,
-    ageRange: '23-27',
-    showMe: 'Women',
-  };
+  user: UserModel = new UserModel();
 
   dialogOptions: IDialogOptions = {
     DELETED: {
@@ -40,23 +33,26 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       message: `Warning sent to user.`,
       header: 'Send Warning',
     },
-    SUSPENDED: {
-      message: 'User has been suspended for one week and added to suspended list.',
+    SUSPENDED: (status) => ({
+      message: `User has been <b>${status ? '' : 'un' }suspended</b> ${status ? 'for one week' : ''} and ${status ? 'added to' : 'removed from'} suspended list.`,
       header: 'Suspend Account',
-    },
-    BLOCKED: {
-      message: 'User has been blocked from PreVue and added to blocked list.',
+    }),
+    BLOCKED: (status) => ({
+      message: `User has been <b>${status ? '' : 'un' }blocked</b> from PreVue and  ${status ? 'added to' : 'removed from'} to blocked list.`,
       header: 'Block Account',
-    },
+    }),
   };
+
   openedDialog?: StatusValuesType
   status = StatusValues;
 
   userData$ = this.usersFacade.userDetails$;
+  users$ = this.usersFacade.data$;
   userMedias$ = this.usersFacade.userMedias$;
   usersLoaded?: boolean;
   userSubscription = new Subscription();
   messageSubscription = new Subscription();
+  matchMessageSubs = new Subscription();
   @ViewChild('profileVideo') profileVideoElement?: ElementRef<HTMLVideoElement>;
 
   get userVideo$(): Observable<UserMediaModel> {
@@ -70,26 +66,29 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     private activatedRoute: ActivatedRoute,
     private confirmationService: ConfirmationService,
     private usersFacade: UsersFacadeService,
+    private matchFacade: MatchFacadeService,
   ) {}
 
   ngOnInit(): void {
-    if(this.activatedRoute.snapshot.params['id']) {
-      this.usersFacade.getUserDetails(this.activatedRoute.snapshot.params['id']);
-    }
+    this.getUserDetails()
     // check is the user list doesn't exist then try to load it
     this.userSubscription = this.userData$.subscribe(user => {
-      console.log(user, 'klk');
-      if(!user) {
-        history.back()
-      }
+      this.user = user;
     });
 
 
     this.userMedias$.subscribe(medias => console.log('user medias', medias));
   }
 
+
   ngAfterViewInit() {
     this.checkBrowserSupportHMTML5Videos()
+  }
+
+  getUserDetails() {
+    if(this.activatedRoute.snapshot.params['id']) {
+      this.usersFacade.getUserDetails(this.activatedRoute.snapshot.params['id']);
+    }
   }
 
   /*checkBrowserSupportHMTML5Videos, check if the browser support html 5*/
@@ -115,37 +114,70 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     table.clear();
   }
 
-  changeUserStatus(status: StatusValuesType) {
-    this.usersFacade.put({
+  async changeUserStatus(status: StatusValuesType) {
+    const callBack = () => {
+      this.getUserDetails();
+    }
+    if(status === 'WARNING') {
+      return this.matchFacade.post({
+        recipientUserId: this.user.userId,
+        type: 5,
+      }, callBack);
+    }
+
+    let statusValue = true;
+    if(status === 'BLOCKED') {
+      statusValue = !this.user.isBlocked;
+    } else if( status === 'SUSPENDED') {
+      statusValue = !this.user.isSuspended;
+    }
+
+    await this.usersFacade.put({
+      statusValue,
       userId: this.activatedRoute.snapshot.params['id'] || '',
       status: status,
-      statusValue: true,
-    } as any);
+    } as any, callBack);
   }
+
   confirm(type: StatusValuesType) {
     this.openedDialog = type;
     if(type !== 'DELETED') {
       this.changeUserStatus(type);
     }
-
-    this.messageSubscription = this.usersFacade.message$.subscribe(message => {
+    const openDialog = (message: string) => {
       setTimeout(() => {
+
         if(message === 'success') {
-          const options = this.dialogOptions[type];
+          let statusValue = true;
+          if(type === 'BLOCKED') {
+            statusValue = !this.user.isBlocked;
+          } else if(type === 'SUSPENDED') {
+            statusValue = !this.user.isSuspended;
+          }
+
+          const options = type === 'SUSPENDED' || type === 'BLOCKED' ? (this.dialogOptions[type] as any)(statusValue) : this.dialogOptions[type];
           this.confirmationService.confirm({
             ...options,
             accept: () => {
               this.messageSubscription.unsubscribe();
+              this.matchMessageSubs.unsubscribe();
               this.changeUserStatus(type);
             },
             reject: (type: string) => {
               this.messageSubscription.unsubscribe();
+              this.matchMessageSubs.unsubscribe();
             },
           });
         }
       })
-
+    }
+    this.messageSubscription = this.usersFacade.message$.subscribe(message => {
+      openDialog(message);
     });
+
+    this.matchMessageSubs = this.matchFacade.message$.subscribe(message => {
+      openDialog(message);
+    })
   }
 
   get isPaused(): boolean {
@@ -170,5 +202,6 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
     this.messageSubscription.unsubscribe();
+    this.matchMessageSubs.unsubscribe();
   }
 }

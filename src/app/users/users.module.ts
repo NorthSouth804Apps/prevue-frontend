@@ -5,6 +5,7 @@ import { SharedModule } from "../../shared/shared.module";
 import { TableModule } from "primeng/table";
 import { UserProfileComponent } from "./contianers/user-profile/user-profile.component";
 import { UsersFacadeService } from "../../core/services/facades/users-facade.service";
+import { MatchFacadeService } from "../../core/services/facades/match-facade.service";
 
 @NgModule({
   declarations: [UserListComponent, UserProfileComponent],
@@ -13,7 +14,7 @@ import { UsersFacadeService } from "../../core/services/facades/users-facade.ser
     SharedModule,
     TableModule,
   ],
-  providers: [UsersFacadeService]
+  providers: [UsersFacadeService, MatchFacadeService]
 })
 export class UsersModule {
 }

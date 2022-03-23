@@ -55,7 +55,6 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
     DropdownModule,
     IconSpriteModule,
     ButtonModule,
-    ReactiveFormsModule,
     ConfirmDialogModule,
     ToastModule,
     InfiniteScrollModule

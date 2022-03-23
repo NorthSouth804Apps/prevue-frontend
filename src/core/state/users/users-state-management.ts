@@ -9,7 +9,6 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import ResponseModel from '../../models/response.model';
 import { of } from 'rxjs';
 import { statesActions } from '../core.actions';
-import { on } from '@ngrx/store';
 import { commonReducerValidationsGenerator } from "../helpers/common-reducer-validations-generator";
 
 // STATE OF MENUS

@@ -20,7 +20,10 @@
     ></p-dropdown>
   </div>
   <div class="table-container">
-    <pv-infinite-scroll (onScrollDown)="onScroll($event)">
+    <pv-infinite-scroll
+      [disableScroll]="this.stopInfiniteScrollLoading"
+      (onScrollDown)="onScroll($event)"
+    >
       <p-table
         #dt1
         [value]="(users$ | async) || []"

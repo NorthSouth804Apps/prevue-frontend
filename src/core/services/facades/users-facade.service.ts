@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BaseFacadeService } from './base-facade.service';
 import { ToastService } from '../toast.service';
-import { UserModel } from '../../models';
+import { UserMediaModel, UserModel } from "../../models";
 import { statesActions } from '../../state/core.actions';
 import { statesSelectors } from '../../state/core.selectors';
 import { map } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class UsersFacadeService extends BaseFacadeService<UserModel> {
     .select<UserModel>(statesSelectors.user.userDetails);
 
   userMedias$ = this.storeProvider
-    .select<UserModel>(statesSelectors.user.userDetails).pipe(map((detail) => detail.photos || []));
+    .select<UserModel>(statesSelectors.user.userDetails).pipe(map((detail) => detail.photos || [] as UserMediaModel[]));
 
   constructor(
     private storeProvider: Store,

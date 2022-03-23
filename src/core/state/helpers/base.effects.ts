@@ -23,6 +23,7 @@ export class BaseEffects<DataModel> {
       switchMap((action) =>
         this.service.put(action.data).pipe(
           map((response: ResponseModel<DataModel>) => {
+            action.callBack && action.callBack();
             return statesActions[this.entityName].put.success(response);
           }),
           catchError((errorData: { error: ResponseModel<null> }) =>

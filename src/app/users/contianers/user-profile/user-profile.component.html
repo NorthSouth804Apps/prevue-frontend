@@ -1,5 +1,5 @@
 <div class="text-blue-2 user-profile-container">
-  <pv-loading [visible]="loading$ | async"></pv-loading>
+  <pv-loading [visible]="(loading$ | async) || (matchLoading$ | async)"></pv-loading>
   <a
     routerLink=".."
     class="d-flex align-items-center font-size-3 mb-5 text-decoration-none text-blue-2"
@@ -41,7 +41,7 @@
           </div>
           <div>
             <div class="header-label">Location Brook</div>
-            <span>{{ user.location }}</span>
+            <span>New York.</span>
           </div>
           <div>
             <div class="header-label">Looking For</div>
@@ -84,13 +84,13 @@
           ></pv-button>
           <pv-button
             color="blue"
-            text="Suspend"
+            [text]="(userData$ | async)?.isSuspended  ? 'Unsuspend' : 'Suspend'"
             class="me-1"
             (onClick)="confirm(status.suspended)"
           ></pv-button>
           <pv-button
             color="rose"
-            text="Block"
+            [text]="(userData$ | async)?.isBlocked  ? 'Unblock' : 'Block'"
             (onClick)="confirm(status.blocked)"
           ></pv-button>
         </div>

@@ -37,6 +37,6 @@ export class DashboardComponent implements OnInit {
     this.homeFacadeService.getUsersStats();
 
     // testing
-    this.matchesStatsSummary$.subscribe((item) => console.log('matches stats', item));
+    this.matchesStatsSummary$.subscribe((item) => console.log('match stats', item));
   }
 }

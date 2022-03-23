@@ -39,7 +39,6 @@ export class BaseService<DataModel> {
   }
 
   put(data: DataModel) {
-    console.log('updating', data);
     return this.httpClient.put(
       `${environment.api}${this.entity}/${this.endpoints.put || ''}`,
       data

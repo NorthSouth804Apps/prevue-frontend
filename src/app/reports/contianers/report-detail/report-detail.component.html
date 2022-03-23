@@ -19,13 +19,13 @@
       ></pv-button>
       <pv-button
         color="blue"
-        text="Suspend"
+        [text]="(userDetails$ | async)?.isSuspended  ? 'Unsuspend' : 'Suspend'"
         class="me-1"
         (onClick)="confirm(status.suspended)"
       ></pv-button>
       <pv-button
         color="rose"
-        text="Block"
+        [text]="(userDetails$ | async)?.isBlocked  ? 'Unblock' : 'Block'"
         (onClick)="confirm(status.blocked)"
       ></pv-button>
     </div>

@@ -11,6 +11,9 @@ function baseReducer<T extends BaseState<any>>(
   initialState: T,
   extraOns: ReducerTypes<T, ActionCreator[]>[] = []
 ) {
+  if(stateName === 'user') {
+    console.log('initial state', initialState)
+  }
   return (state: T | undefined, action: Action) =>
     createReducer(
       initialState,
@@ -53,10 +56,9 @@ function baseReducer<T extends BaseState<any>>(
           statesActions[stateName].delete.submitted,
           statesActions[stateName].put.submitted,
         ],
-        (state, { data, message }) => {
+        (state, { message }) => {
           return {
             ...state,
-            data,
             message,
             loading: true,
           };

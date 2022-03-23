@@ -1,17 +1,21 @@
+@import "src/styles/colors-variables";
+
 .infinite-scroll-container {
-  height: 2000px;
   overflow: scroll;
+  position: relative;
+
   .go-up-button {
-    position: absolute;
-    bottom: 40px;
-    margin-right: -40px;
-    box-shadow: 0 0 5px #7a7a7a;
+    position: fixed;
+    bottom: 10%;
+    right: 20px;
+    box-shadow: 0 0 3px $color-blue-1;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50px;
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     font-size: 30px;
+    font-weight: bold;
   }
 }

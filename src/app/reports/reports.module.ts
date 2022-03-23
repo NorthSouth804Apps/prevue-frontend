@@ -4,6 +4,7 @@ import { ReportListComponent } from "./contianers/user-list/report-list.componen
 import { SharedModule } from "../../shared/shared.module";
 import { TableModule } from "primeng/table";
 import { ReportDetailComponent } from "./contianers/report-detail/report-detail.component";
+import { MatchFacadeService } from "../../core/services/facades/match-facade.service";
 
 
 @NgModule({
@@ -13,7 +14,7 @@ import { ReportDetailComponent } from "./contianers/report-detail/report-detail.
     SharedModule,
     TableModule,
   ],
-  providers: []
+  providers: [MatchFacadeService]
 })
 export class ReportsModule {
 }

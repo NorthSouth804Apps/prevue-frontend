@@ -26,7 +26,6 @@ export const commonReducerValidationsGenerator = (
     on(statesActions[actionParent][parentProperty].submitted, (state, { data }) => {
       return {
         ...state,
-        // [parentProperty]: data,
         loading: true,
       };
     }),

@@ -27,12 +27,22 @@ export class UserListComponent implements OnInit {
   representatives: any[] = [];
   loading$ = this.usersFacade.loading$;
   users$: any = this.usersFacade.data$;
+  stopInfiniteScrollLoading?: boolean;
+  usersLimit = 10;
 
+  lastUsersIds: number[] = [];
   activityValues: number[] = [0, 100];
   constructor(private router: Router, private toastService: ToastService, private usersFacade: UsersFacadeService) {}
 
   ngOnInit(): void {
     this.usersFacade.get();
+    this.users$.subscribe((users: UserModel[]) => {
+      if(users.length === this.lastUsersIds.length) {
+        this.stopInfiniteScrollLoading = true;
+      } else {
+        this.lastUsersIds = users.map(user => user.userId);
+      }
+    })
   }
 
   onChangeUserStatus({  value: { status } }: { value: { status: string } }) {
@@ -47,7 +57,8 @@ export class UserListComponent implements OnInit {
     table.clear();
   }
   onScroll($event: any) {
-    console.log($event, 'scrolling')
-    this.usersFacade.get();
+    console.log($event, 'scrolling');
+    this.usersLimit = this.usersLimit + this.usersLimit;
+    this.usersFacade.get({ limit: this.usersLimit });
   }
 }

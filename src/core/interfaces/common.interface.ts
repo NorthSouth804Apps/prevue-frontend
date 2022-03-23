@@ -3,12 +3,12 @@ export type ColorTypes = 'rose' | 'blue' | 'gray' | 'white' | '';
 export type SizeTypes = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type ObjectInterfaceGenerator<T, N> = {
-  [K in N as any]: T
-}
+  [K in N as any]: T;
+};
 
 export type QueryParamsType = {
-  [N in string]: string;
-}
+  [N in string]: any;
+};
 
 export enum StatusValues {
   suspended = 'SUSPENDED',
@@ -22,11 +22,17 @@ export enum StatusValues {
 
 export type StatusTypes = keyof typeof StatusValues;
 
-export type StatusValuesType = 'WARNING' | 'DELETED' | 'SUSPENDED' | 'BLOCKED' | 'IGNORE';
+export type StatusValuesType =
+  | 'WARNING'
+  | 'DELETED'
+  | 'SUSPENDED'
+  | 'BLOCKED'
+  | 'IGNORE';
 
+export interface Dialog {
+  header: string;
+  message: string;
+}
 export type IDialogOptions = {
-  [N in StatusValuesType]?: {
-    header: string;
-    message: string;
-  };
+  [N in StatusValuesType]?: Dialog | ((status?: boolean) => Dialog);
 };

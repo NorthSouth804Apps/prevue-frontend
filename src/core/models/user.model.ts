@@ -29,7 +29,7 @@ export class UserModel {
   timeUpdated?: Date;
   userMatches = 0;
   // media properties
-  photos?: UserMediaModel[];
+  photos: UserMediaModel[] = [];
   // stats properties
   likesReceived = 0;
   likesGiven = 0;
@@ -41,6 +41,7 @@ export class UserModel {
   totalOffenses = 0;
   totalWatched = 0;
   avgMessagesPerMatch = 0;
+  callBack?: Function;
 };
 
 export class UserMediaModel  {

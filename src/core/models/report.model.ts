@@ -7,6 +7,7 @@ export class ReportModel {
   reportType = '';
   totalReports = 4;
   totalOffenses = 0;
+  status?: 1 | 2;
 }
 
 export class MatchStatsModel {

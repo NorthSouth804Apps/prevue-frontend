@@ -16,7 +16,7 @@ export class UserService extends BaseService<UserModel> {
 
   getUserDetails(userId: number) {
     return this.http.get<any>(
-      `${environment.api}${this.entity}/${this.endpoints.get || ''}/${userId}/?includeMedia=1&includeStats=1`
+      `${environment.api}${this.entity}/${this.endpoints['get'] || ''}/${userId}/?includeMedia=1&includeStats=1`
     );
   }
 }

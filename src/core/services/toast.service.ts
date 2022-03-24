@@ -23,7 +23,6 @@ export class ToastService {
   }
 
   showError(message: Omit<Message, 'severity'>): void {
-    console.log('showing error');
     setTimeout(() => this.messageService.add({ severity: 'error', ...message }));
   }
 

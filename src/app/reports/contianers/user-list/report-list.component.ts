@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
-import { Router } from "@angular/router";
-import { ConfirmationService } from "primeng/api";
-import { ReportsFacadeService } from "../../../../core/services/facades/reports-facade.service";
-import { ReportModel } from "../../../../core/models";
-import { StatusValues, StatusValuesType } from "../../../../core/interfaces/common.interface";
+import { Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
+import { ReportsFacadeService } from '../../../../core/services/facades/reports-facade.service';
+import { ReportModel } from '../../../../core/models';
+import {
+  StatusValues,
+  StatusValuesType,
+} from '../../../../core/interfaces/common.interface';
 
 @Component({
   selector: 'pv-reports-list',
@@ -57,15 +60,19 @@ export class ReportListComponent implements OnInit {
   loading$ = this.reportFacade.loading$;
   status = StatusValues;
 
-  constructor(private router: Router, private confirmationService: ConfirmationService, private reportFacade: ReportsFacadeService) {}
+  constructor(
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private reportFacade: ReportsFacadeService
+  ) {}
 
   ngOnInit(): void {
     this.reportFacade.get();
   }
 
   confirm(type: StatusValuesType, report: ReportModel) {
-    this.reportType = report.reportType
-    const loadSubs = this.loading$.subscribe(loading => {
+    this.reportType = report.reportType;
+    const loadSubs = this.loading$.subscribe((loading) => {
       setTimeout(() => {
         if (!loading) {
           const options = this.dialogOptions[type](report.reportType);
@@ -73,23 +80,30 @@ export class ReportListComponent implements OnInit {
             ...options,
             accept: () => {
               loadSubs.unsubscribe();
-              this.reportFacade.changeUserStatus(report.reportedUserId, type);
+              if (type === 'IGNORE') {
+                this.reportFacade.put({
+                  ...report,
+                  status: 2,
+                });
+              } else {
+                this.reportFacade.changeUserStatus(report.reportedUserId, type);
+              }
             },
             reject: (type: string) => {
               loadSubs.unsubscribe();
             },
           });
         }
-      })
+      });
     });
   }
 
   goToUserProfile(report: ReportModel) {
-    this.router.navigate(['users', report.reportedUserId])
+    this.router.navigate(['users', report.reportedUserId]);
   }
 
   goToReportDetail(report: any) {
-    this.router.navigate(['reported', report.userReportId])
+    this.router.navigate(['reported', report.userReportId]);
   }
 
   clear(table: Table) {
@@ -97,7 +111,7 @@ export class ReportListComponent implements OnInit {
   }
 
   onScroll($event: any) {
-    console.log($event, 'scrolling')
+    console.log($event, 'scrolling');
     this.reportFacade.get();
   }
 }

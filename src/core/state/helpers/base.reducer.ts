@@ -22,7 +22,7 @@ function baseReducer<T extends BaseState<any>>(
           statesActions[stateName].post.success,
           statesActions[stateName].get.success,
           statesActions[stateName].delete.success,
-          statesActions[stateName].put.success,
+          // statesActions[stateName].put.success,
         ],
         (state, { data, message }) => {
           return {

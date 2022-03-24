@@ -13,10 +13,11 @@ export type baseEndpoints = {
 @Injectable({
   providedIn: 'root',
 })
-export class BaseService<DataModel> {
+export class BaseService<DataModel, ExtraEndpoints = {}> {
   public entity: string = '';
-  public endpoints: baseEndpoints = {};
-  constructor(private httpClient: HttpClient) {}
+  public endpoints: baseEndpoints & ExtraEndpoints = {} as any;
+  constructor(private httpClient: HttpClient) {
+  }
 
   post(data: DataModel): Observable<ResponseModel<DataModel | any>> {
     return this.httpClient.post<ResponseModel<DataModel | any>>(

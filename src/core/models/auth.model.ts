@@ -4,3 +4,9 @@ export default class AuthModel {
   userType?: number = 1;
   loginType?: number = 1;
 }
+
+export class ResetPasswordModel {
+  token = ''
+  newPassword = ''
+  passwordConfirmation = ''
+}

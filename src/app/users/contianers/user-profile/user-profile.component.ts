@@ -116,6 +116,10 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit {
 
   async changeUserStatus(status: StatusValuesType) {
     const callBack = () => {
+      if(status === 'DELETED') {
+        this.router.navigate(['..']);
+        return;
+      }
       this.getUserDetails();
     }
     if(status === 'WARNING') {

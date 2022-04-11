@@ -111,7 +111,7 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
     }
 
     this.reportFacade.changeUserStatus(
-      this.reportModel.userReportId,
+      this.reportModel.reportedUserId,
       type,
       statusValue,
       callBack

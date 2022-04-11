@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'http://localhost:8085/api/v1/',
+  api: 'https://staging-api.prevueapp.com/api/v1/',
   localStateKey: 'storageState',
 };
 
